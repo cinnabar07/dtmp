@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 TODO:
 - createCommandEncoder
@@ -18,7 +16,9 @@ TODO:
         - }
     - should make whole encoder invalid
 - ?
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { objectEquals } from '../../../../common/util/util.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { objectEquals } from '../../../../common/util/util.js';
+import { ValidationTest } from '../validation_test.js';
 
 class F extends ValidationTest {
   beginRenderPass(commandEncoder, view) {
@@ -67,7 +67,7 @@ fn((t) => {
   const { pass0Type, pass1Type, firstPassEnd, endPasses } = t.params;
 
   const view = t.createAttachmentTextureView();
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const firstPass =
   pass0Type === 'compute' ? encoder.beginComputePass() : t.beginRenderPass(encoder, view);
@@ -104,7 +104,7 @@ fn((t) => {
   const { prePassType, IsEncoderFinished, callCmd } = t.params;
 
   const view = t.createAttachmentTextureView();
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   if (prePassType !== 'no-op') {
     const pass =
@@ -162,7 +162,7 @@ fn((t) => {
   const { passType, endCount } = t.params;
 
   const view = t.createAttachmentTextureView();
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pass =
   passType === 'compute' ? encoder.beginComputePass() : t.beginRenderPass(encoder, view);
@@ -192,7 +192,7 @@ fn((t) => {
   const { passType, endTwice, secondEndInAnotherPass } = t.params;
 
   const view = t.createAttachmentTextureView();
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pass =
   passType === 'compute' ? encoder.beginComputePass() : t.beginRenderPass(encoder, view);
@@ -229,7 +229,7 @@ paramsSubcasesOnly((u) => u.combine('endTwice', [false, true])).
 fn((t) => {
   const { endTwice } = t.params;
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   // Pass encoder creation will fail because both color and depth/stencil attachments are empty.
   const pass = encoder.beginRenderPass({
     colorAttachments: []

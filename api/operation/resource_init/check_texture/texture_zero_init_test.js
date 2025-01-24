@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kUnitCaseParamsBuilder } from '../../../../../common/framework/params_builder.js';
+**/import { kUnitCaseParamsBuilder } from
+
+'../../../../../common/framework/params_builder.js';
 import { assert, unreachable } from '../../../../../common/util/util.js';
 import { kTextureAspects, kTextureDimensions } from '../../../../capability_info.js';
 import { GPUConst } from '../../../../constants.js';
@@ -295,7 +295,7 @@ export class TextureZeroInitTest extends GPUTest {
   texture,
   subresourceRange)
   {
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     commandEncoder.pushDebugGroup('initializeWithStoreOp');
 
     for (const viewDescriptor of this.generateTextureViewDescriptorsForRendering(
@@ -339,7 +339,7 @@ export class TextureZeroInitTest extends GPUTest {
     }
 
     commandEncoder.popDebugGroup();
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => this.queue.submit([commandEncoder.finish()])));
+    this.queue.submit([commandEncoder.finish()]);
   }
 
   initializeWithCopy(
@@ -370,7 +370,7 @@ export class TextureZeroInitTest extends GPUTest {
       [largestWidth, largestHeight, largestDepth]
     );
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
 
     for (const { level, layer } of subresourceRange.each()) {
       const [width, height, depth] = virtualMipSize(this.p.dimension, textureSize, level);
@@ -385,8 +385,8 @@ export class TextureZeroInitTest extends GPUTest {
         { width, height, depthOrArrayLayers: depth }
       );
     }
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => this.queue.submit([commandEncoder.finish()])));
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    this.queue.submit([commandEncoder.finish()]);
+    buffer.destroy();
   }
 
   initializeTexture(
@@ -406,7 +406,7 @@ export class TextureZeroInitTest extends GPUTest {
   }
 
   discardTexture(texture, subresourceRange) {
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     commandEncoder.pushDebugGroup('discardTexture');
 
     for (const desc of this.generateTextureViewDescriptorsForRendering('all', subresourceRange)) {
@@ -444,7 +444,7 @@ export class TextureZeroInitTest extends GPUTest {
     }
 
     commandEncoder.popDebugGroup();
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => this.queue.submit([commandEncoder.finish()])));
+    this.queue.submit([commandEncoder.finish()]);
   }
 }
 

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test indexing, index format and primitive restart.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest } from '../../../gpu_test.js';import { getTextureCopyLayout } from '../../../util/texture/layout.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest } from '../../../gpu_test.js';
+import { getTextureCopyLayout } from '../../../util/texture/layout.js';
 
 const kHeight = 4;
 const kWidth = 8;
@@ -130,7 +130,7 @@ class IndexFormatTest extends GPUTest {
       usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -150,7 +150,7 @@ class IndexFormatTest extends GPUTest {
       { buffer: result, bytesPerRow, rowsPerImage },
       [kWidth, kHeight]
     );
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
 
     return result;
   }
@@ -244,7 +244,7 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -268,7 +268,7 @@ fn((t) => {
     { buffer: result, bytesPerRow, rowsPerImage },
     [kWidth, kHeight]
   );
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   const expectedTextureValues = t.CreateExpectedUint8Array(expectedShape);
   t.expectGPUBufferValuesEqual(result, expectedTextureValues);
@@ -301,7 +301,7 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -328,7 +328,7 @@ fn((t) => {
     { buffer: result, bytesPerRow, rowsPerImage },
     [kWidth, kHeight]
   );
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   const expectedTextureValues = t.CreateExpectedUint8Array(expectedShape);
   t.expectGPUBufferValuesEqual(result, expectedTextureValues);
@@ -361,7 +361,7 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
   });
 
-  let encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  let encoder = t.device.createCommandEncoder();
   {
     const indexFormat = 'uint32';
     const indexOffset = 12;
@@ -389,11 +389,11 @@ fn((t) => {
       [kWidth, kHeight]
     );
   }
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
   t.expectGPUBufferValuesEqual(result, expectedTextureValues);
 
   // Call setIndexBuffer with the pipeline and a different index format buffer.
-  encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  encoder = t.device.createCommandEncoder();
   {
     const indexFormat = 'uint16';
     const indexOffset = 6;
@@ -421,7 +421,7 @@ fn((t) => {
       [kWidth, kHeight]
     );
   }
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
   t.expectGPUBufferValuesEqual(result, expectedTextureValues);
 });
 

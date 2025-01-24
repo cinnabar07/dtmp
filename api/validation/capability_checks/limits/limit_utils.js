@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kUnitCaseParamsBuilder } from '../../../../../common/framework/params_builder.js';import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { getGPU } from '../../../../../common/util/navigator_gpu.js';import { assert, range, reorder } from '../../../../../common/util/util.js';import { getDefaultLimitsForAdapter } from '../../../../capability_info.js';
+**/import { kUnitCaseParamsBuilder } from '../../../../../common/framework/params_builder.js';import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { getGPU } from '../../../../../common/util/navigator_gpu.js';
+import { assert, range, reorder } from '../../../../../common/util/util.js';
+import { getDefaultLimitsForAdapter } from '../../../../capability_info.js';
 import { GPUTestBase } from '../../../../gpu_test.js';
 
 
@@ -330,7 +330,7 @@ export class LimitTestsImpl extends GPUTestBase {
   async init() {
     await super.init();
     const gpu = getGPU(this.rec);
-    this._adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+    this._adapter = await gpu.requestAdapter();
     const limit = this.limit;
     this.defaultLimit = getDefaultLimitForAdapter(this.adapter, limit);
     this.adapterLimit = this.adapter.limits[limit];
@@ -493,7 +493,7 @@ export class LimitTestsImpl extends GPUTestBase {
     );
     this.expect(!internalError, `unexpected internal error: ${internalError?.message || ''}`);
 
-    globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+    device.destroy();
     this._device = undefined;
   }
 
@@ -608,9 +608,9 @@ export class LimitTestsImpl extends GPUTestBase {
       await p;
     } catch (e) {
 
-
       //
     }}
+
   /**
    * Calls a function that expects a validation error if shouldError is true
    */
@@ -928,7 +928,7 @@ export class LimitTestsImpl extends GPUTestBase {
 
           });
 
-          const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+          const encoder = device.createCommandEncoder();
           const passEncoder = encoder.beginRenderPass({
             colorAttachments: [
             {
@@ -1051,7 +1051,7 @@ export class LimitTestsImpl extends GPUTestBase {
 
           });
 
-          const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+          const encoder = device.createCommandEncoder();
           const passEncoder = encoder.beginComputePass();
           return {
             passEncoder,

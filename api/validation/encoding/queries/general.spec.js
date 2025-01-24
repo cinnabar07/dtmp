@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation for encoding queries.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { kQueryTypes } from '../../../../capability_info.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { kQueryTypes } from '../../../../capability_info.js';
+import { ValidationTest } from '../../validation_test.js';
 
 import { createQuerySetWithType } from './common.js';
 

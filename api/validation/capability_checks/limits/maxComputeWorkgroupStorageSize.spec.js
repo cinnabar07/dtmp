@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { keysOf } from '../../../../../common/util/data_tables.js';import { assert } from '../../../../../common/util/util.js';import { align, roundDown } from '../../../../util/math.js';import {
+**/import { keysOf } from '../../../../../common/util/data_tables.js';import { assert } from '../../../../../common/util/util.js';import { align, roundDown } from '../../../../util/math.js';
+
+import {
 
 
   kMaximumLimitBaseParams,

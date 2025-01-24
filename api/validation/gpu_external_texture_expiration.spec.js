@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 GPUExternalTexture expiration mechanism validation tests.
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { assert } from '../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { assert } from '../../../common/util/util.js';
+import {
   getVideoElement,
   startPlayingAndWaitForVideo,
   getVideoFrameFromVideoElement,
@@ -36,12 +36,12 @@ class GPUExternalTextureExpireTest extends ValidationTest {
 
     };
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     const passEncoder = commandEncoder.beginRenderPass(passDescriptor);
     passEncoder.setBindGroup(0, bindGroup);
     passEncoder.end();
     const commandBuffer = commandEncoder.finish();
-    this.expectValidationError(() => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[commandBuffer]], () => this.device.queue.submit([commandBuffer]))), !success);
+    this.expectValidationError(() => this.device.queue.submit([commandBuffer]), !success);
   }
 
   getDefaultVideoElementAndCheck() {

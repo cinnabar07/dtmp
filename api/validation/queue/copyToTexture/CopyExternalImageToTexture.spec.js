@@ -1,13 +1,13 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 copyExternalImageToTexture Validation Tests in Queue.
 Note that we don't need to add tests on the destination texture dimension as currently we require
 the destination texture should have RENDER_ATTACHMENT usage, which is only allowed to be used on 2D
 textures.
-`;import { getResourcePath, getCrossOriginResourcePath } from
+`;import {
+  getResourcePath,
+  getCrossOriginResourcePath } from
 '../../../../../common/framework/resources.js';
 import { makeTestGroup } from '../../../../../common/framework/test_group.js';
 import { raceWithRejectOnTimeout, unreachable, assert } from '../../../../../common/util/util.js';

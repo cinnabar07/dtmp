@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test rendering to 3d texture slices.
 - Render to same slice on different render pass, different textures, or texture [1, 1, N]'s different mip levels
 - Render to different slices at mip levels on same texture in render pass
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kTextureFormatInfo } from '../../../format_info.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kTextureFormatInfo } from '../../../format_info.js';
+import { GPUTest } from '../../../gpu_test.js';
 import { kBytesPerRowAlignment } from '../../../util/texture/layout.js';
 
 const kSize = 4;
@@ -124,7 +124,7 @@ fn((t) => {
     primitive: { topology: 'triangle-list' }
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -147,7 +147,7 @@ fn((t) => {
     { buffer, bytesPerRow: 256 },
     { width: kSize, height: kSize, depthOrArrayLayers: 1 }
   );
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.checkAttachmentResult(kSize, kSize, 1, buffer);
 });
@@ -213,7 +213,7 @@ fn((t) => {
     colorAttachments.push(colorAttachment);
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   if (samePass) {
     const module = t.createShaderModule(attachmentCount);
@@ -270,7 +270,7 @@ fn((t) => {
     );
   }
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.checkAttachmentResult(kSize, kSize, attachmentCount, buffer);
 });
@@ -333,7 +333,7 @@ fn((t) => {
     colorAttachments.push(colorAttachment);
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pass = encoder.beginRenderPass({ colorAttachments });
   pass.setPipeline(pipeline);
@@ -357,7 +357,7 @@ fn((t) => {
     );
   }
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.checkAttachmentResult(kBaseSize, kBaseSize, attachmentCount, buffer);
 });

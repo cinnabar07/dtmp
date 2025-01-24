@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { getGPU } from '../../../../../common/util/navigator_gpu.js';import { kAllCanvasTypes, createCanvas } from '../../../../util/create_elements.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';
+**/import { getGPU } from '../../../../../common/util/navigator_gpu.js';import { kAllCanvasTypes, createCanvas } from '../../../../util/create_elements.js';
+import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';
+
 const limit = 'maxTextureDimension2D';
 export const { g, description } = makeLimitTestGroup(limit);
 
@@ -33,7 +33,7 @@ fn(async (t) => {
             // This doesn't affect the test but the 'if' should be removed
             // once the Chrome bug is fixed.
             if (!shouldError) {
-              globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+              texture.destroy();
             }
           },
           shouldError,
@@ -119,7 +119,7 @@ fn(async (t) => {
                 // This doesn't affect the test but the 'if' should be removed
                 // once the Chrome bug is fixed.
                 if (!shouldError) {
-                  globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+                  texture.destroy();
                 }
               },
               shouldError,

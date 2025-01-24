@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export function createQuerySetWithType(t, type,
+**/export function createQuerySetWithType(
+t,
+type,
 count)
 {
   return t.createQuerySetTracked({

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 This test dedicatedly tests validation of GPUDepthStencilState of createRenderPipeline.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { unreachable } from '../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { unreachable } from '../../../../common/util/util.js';
+import {
   kCompareFunctions,
   kPrimitiveTopology,
   kStencilOperations } from
@@ -231,10 +231,6 @@ combineWithParams([
 ).
 fn((t) => {
   const { isAsync, topology, depthBias, depthBiasSlopeScale, depthBiasClamp } = t.params;
-
-  if (t.isCompatibility && !!depthBiasClamp) {
-    t.skip('depthBiasClamp must be 0 on compatibility mode');
-  }
 
   const isTriangleTopology = topology === 'triangle-list' || topology === 'triangle-strip';
   const hasDepthBias = !!depthBias || !!depthBiasSlopeScale || !!depthBiasClamp;

@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for valid operations with various client-side thread-shared state of GPUBuffers.
 
@@ -14,7 +12,9 @@ States to test:
 - destroyed
 
 TODO: Look for more things to test.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest } from '../../../gpu_test.js';
+
 export const g = makeTestGroup(GPUTest);
 
 g.test('serialize').

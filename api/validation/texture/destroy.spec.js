@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Destroying a texture more than once is allowed.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kTextureAspects } from '../../../capability_info.js';import { kTextureFormatInfo } from '../../../format_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kTextureAspects } from '../../../capability_info.js';
+import { kTextureFormatInfo } from '../../../format_info.js';
 import { ValidationTest } from '../validation_test.js';
 
 export const g = makeTestGroup(ValidationTest);
@@ -13,15 +13,15 @@ g.test('base').
 desc(`Test that it is valid to destroy a texture.`).
 fn((t) => {
   const texture = t.getSampledTexture();
-  globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+  texture.destroy();
 });
 
 g.test('twice').
 desc(`Test that it is valid to destroy a destroyed texture.`).
 fn((t) => {
   const texture = t.getSampledTexture();
-  globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
-  globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+  texture.destroy();
+  texture.destroy();
 });
 
 g.test('invalid_texture').
@@ -40,7 +40,7 @@ fn(async (t) => {
   t.expect(!!error);
 
   // This line should not generate an error
-  globalThis._TRAMPOLINE_("destroy", invalidTexture, invalidTexture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", invalidTexture, invalidTexture.destroy, [], () => invalidTexture.destroy()));
+  invalidTexture.destroy();
 });
 
 g.test('submit_a_destroyed_texture_as_attachment').
@@ -93,13 +93,13 @@ fn((t) => {
   const depthStencilTexture = t.createTextureTracked(depthStencilTextureDesc);
 
   if (colorTextureState === 'destroyedBeforeEncode') {
-    globalThis._TRAMPOLINE_("destroy", colorTexture, colorTexture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", colorTexture, colorTexture.destroy, [], () => colorTexture.destroy()));
+    colorTexture.destroy();
   }
   if (depthStencilTextureState === 'destroyedBeforeEncode') {
-    globalThis._TRAMPOLINE_("destroy", depthStencilTexture, depthStencilTexture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", depthStencilTexture, depthStencilTexture.destroy, [], () => depthStencilTexture.destroy()));
+    depthStencilTexture.destroy();
   }
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const depthStencilAttachment = {
     view: depthStencilTexture.createView({ aspect: depthStencilTextureAspect })
   };
@@ -129,12 +129,12 @@ fn((t) => {
   const cmd = commandEncoder.finish();
 
   if (colorTextureState === 'destroyedAfterEncode') {
-    globalThis._TRAMPOLINE_("destroy", colorTexture, colorTexture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", colorTexture, colorTexture.destroy, [], () => colorTexture.destroy()));
+    colorTexture.destroy();
   }
   if (depthStencilTextureState === 'destroyedAfterEncode') {
-    globalThis._TRAMPOLINE_("destroy", depthStencilTexture, depthStencilTexture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", depthStencilTexture, depthStencilTexture.destroy, [], () => depthStencilTexture.destroy()));
+    depthStencilTexture.destroy();
   }
 
-  t.expectValidationError(() => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[cmd]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[cmd]], () => t.queue.submit([cmd]))), !isSubmitSuccess);
+  t.expectValidationError(() => t.queue.submit([cmd]), !isSubmitSuccess);
 });
 //# sourceMappingURL=destroy.spec.js.map

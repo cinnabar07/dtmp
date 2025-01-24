@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kMaxQueryCount } from
+**/import {
+  kMaxQueryCount } from
+
 '../../capability_info.js';
 import { GPUTest } from '../../gpu_test.js';
 
@@ -36,7 +36,7 @@ export class ValidationTest extends GPUTest {
         return this.getErrorTexture();
       case 'destroyed':{
           const texture = this.createTextureTracked(descriptor);
-          globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+          texture.destroy();
           return texture;
         }
     }
@@ -72,7 +72,7 @@ export class ValidationTest extends GPUTest {
         }
       case 'destroyed':{
           const buffer = this.createBufferTracked(descriptor);
-          globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+          buffer.destroy();
           return buffer;
         }
     }
@@ -98,7 +98,7 @@ export class ValidationTest extends GPUTest {
         }
       case 'destroyed':{
           const queryset = this.createQuerySetTracked(descriptor);
-          globalThis._TRAMPOLINE_("destroy", queryset, queryset.destroy, [], () => globalThis._TRAMPOLINE_("destroy", queryset, queryset.destroy, [], () => queryset.destroy()));
+          queryset.destroy();
           return queryset;
         }
     }
@@ -219,15 +219,15 @@ export class ValidationTest extends GPUTest {
 
   /** Create an arbitrarily-sized GPUBuffer with the STORAGE usage from mismatched device. */
   getDeviceMismatchedStorageBuffer() {
-    return this.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-    this.mismatchedDevice, this.mismatchedDevice.createBuffer, [{ size: 4, usage: GPUBufferUsage.STORAGE }], () => globalThis._TRAMPOLINE_("createBuffer", this.mismatchedDevice, this.mismatchedDevice.createBuffer, [{ size: 4, usage: GPUBufferUsage.STORAGE }], () => this.mismatchedDevice.createBuffer({ size: 4, usage: GPUBufferUsage.STORAGE })))
+    return this.trackForCleanup(
+      this.mismatchedDevice.createBuffer({ size: 4, usage: GPUBufferUsage.STORAGE })
     );
   }
 
   /** Create an arbitrarily-sized GPUBuffer with the UNIFORM usage from mismatched device. */
   getDeviceMismatchedUniformBuffer() {
-    return this.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-    this.mismatchedDevice, this.mismatchedDevice.createBuffer, [{ size: 4, usage: GPUBufferUsage.UNIFORM }], () => globalThis._TRAMPOLINE_("createBuffer", this.mismatchedDevice, this.mismatchedDevice.createBuffer, [{ size: 4, usage: GPUBufferUsage.UNIFORM }], () => this.mismatchedDevice.createBuffer({ size: 4, usage: GPUBufferUsage.UNIFORM })))
+    return this.trackForCleanup(
+      this.mismatchedDevice.createBuffer({ size: 4, usage: GPUBufferUsage.UNIFORM })
     );
   }
 

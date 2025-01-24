@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for resolveQuerySet.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { GPUConst } from '../../../../constants.js';import { kResourceStates } from '../../../../gpu_test.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { GPUConst } from '../../../../constants.js';
+import { kResourceStates } from '../../../../gpu_test.js';
+import { ValidationTest } from '../../validation_test.js';
 
 export const g = makeTestGroup(ValidationTest);
 
@@ -170,11 +170,11 @@ fn((t) => {
   );
 
   const bufferDevice = bufferMismatched ? t.mismatchedDevice : t.device;
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  bufferDevice, bufferDevice.createBuffer, [{
-    size: kQueryCount * 8,
-    usage: GPUBufferUsage.QUERY_RESOLVE
-  }], () => globalThis._TRAMPOLINE_("createBuffer", bufferDevice, bufferDevice.createBuffer, [{ size: kQueryCount * 8, usage: GPUBufferUsage.QUERY_RESOLVE }], () => bufferDevice.createBuffer({ size: kQueryCount * 8, usage: GPUBufferUsage.QUERY_RESOLVE })))
+  const buffer = t.trackForCleanup(
+    bufferDevice.createBuffer({
+      size: kQueryCount * 8,
+      usage: GPUBufferUsage.QUERY_RESOLVE
+    })
   );
 
   const encoder = t.createEncoder('non-pass');

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `Validation tests for the linear data layout of linear data <-> texture copies
 
-TODO check if the tests need to be updated to support aspects of depth-stencil textures`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from '../../../../common/util/util.js';import { kTextureDimensions } from '../../../capability_info.js';
+TODO check if the tests need to be updated to support aspects of depth-stencil textures`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert } from '../../../../common/util/util.js';
+import { kTextureDimensions } from '../../../capability_info.js';
 import {
   kTextureFormatInfo,
   kSizedTextureFormats,

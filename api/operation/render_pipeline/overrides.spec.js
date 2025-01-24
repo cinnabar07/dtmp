@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Testing render pipeline using overridable constants in vertex stage and fragment stage.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest } from '../../../gpu_test.js';
+
 
 class F extends GPUTest {
   async ExpectShaderOutputWithConstants(
@@ -36,7 +36,7 @@ class F extends GPUTest {
     Promise.resolve(this.device.createRenderPipeline(descriptor));
 
     const pipeline = await promise;
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -55,7 +55,7 @@ class F extends GPUTest {
     pass.setPipeline(pipeline);
     pass.draw(3);
     pass.end();
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
 
     this.expectSingleColor(renderTarget, format, {
       size: [1, 1, 1],
@@ -322,7 +322,7 @@ fn(async (t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pass0 = encoder.beginRenderPass({
     colorAttachments: [
@@ -362,7 +362,7 @@ fn(async (t) => {
   pass1.draw(3);
   pass1.end();
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectSingleColor(renderTarget0, format, {
     size: [1, 1, 1],

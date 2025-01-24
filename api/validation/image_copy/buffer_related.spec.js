@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = `Validation tests for buffer related parameters for buffer <-> texture copies`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kTextureDimensions } from '../../../capability_info.js';import { GPUConst } from '../../../constants.js';
+**/export const description = `Validation tests for buffer related parameters for buffer <-> texture copies`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kTextureDimensions } from '../../../capability_info.js';
+import { GPUConst } from '../../../constants.js';
 import {
   kSizedTextureFormats,
   kTextureFormatInfo,
@@ -69,11 +69,11 @@ fn((t) => {
   const { method, mismatched } = t.params;
   const sourceDevice = mismatched ? t.mismatchedDevice : t.device;
 
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  sourceDevice, sourceDevice.createBuffer, [{
-    size: 16,
-    usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
-  }], () => globalThis._TRAMPOLINE_("createBuffer", sourceDevice, sourceDevice.createBuffer, [{ size: 16, usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST }], () => sourceDevice.createBuffer({ size: 16, usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST })))
+  const buffer = t.trackForCleanup(
+    sourceDevice.createBuffer({
+      size: 16,
+      usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
+    })
   );
 
   const texture = t.createTextureTracked({

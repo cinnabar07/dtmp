@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test uninitialized textures are initialized to zero when read.
 
@@ -9,7 +7,9 @@ TODO:
 - test by sampling depth/stencil [1]
 - test by copying out of stencil [2]
 - test compressed texture formats [3]
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { unreachable } from '../../../../common/util/util.js';import { kTextureFormatInfo } from '../../../format_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { unreachable } from '../../../../common/util/util.js';
+import { kTextureFormatInfo } from '../../../format_info.js';
 
 import { checkContentsByBufferCopy, checkContentsByTextureCopy } from './check_texture/by_copy.js';
 import {

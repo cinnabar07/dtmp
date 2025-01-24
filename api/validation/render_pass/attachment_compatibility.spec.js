@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation for attachment compatibility between render passes, bundles, and pipelines
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { range } from '../../../../common/util/util.js';import { kMaxColorAttachmentsToTest, kTextureSampleCounts } from '../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { range } from '../../../../common/util/util.js';
+import { kMaxColorAttachmentsToTest, kTextureSampleCounts } from '../../../capability_info.js';
 import {
   kRegularTextureFormats,
   kSizedDepthStencilFormats,

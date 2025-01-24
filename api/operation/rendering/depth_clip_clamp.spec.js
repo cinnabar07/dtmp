@@ -1,11 +1,11 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for depth clipping, depth clamping (at various points in the pipeline), and maybe extended
 depth ranges as well.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from '../../../../common/util/util.js';import { kDepthStencilFormats, kTextureFormatInfo } from '../../../format_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert } from '../../../../common/util/util.js';
+import { kDepthStencilFormats, kTextureFormatInfo } from '../../../format_info.js';
 import { GPUTest } from '../../../gpu_test.js';
 import {
   checkElementsBetween,
@@ -251,7 +251,7 @@ fn(async (t) => {
     entries: [{ binding: 0, resource: { buffer: fragInputZFailedBuffer } }]
   });
 
-  const enc = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const enc = t.device.createCommandEncoder();
   {
     const pass = enc.beginRenderPass({
       colorAttachments: [],
@@ -312,7 +312,7 @@ fn(async (t) => {
       [kNumTestPoints]
     );
   }
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[enc.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[enc.finish()]], () => t.device.queue.submit([enc.finish()])));
+  t.device.queue.submit([enc.finish()]);
 
   t.expectGPUBufferValuesPassCheck(
     fragInputZFailedBuffer,
@@ -325,7 +325,7 @@ fn(async (t) => {
   { leftHeader: 'expected ==', getValueForCell: (_index) => kCheckPassedValue }];
 
   if (dsActual && dsExpected && format === 'depth32float') {
-    await Promise.all([globalThis._TRAMPOLINE_("mapAsync", dsActual, dsActual.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", dsActual, dsActual.mapAsync, [GPUMapMode.READ], () => dsActual.mapAsync(GPUMapMode.READ))), globalThis._TRAMPOLINE_("mapAsync", dsExpected, dsExpected.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", dsExpected, dsExpected.mapAsync, [GPUMapMode.READ], () => dsExpected.mapAsync(GPUMapMode.READ)))]);
+    await Promise.all([dsActual.mapAsync(GPUMapMode.READ), dsExpected.mapAsync(GPUMapMode.READ)]);
     const act = new Float32Array(dsActual.getMappedRange());
     const exp = new Float32Array(dsExpected.getMappedRange());
     predicatePrinter.push(
@@ -477,7 +477,7 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ
   });
 
-  const enc = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const enc = t.device.createCommandEncoder();
   {
     const pass = enc.beginRenderPass({
       colorAttachments: [],
@@ -524,7 +524,7 @@ fn((t) => {
     pass.end();
   }
   enc.copyTextureToBuffer({ texture: testTexture }, { buffer: resultBuffer }, [kNumDepthValues]);
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[enc.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[enc.finish()]], () => t.device.queue.submit([enc.finish()])));
+  t.device.queue.submit([enc.finish()]);
 
   t.expectGPUBufferValuesEqual(resultBuffer, new Uint8Array(kNumDepthValues), 0, {
     method: 'map'

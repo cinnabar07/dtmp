@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for GPUBuffer.mapAsync, GPUBuffer.unmap and GPUBuffer.getMappedRange.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { attemptGarbageCollection } from '../../../../common/util/collect_garbage.js';import { assert, unreachable } from '../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { attemptGarbageCollection } from '../../../../common/util/collect_garbage.js';
+import { assert, unreachable } from '../../../../common/util/util.js';
 import { kBufferUsages } from '../../../capability_info.js';
 import { GPUConst } from '../../../constants.js';
 import { ValidationTest } from '../validation_test.js';
@@ -20,12 +20,12 @@ class F extends ValidationTest {
   size)
   {
     if (expectation === 'success') {
-      const p = globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mode, offset, size], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mode, offset, size], () => buffer.mapAsync(mode, offset, size)));
+      const p = buffer.mapAsync(mode, offset, size);
       await p;
     } else {
       let p;
       this.expectValidationError(() => {
-        p = globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mode, offset, size], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mode, offset, size], () => buffer.mapAsync(mode, offset, size)));
+        p = buffer.mapAsync(mode, offset, size);
       }, expectation.validationError);
 
       let caught = false;
@@ -172,7 +172,7 @@ fn(async (t) => {
     mapMode
   );
 
-  globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+  buffer.destroy();
   await t.testMapAsyncCall(
     { validationError: true, earlyRejection: false, rejectName: 'OperationError' },
     buffer,
@@ -388,7 +388,7 @@ fn(async (t) => {
   const offset1 = 0;
 
   const buffer = t.createMappableBuffer(mapMode, bufferSize);
-  const p1 = globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, offset1, mapSize], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, offset1, mapSize], () => buffer.mapAsync(mapMode, offset1, mapSize))); // succeeds
+  const p1 = buffer.mapAsync(mapMode, offset1, mapSize); // succeeds
   await t.testMapAsyncCall(
     {
       validationError: false,
@@ -417,7 +417,7 @@ fn(async (t) => {
   const { mapMode, unmapBeforeResolve } = t.params;
   const bufferSize = 8;
   const buffer = t.createMappableBuffer(mapMode, bufferSize);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  await buffer.mapAsync(mapMode);
 
   if (unmapBeforeResolve) {
     // unmap abort error should have precedence over validation error
@@ -446,7 +446,7 @@ fn(async (t) => {
   const { mapMode } = t.params;
   const bufferSize = 16;
   const buffer = t.createMappableBuffer(mapMode, bufferSize);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  await buffer.mapAsync(mapMode);
 
   const data = buffer.getMappedRange();
   t.expect(data instanceof ArrayBuffer);
@@ -528,7 +528,7 @@ paramsSubcasesOnly((u) => u.combine('mapMode', kMapModeOptions)).
 fn(async (t) => {
   const { mapMode } = t.params;
   const buffer = t.createMappableBuffer(mapMode, 16);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  await buffer.mapAsync(mapMode);
 
   // call mapAsync again on already mapped buffer should fail
   await t.testMapAsyncCall(
@@ -556,7 +556,7 @@ fn(async (t) => {
   // It is invalid to call getMappedRange when the buffer is unmapped after mapAsync.
   {
     const buffer = t.createMappableBuffer(GPUMapMode.READ, 16);
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
+    await buffer.mapAsync(GPUMapMode.READ);
     buffer.unmap();
     t.testGetMappedRangeCall(false, buffer);
   }
@@ -585,7 +585,7 @@ fn(async (t) => {
   const offset = 8;
   const subrangeSize = bufferSize - offset;
   const buffer = t.createMappableBuffer(mapMode, bufferSize);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  await buffer.mapAsync(mapMode);
 
   const data0 = buffer.getMappedRange();
   t.expect(data0 instanceof ArrayBuffer);
@@ -594,7 +594,7 @@ fn(async (t) => {
   buffer.unmap();
   t.expect(data0.byteLength === 0);
 
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, offset], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, offset], () => buffer.mapAsync(mapMode, offset)));
+  await buffer.mapAsync(mapMode, offset);
   const data1 = buffer.getMappedRange(8);
 
   t.expect(data0.byteLength === 0);
@@ -623,7 +623,7 @@ fn(async (t) => {
   buffer.unmap();
   t.expect(data0.byteLength === 0);
 
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ, offset], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ, offset], () => buffer.mapAsync(GPUMapMode.READ, offset)));
+  await buffer.mapAsync(GPUMapMode.READ, offset);
   const data1 = buffer.getMappedRange(8);
 
   t.expect(data0.byteLength === 0);
@@ -639,15 +639,15 @@ fn(async (t) => {
   // It is invalid to call getMappedRange when the buffer is destroyed when unmapped.
   {
     const buffer = t.createMappableBuffer(GPUMapMode.READ, 16);
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
     t.testGetMappedRangeCall(false, buffer);
   }
 
   // It is invalid to call getMappedRange when the buffer is destroyed when mapped.
   {
     const buffer = t.createMappableBuffer(GPUMapMode.READ, 16);
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    await buffer.mapAsync(GPUMapMode.READ);
+    buffer.destroy();
     t.testGetMappedRangeCall(false, buffer);
   }
 
@@ -658,7 +658,7 @@ fn(async (t) => {
       size: 16,
       mappedAtCreation: true
     });
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
     t.testGetMappedRangeCall(false, buffer);
   }
 });
@@ -670,7 +670,7 @@ fn(async (t) => {
   const { mapMode } = t.params;
   const buffer = t.createMappableBuffer(mapMode, 16);
 
-  /* noawait */const mapping0 = globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  /* noawait */const mapping0 = buffer.mapAsync(mapMode);
   // seconding mapping should be rejected
   const mapping1 = t.testMapAsyncCall(
     { validationError: false, earlyRejection: true, rejectName: 'OperationError' },
@@ -702,7 +702,7 @@ combine('size', [0, kSizeAlignment, kSizeAlignment / 2])
 fn(async (t) => {
   const { mapMode, mapOffset, offset, size } = t.params;
   const buffer = t.createMappableBuffer(mapMode, 32);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, mapOffset], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, mapOffset], () => buffer.mapAsync(mapMode, mapOffset)));
+  await buffer.mapAsync(mapMode, mapOffset);
 
   const success = offset % kOffsetAlignment === 0 && size % kSizeAlignment === 0;
   t.testGetMappedRangeCall(success, buffer, offset + mapOffset, size);
@@ -875,7 +875,7 @@ combineWithParams([
 fn(async (t) => {
   const { mapMode, bufferSize, mapOffset, mapSize, offset, size } = t.params;
   const buffer = t.createMappableBuffer(mapMode, bufferSize);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, mapOffset, mapSize], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, mapOffset, mapSize], () => buffer.mapAsync(mapMode, mapOffset, mapSize)));
+  await buffer.mapAsync(mapMode, mapOffset, mapSize);
 
   const actualMapOffset = mapOffset ?? 0;
   const actualMapSize = mapSize ?? bufferSize - actualMapOffset;
@@ -926,13 +926,13 @@ combineWithParams([
 fn(async (t) => {
   const { offset1, size1, offset2, size2, remapBetweenCalls } = t.params;
   const buffer = t.createBufferTracked({ size: 80, usage: GPUBufferUsage.MAP_READ });
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
+  await buffer.mapAsync(GPUMapMode.READ);
 
   t.testGetMappedRangeCall(true, buffer, offset1, size1);
 
   if (remapBetweenCalls) {
     buffer.unmap();
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
+    await buffer.mapAsync(GPUMapMode.READ);
   }
 
   const range1StartsAfter2 = offset1 >= offset2 + size2;
@@ -953,7 +953,7 @@ fn(async (t) => {
     size: kStride * kNumStrides,
     usage: GPUBufferUsage.MAP_READ
   });
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
+  await buffer.mapAsync(GPUMapMode.READ);
 
   // Get a lot of small mapped ranges.
   for (let stride = 0; stride < kNumStrides; stride++) {
@@ -983,7 +983,7 @@ fn(async (t) => {
   // It is valid to call unmap after unmapping a mapAsynced buffer.
   {
     const buffer = t.createMappableBuffer(GPUMapMode.READ, 16);
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
+    await buffer.mapAsync(GPUMapMode.READ);
     buffer.unmap();
     buffer.unmap();
   }
@@ -1009,15 +1009,15 @@ fn(async (t) => {
   // It is valid to call unmap after destruction of an unmapped buffer.
   {
     const buffer = t.createBufferTracked({ size: 16, usage: GPUBufferUsage.MAP_READ });
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
     buffer.unmap();
   }
 
   // It is valid to call unmap after destroying a mapAsynced buffer.
   {
     const buffer = t.createMappableBuffer(GPUMapMode.READ, 16);
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    await buffer.mapAsync(GPUMapMode.READ);
+    buffer.destroy();
     buffer.unmap();
   }
 
@@ -1028,7 +1028,7 @@ fn(async (t) => {
       size: 16,
       mappedAtCreation: true
     });
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
     buffer.unmap();
   }
 });
@@ -1053,7 +1053,7 @@ fn(async (t) => {
   const { mapMode } = t.params;
   const buffer = t.createMappableBuffer(mapMode, 16);
 
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  await buffer.mapAsync(mapMode);
   buffer.unmap();
 });
 
@@ -1115,7 +1115,7 @@ fn(async (t) => {
 
   let buffer = null;
   buffer = t.createMappableBuffer(mapMode, 256);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  await buffer.mapAsync(mapMode);
 
   // Write some non-zero data to the buffer.
   const contents = new Uint32Array(buffer.getMappedRange());

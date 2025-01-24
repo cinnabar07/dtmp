@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 copyBufferToBuffer tests.
 
@@ -25,7 +23,9 @@ Test Plan:
   - (sourceOffset + copySize) > size of source buffer
   - (destinationOffset + copySize) > size of destination buffer
 * Source buffer and destination buffer are the same buffer
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { kBufferUsages } from '../../../../capability_info.js';import { kResourceStates } from '../../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { kBufferUsages } from '../../../../capability_info.js';
+import { kResourceStates } from '../../../../gpu_test.js';
 import { kMaxSafeMultipleOf8 } from '../../../../util/math.js';
 import { ValidationTest } from '../../validation_test.js';
 
@@ -40,7 +40,7 @@ class F extends ValidationTest {
   {
     const { srcBuffer, srcOffset, dstBuffer, dstOffset, copySize, expectation } = options;
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     commandEncoder.copyBufferToBuffer(srcBuffer, srcOffset, dstBuffer, dstOffset, copySize);
 
     if (expectation === 'FinishError') {
@@ -50,7 +50,7 @@ class F extends ValidationTest {
     } else {
       const cmd = commandEncoder.finish();
       this.expectValidationError(() => {
-        globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => this.device.queue.submit([cmd])));
+        this.device.queue.submit([cmd]);
       }, expectation === 'SubmitError');
     }
   }
@@ -109,19 +109,19 @@ fn((t) => {
   const { srcMismatched, dstMismatched } = t.params;
 
   const srcBufferDevice = srcMismatched ? t.mismatchedDevice : t.device;
-  const srcBuffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  srcBufferDevice, srcBufferDevice.createBuffer, [{
-    size: 16,
-    usage: GPUBufferUsage.COPY_SRC
-  }], () => globalThis._TRAMPOLINE_("createBuffer", srcBufferDevice, srcBufferDevice.createBuffer, [{ size: 16, usage: GPUBufferUsage.COPY_SRC }], () => srcBufferDevice.createBuffer({ size: 16, usage: GPUBufferUsage.COPY_SRC })))
+  const srcBuffer = t.trackForCleanup(
+    srcBufferDevice.createBuffer({
+      size: 16,
+      usage: GPUBufferUsage.COPY_SRC
+    })
   );
 
   const dstBufferDevice = dstMismatched ? t.mismatchedDevice : t.device;
-  const dstBuffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  dstBufferDevice, dstBufferDevice.createBuffer, [{
-    size: 16,
-    usage: GPUBufferUsage.COPY_DST
-  }], () => globalThis._TRAMPOLINE_("createBuffer", dstBufferDevice, dstBufferDevice.createBuffer, [{ size: 16, usage: GPUBufferUsage.COPY_DST }], () => dstBufferDevice.createBuffer({ size: 16, usage: GPUBufferUsage.COPY_DST })))
+  const dstBuffer = t.trackForCleanup(
+    dstBufferDevice.createBuffer({
+      size: 16,
+      usage: GPUBufferUsage.COPY_DST
+    })
   );
 
   t.TestCopyBufferToBuffer({

@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests that the final sample mask is the logical AND of all the relevant masks, including
 the rasterization mask, sample mask, fragment output mask, and alpha to coverage mask (when alphaToCoverageEnabled === true).
@@ -19,7 +17,9 @@ The cross-platform behavior is unknown. could be any of:
 - it uses the first non-null attachment
 - it's an error
 Details could be found at: https://github.com/gpuweb/cts/issues/2201
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert, range } from '../../../../common/util/util.js';import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert, range } from '../../../../common/util/util.js';
+import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
 import { checkElementsPassPredicate, checkElementsEqual } from '../../../util/check_contents.js';
 import { Type } from '../../../util/conversion.js';
 import { TexelView } from '../../../util/texture/texel_view.js';
@@ -391,7 +391,7 @@ class F extends TextureTestMixin(GPUTest) {
         stencilStoreOp: 'store'
       }
     };
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
     passEncoder.setPipeline(pipeline);
     passEncoder.setBindGroup(0, uniformBindGroup);
@@ -422,7 +422,7 @@ class F extends TextureTestMixin(GPUTest) {
       }
     }
     passEncoder.end();
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[commandEncoder.finish()]], () => this.device.queue.submit([commandEncoder.finish()])));
+    this.device.queue.submit([commandEncoder.finish()]);
 
     return {
       color: renderTargetTextures[0],

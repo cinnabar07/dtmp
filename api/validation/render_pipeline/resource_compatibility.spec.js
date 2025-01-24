@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for resource compatibilty between pipeline layout and shader modules
-  `;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { keysOf } from '../../../../common/util/data_tables.js';import {
+  `;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { keysOf } from '../../../../common/util/data_tables.js';
+import {
   kAPIResources,
   getWGSLShaderForResource,
   getAPIBindGroupLayoutForResource,
@@ -55,7 +55,6 @@ fn((t) => {
     wgslResource.storageTexture.access !== 'read-only'),
     'Storage buffers and textures cannot be used in vertex shaders'
   );
-  t.skipIfTextureViewDimensionNotSupported(wgslResource.texture?.viewDimension);
   const emptyVS = `
 @vertex
 fn main() -> @builtin(position) vec4f {

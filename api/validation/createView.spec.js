@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = `createView validation tests.`;import { kUnitCaseParamsBuilder } from '../../../common/framework/params_builder.js';import { makeTestGroup } from '../../../common/framework/test_group.js';import { unreachable } from '../../../common/util/util.js';
+**/export const description = `createView validation tests.`;import { kUnitCaseParamsBuilder } from '../../../common/framework/params_builder.js';
+import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { unreachable } from '../../../common/util/util.js';
 import {
   kTextureAspects,
   kTextureDimensions,

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 This test dedicatedly tests validation of GPUFragmentState of createRenderPipeline.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert, range } from '../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert, range } from '../../../../common/util/util.js';
+import {
   IsDualSourceBlendingFactor,
   kBlendFactors,
   kBlendOperations,

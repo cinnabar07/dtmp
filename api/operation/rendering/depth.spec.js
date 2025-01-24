@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test related to depth buffer, depth op, compare func, etc.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kDepthStencilFormats, kTextureFormatInfo } from '../../../format_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+
+import { kDepthStencilFormats, kTextureFormatInfo } from '../../../format_info.js';
 import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
 import { TexelView } from '../../../util/texture/texel_view.js';
 
@@ -48,7 +48,7 @@ class DepthTest extends TextureTestMixin(GPUTest) {
       stencilStoreOp: 'store'
     };
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -72,7 +72,7 @@ class DepthTest extends TextureTestMixin(GPUTest) {
     }
 
     pass.end();
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
 
     const expColor = {
       R: expectedColor[0],
@@ -390,7 +390,7 @@ fn((t) => {
   };
   const pipeline = t.device.createRenderPipeline(pipelineDescriptor);
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const depthStencilAttachment = {
     view: depthTextureView,
     depthClearValue,
@@ -416,7 +416,7 @@ fn((t) => {
   pass.setPipeline(pipeline);
   pass.draw(1);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectSinglePixelComparisonsAreOkInTexture({ texture: colorAttachment }, [
   {
@@ -503,7 +503,7 @@ fn((t) => {
   };
   const pipeline = t.device.createRenderPipeline(pipelineDescriptor);
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -524,7 +524,7 @@ fn((t) => {
   pass.setPipeline(pipeline);
   pass.draw(1, 4);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectSinglePixelComparisonsAreOkInTexture({ texture: colorAttachment }, [
   {

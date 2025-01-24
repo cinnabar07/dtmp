@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { assert, unreachable } from '../../../../../common/util/util.js';import { kTextureFormatInfo } from '../../../../format_info.js';import { virtualMipSize } from '../../../../util/texture/base.js';import { kTexelRepresentationInfo,
-getSingleDataType,
-getComponentReadbackTraits } from
+**/import { assert, unreachable } from '../../../../../common/util/util.js';import { kTextureFormatInfo } from '../../../../format_info.js';import { virtualMipSize } from '../../../../util/texture/base.js';
+import {
+  kTexelRepresentationInfo,
+  getSingleDataType,
+  getComponentReadbackTraits } from
 '../../../../util/texture/texel_data.js';
 
 
@@ -139,14 +139,14 @@ subresourceRange) =>
 
       });
 
-      const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+      const commandEncoder = t.device.createCommandEncoder();
       const pass = commandEncoder.beginComputePass();
       pass.setPipeline(computePipeline);
       pass.setBindGroup(0, bindGroup);
       pass.dispatchWorkgroups(width, height, depth);
       pass.end();
-      globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
-      globalThis._TRAMPOLINE_("destroy", ubo, ubo.destroy, [], () => globalThis._TRAMPOLINE_("destroy", ubo, ubo.destroy, [], () => ubo.destroy()));
+      t.queue.submit([commandEncoder.finish()]);
+      ubo.destroy();
 
       const expectedValues = new ReadbackTypedArray(new ArrayBuffer(byteLength));
       const expectedState = t.stateToTexelComponents[state];

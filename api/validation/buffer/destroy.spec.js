@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for GPUBuffer.destroy.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kBufferUsages } from '../../../capability_info.js';import { GPUConst } from '../../../constants.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kBufferUsages } from '../../../capability_info.js';
+import { GPUConst } from '../../../constants.js';
 import { ValidationTest } from '../validation_test.js';
 
 export const g = makeTestGroup(ValidationTest);
@@ -22,14 +22,14 @@ fn((t) => {
     usage
   });
 
-  globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => buf.destroy()));
+  buf.destroy();
 });
 
 g.test('error_buffer').
 desc('Test that error buffers may be destroyed without generating validation errors.').
 fn((t) => {
   const buf = t.getErrorBuffer();
-  globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => buf.destroy()));
+  buf.destroy();
 });
 
 g.test('twice').
@@ -50,8 +50,8 @@ combineWithParams([
 fn((t) => {
   const buf = t.createBufferTracked(t.params);
 
-  globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => buf.destroy()));
-  globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => buf.destroy()));
+  buf.destroy();
+  buf.destroy();
 });
 
 g.test('while_mapped').
@@ -91,12 +91,12 @@ fn(async (t) => {
     if (mappedAtCreation) {
       buf.unmap();
     }
-    await globalThis._TRAMPOLINE_("mapAsync", buf, buf.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buf, buf.mapAsync, [mapMode], () => buf.mapAsync(mapMode)));
+    await buf.mapAsync(mapMode);
   }
   if (unmapBeforeDestroy) {
     buf.unmap();
   }
 
-  globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buf, buf.destroy, [], () => buf.destroy()));
+  buf.destroy();
 });
 //# sourceMappingURL=destroy.spec.js.map

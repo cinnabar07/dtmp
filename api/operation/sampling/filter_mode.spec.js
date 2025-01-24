@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests the behavior of different filtering modes in minFilter/magFilter/mipmapFilter.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kAddressModes, kMipmapFilterModes } from '../../../capability_info.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kAddressModes, kMipmapFilterModes } from '../../../capability_info.js';
+import {
 
   kRenderableColorTextureFormats,
   kTextureFormatInfo } from
@@ -65,7 +65,7 @@ class FilterModeTest extends TextureTestMixin(GPUTest) {
       { binding: 1, resource: sampleTexture.createView() }]
 
     });
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [
       {
@@ -80,7 +80,7 @@ class FilterModeTest extends TextureTestMixin(GPUTest) {
     renderPass.setBindGroup(0, bindgroup);
     renderPass.draw(vertexCount, instanceCount);
     renderPass.end();
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[commandEncoder.finish()]], () => this.device.queue.submit([commandEncoder.finish()])));
+    this.device.queue.submit([commandEncoder.finish()]);
     return renderTexture;
   }
 }
@@ -1061,7 +1061,7 @@ fn((t) => {
     { binding: 1, resource: sampleTexture.createView() }]
 
   });
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -1076,7 +1076,7 @@ fn((t) => {
   renderPass.setBindGroup(0, bindgroup);
   renderPass.draw(6, kRenderSize);
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   // Since mipmap filtering varies across different backends, we verify that the result exhibits
   // filtered characteristics without strict value equalities via copies to a buffer.

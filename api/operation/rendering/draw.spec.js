@@ -1,20 +1,20 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for the general aspects of draw/drawIndexed/drawIndirect/drawIndexedIndirect.
 
 Primitive topology tested in api/operation/render_pipeline/primitive_topology.spec.ts.
 Index format tested in api/operation/command_buffer/render/state_tracking.spec.ts.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  assert } from
 
 
 '../../../../common/util/util.js';
-import { MaxLimitsTest, TextureTestMixin } from '../../../gpu_test.js';
+import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
 
 
-class DrawTest extends TextureTestMixin(MaxLimitsTest) {
+class DrawTest extends TextureTestMixin(GPUTest) {
   checkTriangleDraw(opts)
 
 
@@ -153,7 +153,7 @@ struct Output {
 
     });
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [
       {
@@ -272,7 +272,7 @@ struct Output {
     }
 
     renderPass.end();
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => this.queue.submit([commandEncoder.finish()])));
+    this.queue.submit([commandEncoder.finish()]);
 
     const green = new Uint8Array([0, 255, 0, 255]);
     const transparentBlack = new Uint8Array([0, 0, 0, 0]);
@@ -702,7 +702,7 @@ ${accumulateVariableAssignmentsInFragmentShader}
 
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -729,7 +729,7 @@ ${accumulateVariableAssignmentsInFragmentShader}
   }
   renderPass.draw(vertexCount, instanceCount);
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   t.expectGPUBufferValuesEqual(resultBuffer, expectedData);
 });

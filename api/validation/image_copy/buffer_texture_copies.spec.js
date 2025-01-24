@@ -1,11 +1,11 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 copyTextureToBuffer and copyBufferToTexture validation tests not covered by
 the general image_copy tests, or by destroyed,*.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert, unreachable } from '../../../../common/util/util.js';import { kBufferUsages, kTextureUsages } from '../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert, unreachable } from '../../../../common/util/util.js';
+import { kBufferUsages, kTextureUsages } from '../../../capability_info.js';
 import { GPUConst } from '../../../constants.js';
 import {
   kDepthStencilFormats,
@@ -429,11 +429,11 @@ fn((t) => {
   const { copyType, bufMismatched, texMismatched } = t.params;
 
   const uploadBufferSize = 32;
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  bufMismatched ? t.mismatchedDevice : t.device, (bufMismatched ? t.mismatchedDevice : t.device).createBuffer, [{
-    size: uploadBufferSize,
-    usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
-  }], () => globalThis._TRAMPOLINE_("createBuffer", bufMismatched ? t.mismatchedDevice : t.device, (bufMismatched ? t.mismatchedDevice : t.device).createBuffer, [{ size: uploadBufferSize, usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST }], () => (bufMismatched ? t.mismatchedDevice : t.device).createBuffer({ size: uploadBufferSize, usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST })))
+  const buffer = t.trackForCleanup(
+    (bufMismatched ? t.mismatchedDevice : t.device).createBuffer({
+      size: uploadBufferSize,
+      usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
+    })
   );
 
   const textureSize = { width: 1, height: 1, depthOrArrayLayers: 1 };

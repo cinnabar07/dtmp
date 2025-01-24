@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 createRenderBundleEncoder validation tests.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { range } from '../../../../common/util/util.js';import { kMaxColorAttachmentsToTest } from '../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { range } from '../../../../common/util/util.js';
+import { kMaxColorAttachmentsToTest } from '../../../capability_info.js';
 import {
   computeBytesPerSampleFromFormats,
   kAllTextureFormats,

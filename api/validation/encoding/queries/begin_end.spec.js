@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation for encoding begin/endable queries.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { ValidationTest } from '../../validation_test.js';
+
 import { beginRenderPassWithQuerySet, createQuerySetWithType } from './common.js';
 
 export const g = makeTestGroup(ValidationTest);
@@ -80,7 +80,7 @@ paramsSubcasesOnly((u) => u.combine('isOnSameRenderPass', [false, true])).
 fn((t) => {
   const querySet = createQuerySetWithType(t, 'occlusion', 1);
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = beginRenderPassWithQuerySet(t, encoder, querySet);
   pass.beginOcclusionQuery(0);
   pass.endOcclusionQuery();

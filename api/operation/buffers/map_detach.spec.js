@@ -1,11 +1,11 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
   Tests that TypedArrays created when mapping a GPUBuffer are detached when the
   buffer is unmapped or destroyed.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { getGPU } from '../../../../common/util/navigator_gpu.js';import { assert } from '../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { getGPU } from '../../../../common/util/navigator_gpu.js';
+import { assert } from '../../../../common/util/util.js';
 import { GPUConst } from '../../../constants.js';
 import { GPUTest } from '../../../gpu_test.js';
 
@@ -48,23 +48,23 @@ fn(async (t) => {
 
   let device = t.device;
   if (deviceDestroy) {
-    const adapter = await globalThis._TRAMPOLINE_("requestAdapter", getGPU(t.rec), getGPU(t.rec).requestAdapter, [], () => getGPU(t.rec).requestAdapter());
+    const adapter = await getGPU(t.rec).requestAdapter();
     assert(adapter !== null);
     device = await t.requestDeviceTracked(adapter);
   }
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  device, device.createBuffer, [{
-    size: 4,
-    usage,
-    mappedAtCreation
-  }], () => globalThis._TRAMPOLINE_("createBuffer", device, device.createBuffer, [{ size: 4, usage, mappedAtCreation }], () => device.createBuffer({ size: 4, usage, mappedAtCreation })))
+  const buffer = t.trackForCleanup(
+    device.createBuffer({
+      size: 4,
+      usage,
+      mappedAtCreation
+    })
   );
 
   if (mapMode !== undefined) {
     if (mappedAtCreation) {
       buffer.unmap();
     }
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+    await buffer.mapAsync(mapMode);
   }
 
   const arrayBuffer = buffer.getMappedRange();
@@ -73,8 +73,8 @@ fn(async (t) => {
   t.expect(view.length === 4);
 
   if (unmap) buffer.unmap();
-  if (destroy) globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
-  if (deviceDestroy) globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+  if (destroy) buffer.destroy();
+  if (deviceDestroy) device.destroy();
 
   t.expect(arrayBuffer.byteLength === 0, 'ArrayBuffer should be detached');
   t.expect(view.byteLength === 0, 'ArrayBufferView should be detached');

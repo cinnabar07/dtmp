@@ -1,14 +1,14 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Memory Synchronization Tests for Texture: read before write, read after write, and write after write to the same subresource.
 
 - TODO: Test synchronization between multiple queues.
 - TODO: Test depth/stencil attachments.
 - TODO: Use non-solid-color texture contents [2]
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { assert, memcpy, unreachable } from '../../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { assert, memcpy, unreachable } from '../../../../../common/util/util.js';
+
 import { GPUTest } from '../../../../gpu_test.js';
 import { align } from '../../../../util/math.js';
 import { getTextureCopyLayout } from '../../../../util/texture/layout.js';

@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Here we test the validation for draw functions, mainly the buffer access validation. All four types
 of draw calls are tested, and test that validation errors do / don't occur for certain call type
 and parameters as expect.
-`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';import { kVertexFormatInfo } from '../../../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';
+import { kVertexFormatInfo } from '../../../../../capability_info.js';
+
 import { ValidationTest } from '../../../validation_test.js';
 
 
@@ -811,7 +811,7 @@ fn((t) => {
     GPUBufferUsage.INDIRECT
   );
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPassEncoder = commandEncoder.beginRenderPass({
     colorAttachments: [
     {

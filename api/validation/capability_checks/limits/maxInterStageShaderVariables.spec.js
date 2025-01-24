@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { range } from '../../../../../common/util/util.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';function getPipelineDescriptor(
+**/import { range } from '../../../../../common/util/util.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';
+
+function getPipelineDescriptor(
 device,
 testValue,
 pointList,

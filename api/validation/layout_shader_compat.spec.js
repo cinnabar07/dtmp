@@ -1,14 +1,14 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 TODO:
 - interface matching between pipeline layout and shader
     - x= bind group index values, binding index values, multiple bindings
     - x= {superset, subset}
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { kShaderStageCombinations,
-kShaderStages } from
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import {
+  kShaderStageCombinations,
+  kShaderStages } from
 
 '../../capability_info.js';
 import { GPUConst } from '../../constants.js';

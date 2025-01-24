@@ -1,13 +1,13 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Ensure state is set correctly. Tries to stress state caching (setting different states multiple
 times in different orders) for setIndexBuffer and setVertexBuffer.
 Equivalent tests for setBindGroup and setPipeline are in programmable/state_tracking.spec.ts.
 Equivalent tests for viewport/scissor/blend/reference are in render/dynamic_state.spec.ts
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { GPUTest, TextureTestMixin } from '../../../../gpu_test.js';import { TexelView } from '../../../../util/texture/texel_view.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { GPUTest, TextureTestMixin } from '../../../../gpu_test.js';
+import { TexelView } from '../../../../util/texture/texel_view.js';
 
 class VertexAndIndexStateTrackingTest extends TextureTestMixin(GPUTest) {
   GetRenderPipelineForTest(arrayStride) {
@@ -136,7 +136,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -169,7 +169,7 @@ fn((t) => {
   renderPass.drawIndexed(2);
 
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.expectTexelViewComparisonIsOkInTexture(
     { texture: outputTexture },
@@ -229,7 +229,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -272,7 +272,7 @@ fn((t) => {
   renderPass.draw(4);
 
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.expectTexelViewComparisonIsOkInTexture(
     { texture: outputTexture },
@@ -329,7 +329,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -356,7 +356,7 @@ fn((t) => {
 
   renderPass.end();
 
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.expectTexelViewComparisonIsOkInTexture(
     { texture: outputTexture },
@@ -505,7 +505,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -527,7 +527,7 @@ fn((t) => {
 
   renderPass.end();
 
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   const kExpectedColors = [
   kColors.subarray(0, 4),
@@ -587,7 +587,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -610,7 +610,7 @@ fn((t) => {
 
   renderPass.end();
 
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.expectTexelViewComparisonIsOkInTexture(
     { texture: outputTexture },

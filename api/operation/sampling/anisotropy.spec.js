@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests the behavior of anisotropic filtering.
 
@@ -12,7 +10,9 @@ things. If there are no guarantees we can issue warnings instead of failures. Id
     sample values come out of the sample operation.
   - Check anisotropy is done in the correct direction (by having a 2D gradient and checking we get
     more of the color in the correct direction).
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from '../../../../common/util/util.js';import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert } from '../../../../common/util/util.js';
+import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
 import { checkElementsEqual } from '../../../util/check_contents.js';
 import { TexelView } from '../../../util/texture/texel_view.js';
 
@@ -41,13 +41,13 @@ class SamplerAnisotropicFilteringSlantedPlaneTest extends GPUTest {
       usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
     });
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     commandEncoder.copyTextureToBuffer(
       { texture: rt, mipLevel: 0, origin: [0, 0, 0] },
       { buffer, bytesPerRow: kBytesPerRow, rowsPerImage: kRTSize },
       { width: kRTSize, height: kRTSize, depthOrArrayLayers: 1 }
     );
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => this.queue.submit([commandEncoder.finish()])));
+    this.queue.submit([commandEncoder.finish()]);
 
     return buffer;
   }
@@ -140,7 +140,7 @@ class SamplerAnisotropicFilteringSlantedPlaneTest extends GPUTest {
     });
     const colorAttachmentView = colorAttachment.createView();
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -155,7 +155,7 @@ class SamplerAnisotropicFilteringSlantedPlaneTest extends GPUTest {
     pass.setBindGroup(0, bindGroup);
     pass.draw(6);
     pass.end();
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
 
     return colorAttachment;
   }
@@ -183,7 +183,7 @@ fn(async (t) => {
     usage: GPUTextureUsage.COPY_DST | GPUTextureUsage.TEXTURE_BINDING
   });
 
-  const textureEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const textureEncoder = t.device.createCommandEncoder();
 
   const bufferSize = kBytesPerRow * textureSize; // RGBA8 for each pixel (256 > 16 * 4)
 
@@ -221,7 +221,7 @@ fn(async (t) => {
     [textureSize, textureSize, 1]
   );
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[textureEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[textureEncoder.finish()]], () => t.device.queue.submit([textureEncoder.finish()])));
+  t.device.queue.submit([textureEncoder.finish()]);
 
   const textureView = texture.createView();
   const byteLength = kRTSize * kBytesPerRow;

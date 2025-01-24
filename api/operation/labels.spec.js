@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for object labels.
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { keysOf } from '../../../common/util/data_tables.js';import { getGPU } from '../../../common/util/navigator_gpu.js';
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { keysOf } from '../../../common/util/data_tables.js';
+import { getGPU } from '../../../common/util/navigator_gpu.js';
 import { GPUTest } from '../../gpu_test.js';
 
 export const g = makeTestGroup(GPUTest);
@@ -14,18 +14,18 @@ const kTestFunctions = {
   createBuffer: (t, label) => {
     const buffer = t.createBufferTracked({ size: 16, usage: GPUBufferUsage.COPY_DST, label });
     t.expect(buffer.label === label);
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
     t.expect(buffer.label === label);
   },
 
   requestDevice: async (t, label) => {
     const gpu = getGPU(t.rec);
-    const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+    const adapter = await gpu.requestAdapter();
     t.expect(!!adapter);
     const device = await t.requestDeviceTracked(adapter, { label });
     t.expect(!!device);
     t.expect(device.label === label);
-    globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+    device.destroy();
     t.expect(device.label === label);
   },
 
@@ -37,7 +37,7 @@ const kTestFunctions = {
       usage: GPUTextureUsage.RENDER_ATTACHMENT
     });
     t.expect(texture.label === label);
-    globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+    texture.destroy();
     t.expect(texture.label === label);
   },
 
@@ -164,7 +164,7 @@ const kTestFunctions = {
   },
 
   createCommandEncoder: (t, label) => {
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [{ label }], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [{ label }], () => t.device.createCommandEncoder({ label })));
+    const encoder = t.device.createCommandEncoder({ label });
     t.expect(encoder.label === label);
   },
 
@@ -183,7 +183,7 @@ const kTestFunctions = {
       count: 1
     });
     t.expect(querySet.label === label);
-    globalThis._TRAMPOLINE_("destroy", querySet, querySet.destroy, [], () => globalThis._TRAMPOLINE_("destroy", querySet, querySet.destroy, [], () => querySet.destroy()));
+    querySet.destroy();
     t.expect(querySet.label === label);
   },
 
@@ -195,7 +195,7 @@ const kTestFunctions = {
       usage: GPUTextureUsage.RENDER_ATTACHMENT
     });
     const label2 = `${label}-2`;
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const encoder = t.device.createCommandEncoder();
     encoder.label = label2;
     const renderPass = encoder.beginRenderPass({
       label,
@@ -207,12 +207,12 @@ const kTestFunctions = {
     encoder.finish();
     t.expect(renderPass.label === label);
     t.expect(encoder.label === label2);
-    globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+    texture.destroy();
   },
 
   beginComputePass: (t, label) => {
     const label2 = `${label}-2`;
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const encoder = t.device.createCommandEncoder();
     encoder.label = label2;
     const computePass = encoder.beginComputePass({ label });
     t.expect(computePass.label === label);
@@ -224,7 +224,7 @@ const kTestFunctions = {
   },
 
   finish: (t, label) => {
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const encoder = t.device.createCommandEncoder();
     const commandBuffer = encoder.finish({ label });
     t.expect(commandBuffer.label === label);
   },
@@ -237,7 +237,7 @@ const kTestFunctions = {
     });
     const view = texture.createView({ label });
     t.expect(view.label === label);
-    globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+    texture.destroy();
     t.expect(view.label === label);
   }
 };

@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 createPipelineLayout validation tests.
 
 TODO: review existing tests, write descriptions, and make sure tests are complete.
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { bufferBindingTypeInfo, kBufferBindingTypes } from '../../capability_info.js';
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { bufferBindingTypeInfo, kBufferBindingTypes } from '../../capability_info.js';
+
 import { ValidationTest } from './validation_test.js';
 
 function clone(descriptor) {

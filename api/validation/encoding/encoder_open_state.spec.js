@@ -1,11 +1,11 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests to all commands of GPUCommandEncoder, GPUComputePassEncoder, and
 GPURenderPassEncoder when the encoder is not finished.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { keysOf } from '../../../../common/util/data_tables.js';import { unreachable } from '../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { keysOf } from '../../../../common/util/data_tables.js';
+import { unreachable } from '../../../../common/util/util.js';
 import { ValidationTest } from '../validation_test.js';
 
 import { beginRenderPassWithQuerySet } from './queries/common.js';
@@ -79,10 +79,6 @@ const kEncoderCommandInfo =
 };
 const kEncoderCommands = keysOf(kEncoderCommandInfo);
 
-// MAINTENANCE_TODO: Remove multiDrawIndirect and multiDrawIndexedIndirect once https://github.com/gpuweb/gpuweb/pull/2315 is merged.
-
-
-
 
 const kRenderPassEncoderCommandInfo =
 
@@ -91,8 +87,6 @@ const kRenderPassEncoderCommandInfo =
   drawIndexed: {},
   drawIndexedIndirect: {},
   drawIndirect: {},
-  multiDrawIndexedIndirect: {},
-  multiDrawIndirect: {},
   setIndexBuffer: {},
   setBindGroup: {},
   setVertexBuffer: {},
@@ -202,7 +196,7 @@ fn((t) => {
     count: 1
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   if (finishBeforeCommand) encoder.finish();
 
@@ -304,17 +298,11 @@ combine('command', kRenderPassEncoderCommands).
 beginSubcases().
 combine('finishBeforeCommand', [false, true])
 ).
-beforeAllSubcases((t) => {
-  const { command } = t.params;
-  if (command === 'multiDrawIndirect' || command === 'multiDrawIndexedIndirect') {
-    t.selectDeviceOrSkipTestCase('chromium-experimental-multi-draw-indirect');
-  }
-}).
 fn((t) => {
   const { command, finishBeforeCommand } = t.params;
 
   const querySet = t.createQuerySetTracked({ type: 'occlusion', count: 1 });
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = beginRenderPassWithQuerySet(t, encoder, querySet);
 
   const buffer = t.createBufferTracked({
@@ -356,18 +344,6 @@ fn((t) => {
       case 'drawIndexedIndirect':
         {
           renderPass.drawIndexedIndirect(buffer, 0);
-        }
-        break;
-      case 'multiDrawIndirect':
-        {
-
-          renderPass.multiDrawIndirect(buffer, 0, 1);
-        }
-        break;
-      case 'multiDrawIndexedIndirect':
-        {
-
-          renderPass.multiDrawIndexedIndirect(buffer, 0, 1);
         }
         break;
       case 'setBindGroup':
@@ -558,7 +534,7 @@ combine('finishBeforeCommand', [false, true])
 fn((t) => {
   const { command, finishBeforeCommand } = t.params;
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const computePass = encoder.beginComputePass();
 
   const indirectBuffer = t.createBufferTracked({

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test validation of pushDebugGroup, popDebugGroup, and insertDebugMarker.
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { ValidationTest } from './validation_test.js';
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+
+import { ValidationTest } from './validation_test.js';
 
 class F extends ValidationTest {
   beginRenderPass(commandEncoder) {
@@ -42,7 +42,7 @@ combine('popCount', [1, 2, 3])
 fn((t) => {
   const { pushCount, popCount } = t.params;
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   for (let i = 0; i < pushCount; ++i) {
     encoder.pushDebugGroup('EventStart');
@@ -76,7 +76,7 @@ combine('popCount', [1, 2, 3])
 fn((t) => {
   const { passType, pushCount, popCount } = t.params;
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pass = passType === 'compute' ? encoder.beginComputePass() : t.beginRenderPass(encoder);
 

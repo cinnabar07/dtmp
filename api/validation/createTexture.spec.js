@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = `createTexture validation tests.`;import { SkipTestCase } from '../../../common/framework/fixture.js';import { makeTestGroup } from '../../../common/framework/test_group.js';import { assert, makeValueTestVariant } from '../../../common/util/util.js';
+**/export const description = `createTexture validation tests.`;import { SkipTestCase } from '../../../common/framework/fixture.js';
+import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { assert, makeValueTestVariant } from '../../../common/util/util.js';
 import { kTextureDimensions, kTextureUsages } from '../../capability_info.js';
 import { GPUConst } from '../../constants.js';
 import {

@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';const limit = 'maxComputeWorkgroupsPerDimension';export const { g, description } = makeLimitTestGroup(limit);
+**/import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';const limit = 'maxComputeWorkgroupsPerDimension';
+export const { g, description } = makeLimitTestGroup(limit);
+
 const kCreateComputePipelineTypes = [
 'createComputePipeline',
 'createComputePipelineAsync'];
@@ -63,7 +63,7 @@ fn(async (t) => {
         pipelineType
       );
 
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+      const encoder = device.createCommandEncoder();
       const pass = encoder.beginComputePass();
       pass.setPipeline(pipeline);
       pass.dispatchWorkgroups(counts[0], counts[1], counts[2]);
@@ -73,7 +73,7 @@ fn(async (t) => {
         encoder.finish();
       }, shouldError);
 
-      globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+      buffer.destroy();
     }
   );
 });

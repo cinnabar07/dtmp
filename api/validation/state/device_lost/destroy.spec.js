@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for device lost induced via destroy.
   - Tests that prior to device destruction, valid APIs do not generate errors (control case).
   - After device destruction, runs the same APIs. No expected observable results, so test crash or future failures are the only current failure indicators.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { assert } from '../../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { assert } from '../../../../../common/util/util.js';
+import {
   allBindingEntries,
   bindingTypeInfo,
   kBindableResources,
@@ -53,7 +53,7 @@ class DeviceDestroyTests extends ValidationTest {
     this.expectDeviceLost('destroyed');
 
     this.expectValidationError(fn, false);
-    globalThis._TRAMPOLINE_("destroy", this.device, this.device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", this.device, this.device.destroy, [], () => this.device.destroy()));
+    this.device.destroy();
     if (awaitLost) {
       const lostInfo = await this.device.lost;
       this.expect(lostInfo.reason === 'destroyed');
@@ -94,7 +94,7 @@ class DeviceDestroyTests extends ValidationTest {
           // Validation case
           const commands = fn(this.createEncoder(encoderType)).validateFinish(true);
           await this.executeAfterDestroy(() => {
-            globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commands]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commands]], () => this.queue.submit([commands])));
+            this.queue.submit([commands]);
           }, awaitLost);
           break;
         }
@@ -517,7 +517,7 @@ fn(async (t) => {
 
   // Destroy the device, and expect it to be lost.
   t.expectDeviceLost('destroyed');
-  globalThis._TRAMPOLINE_("destroy", t.device, t.device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", t.device, t.device.destroy, [], () => t.device.destroy()));
+  t.device.destroy();
   if (awaitLost) {
     const lostInfo = await t.device.lost;
     t.expect(lostInfo.reason === 'destroyed');
@@ -600,7 +600,7 @@ fn(async (t) => {
 
   // Destroy the device, and expect it to be lost.
   t.expectDeviceLost('destroyed');
-  globalThis._TRAMPOLINE_("destroy", t.device, t.device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", t.device, t.device.destroy, [], () => t.device.destroy()));
+  t.device.destroy();
   if (awaitLost) {
     const lostInfo = await t.device.lost;
     t.expect(lostInfo.reason === 'destroyed');
@@ -625,7 +625,7 @@ params((u) => u.combine('awaitLost', [true, false])).
 fn(async (t) => {
   const { awaitLost } = t.params;
   await t.executeAfterDestroy(() => {
-    globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    t.device.createCommandEncoder();
   }, awaitLost);
 });
 

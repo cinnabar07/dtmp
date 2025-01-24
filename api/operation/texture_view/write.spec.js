@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test the result of writing textures through texture views with various options.
 
@@ -17,7 +15,9 @@ All x= every possible view write method: {
 Format reinterpretation is not tested here. It is in format_reinterpretation.spec.ts.
 
 TODO: Write helper for this if not already available (see resource_init, buffer_sync_test for related code).
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { unreachable } from '../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { unreachable } from '../../../../common/util/util.js';
+import {
   kRegularTextureFormats,
   kTextureFormatInfo } from
 
@@ -112,7 +112,7 @@ sampleCount)
             entryPoint: 'main'
           }
         });
-        const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+        const commandEncoder = t.device.createCommandEncoder();
         const pass = commandEncoder.beginComputePass();
         pass.setPipeline(pipeline);
         pass.setBindGroup(
@@ -129,7 +129,7 @@ sampleCount)
         );
         pass.dispatchWorkgroups(kTextureSize, kTextureSize);
         pass.end();
-        globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+        t.device.queue.submit([commandEncoder.finish()]);
       }
       break;
 
@@ -174,7 +174,7 @@ sampleCount)
 
           }
         });
-        const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+        const commandEncoder = t.device.createCommandEncoder();
         const pass = commandEncoder.beginRenderPass({
           colorAttachments: [
           {
@@ -199,7 +199,7 @@ sampleCount)
         );
         pass.draw(6);
         pass.end();
-        globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+        t.device.queue.submit([commandEncoder.finish()]);
       }
       break;
 
@@ -250,7 +250,7 @@ sampleCount)
             count: multisampleCount
           }
         });
-        const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+        const commandEncoder = t.device.createCommandEncoder();
         const pass = commandEncoder.beginRenderPass({
           colorAttachments: [
           {
@@ -264,7 +264,7 @@ sampleCount)
         pass.setPipeline(pipeline);
         pass.draw(6);
         pass.end();
-        globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+        t.device.queue.submit([commandEncoder.finish()]);
       }
       break;
     default:

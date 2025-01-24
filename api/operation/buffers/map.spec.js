@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test the operation of buffer mapping, specifically the data contents written via
 map-write/mappedAtCreation, and the contents of buffers returned by getMappedRange on
@@ -14,7 +12,9 @@ mapRegionBoundModes is used to get mapRegion from range:
  - default-expand: expand mapRegion to buffer bound by setting offset/size to undefined
  - explicit-expand: expand mapRegion to buffer bound by explicitly calculating offset/size
  - minimal: make mapRegion to be the same as range which is the minimal range to make getMappedRange input valid
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert, memcpy } from '../../../../common/util/util.js';import { checkElementsEqual } from '../../../util/check_contents.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert, memcpy } from '../../../../common/util/util.js';
+import { checkElementsEqual } from '../../../util/check_contents.js';
 
 import { MappingTest } from './mapping_test.js';
 
@@ -91,7 +91,7 @@ fn(async (t) => {
   });
 
   const mapRegion = getRegionForMap(size, [rangeOffset, rangeSize], t.params);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE, ...mapRegion], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE, ...mapRegion], () => buffer.mapAsync(GPUMapMode.WRITE, ...mapRegion)));
+  await buffer.mapAsync(GPUMapMode.WRITE, ...mapRegion);
   const arrayBuffer = buffer.getMappedRange(...range);
   t.checkMapWrite(buffer, rangeOffset, arrayBuffer, rangeSize);
 });
@@ -131,7 +131,7 @@ fn(async (t) => {
 
   // If the buffer is not mappedAtCreation map it now.
   if (!mappedAtCreation) {
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE], () => buffer.mapAsync(GPUMapMode.WRITE)));
+    await buffer.mapAsync(GPUMapMode.WRITE);
   }
 
   // Set the initial contents of the buffer.
@@ -151,7 +151,7 @@ fn(async (t) => {
   buffer.unmap();
 
   // Write to a second range of the buffer
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE, ...range2], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE, ...range2], () => buffer.mapAsync(GPUMapMode.WRITE, ...range2)));
+  await buffer.mapAsync(GPUMapMode.WRITE, ...range2);
   const init2 = buffer.getMappedRange(...range2);
 
   assert(init2.byteLength === rangeSize2);
@@ -202,7 +202,7 @@ fn(async (t) => {
   buffer.unmap();
 
   const mapRegion = getRegionForMap(size, [rangeOffset, rangeSize], t.params);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ, ...mapRegion], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ, ...mapRegion], () => buffer.mapAsync(GPUMapMode.READ, ...mapRegion)));
+  await buffer.mapAsync(GPUMapMode.READ, ...mapRegion);
   const actual = new Uint8Array(buffer.getMappedRange(...range));
   t.expectOK(checkElementsEqual(actual, new Uint8Array(expected.buffer)));
 });
@@ -278,7 +278,7 @@ fn(async (t) => {
   buffer.unmap();
 
   const mapRegion = getRegionForMap(size, [rangeOffset, rangeSize], t.params);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ, ...mapRegion], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ, ...mapRegion], () => buffer.mapAsync(GPUMapMode.READ, ...mapRegion)));
+  await buffer.mapAsync(GPUMapMode.READ, ...mapRegion);
   const mappedArrayBuffer = buffer.getMappedRange(...range);
   t.expectOK(checkElementsEqual(new Uint8Array(mappedArrayBuffer, 0, 2), uint8Expected));
   t.expectOK(checkElementsEqual(new Int8Array(mappedArrayBuffer, 2, 2), int8Expected));
@@ -341,7 +341,7 @@ fn(async (t) => {
 
   // If the buffer is not mappedAtCreation map it now.
   if (!mappedAtCreation) {
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE], () => buffer.mapAsync(GPUMapMode.WRITE)));
+    await buffer.mapAsync(GPUMapMode.WRITE);
   }
 
   // Set the initial contents of the buffer.
@@ -358,7 +358,7 @@ fn(async (t) => {
   // Check that upon remapping the for WRITE the values in the buffer are
   // still the same.
   const mapRegion = getRegionForMap(size, [rangeOffset, rangeSize], t.params);
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE, ...mapRegion], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE, ...mapRegion], () => buffer.mapAsync(GPUMapMode.WRITE, ...mapRegion)));
+  await buffer.mapAsync(GPUMapMode.WRITE, ...mapRegion);
   const actual = new Uint8Array(buffer.getMappedRange(...range));
   t.expectOK(checkElementsEqual(actual, new Uint8Array(expected.buffer)));
 });
@@ -405,7 +405,7 @@ fn((t) => {
   }
 
   if (afterDestroy) {
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer!, buffer!.destroy, [], () => buffer!.destroy()));
+    buffer.destroy();
     t.expect(buffer.mapState === 'unmapped');
   }
 });
@@ -453,7 +453,7 @@ fn(async (t) => {
     mapMode === GPUMapMode.WRITE && !(usage & GPUBufferUsage.MAP_WRITE);
     let promise;
     t.expectValidationError(() => {
-      promise = globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer!, buffer!.mapAsync, [mapMode], () => buffer!.mapAsync(mapMode)));
+      promise = buffer.mapAsync(mapMode);
     }, mapAsyncValidationError);
     t.expect(buffer.mapState === 'pending');
 
@@ -463,7 +463,7 @@ fn(async (t) => {
         t.expect(buffer.mapState === 'unmapped');
       }
       if (beforeDestroy) {
-        globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer!, buffer!.destroy, [], () => buffer!.destroy()));
+        buffer.destroy();
         t.expect(buffer.mapState === 'unmapped');
       }
 
@@ -486,7 +486,7 @@ fn(async (t) => {
     // and the map state must keep 'mapped'
     let promise;
     t.expectValidationError(() => {
-      promise = globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE], () => globalThis._TRAMPOLINE_("mapAsync", buffer!, buffer!.mapAsync, [GPUMapMode.WRITE], () => buffer!.mapAsync(GPUMapMode.WRITE)));
+      promise = buffer.mapAsync(GPUMapMode.WRITE);
     }, true);
     t.expect(buffer.mapState === 'mapped');
 
@@ -504,7 +504,7 @@ fn(async (t) => {
   }
 
   if (afterDestroy) {
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer!, buffer!.destroy, [], () => buffer!.destroy()));
+    buffer.destroy();
     t.expect(buffer.mapState === 'unmapped');
   }
 });

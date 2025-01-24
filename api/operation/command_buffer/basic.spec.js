@@ -1,17 +1,17 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Basic tests.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { memcpy } from '../../../../common/util/util.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { memcpy } from '../../../../common/util/util.js';
+import { GPUTest } from '../../../gpu_test.js';
 
 export const g = makeTestGroup(GPUTest);
 
 g.test('empty').fn((t) => {
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const cmd = encoder.finish();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cmd]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cmd]], () => t.device.queue.submit([cmd])));
+  t.device.queue.submit([cmd]);
 });
 
 g.test('b2t2b').fn((t) => {
@@ -36,7 +36,7 @@ g.test('b2t2b').fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToTexture(
     { buffer: src, bytesPerRow: 256 },
     { texture: mid, mipLevel: 0, origin: { x: 0, y: 0, z: 0 } },
@@ -47,7 +47,7 @@ g.test('b2t2b').fn((t) => {
     { buffer: dst, bytesPerRow: 256 },
     { width: 1, height: 1, depthOrArrayLayers: 1 }
   );
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(dst, data);
 });
@@ -76,7 +76,7 @@ g.test('b2t2t2b').fn((t) => {
   const mid1 = t.createTextureTracked(midDesc);
   const mid2 = t.createTextureTracked(midDesc);
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToTexture(
     { buffer: src, bytesPerRow: 256 },
     { texture: mid1, mipLevel: 0, origin: { x: 0, y: 0, z: 0 } },
@@ -92,7 +92,7 @@ g.test('b2t2t2b').fn((t) => {
     { buffer: dst, bytesPerRow: 256 },
     { width: 1, height: 1, depthOrArrayLayers: 1 }
   );
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(dst, data);
 });

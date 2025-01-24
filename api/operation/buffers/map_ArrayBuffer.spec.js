@@ -1,13 +1,13 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for the behavior of ArrayBuffers returned by getMappedRange.
 
 TODO: Add tests that transfer to another thread instead of just using MessageChannel.
 TODO: Add tests for any other Web APIs that can detach ArrayBuffers.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { timeout } from '../../../../common/util/timeout.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { timeout } from '../../../../common/util/timeout.js';
+import { GPUTest } from '../../../gpu_test.js';
 import { checkElementsEqual } from '../../../util/check_contents.js';
 
 export const g = makeTestGroup(GPUTest);
@@ -38,7 +38,7 @@ fn(async (t) => {
     mapMode === 'WRITE' ? GPUBufferUsage.MAP_WRITE : GPUBufferUsage.MAP_READ
   );
 
-  await globalThis._TRAMPOLINE_("mapAsync", buf, buf.mapAsync, [GPUMapMode[mapMode]], () => globalThis._TRAMPOLINE_("mapAsync", buf, buf.mapAsync, [GPUMapMode[mapMode]], () => buf.mapAsync(GPUMapMode[mapMode])));
+  await buf.mapAsync(GPUMapMode[mapMode]);
   const ab1 = buf.getMappedRange();
   t.expect(ab1.byteLength === kSize, 'ab1 should have the size of the buffer');
 

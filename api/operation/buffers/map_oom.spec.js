@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = 'Test out-of-memory conditions creating large mappable/mappedAtCreation buffers.';import { kUnitCaseParamsBuilder } from '../../../../common/framework/params_builder.js';import { makeTestGroup } from '../../../../common/framework/test_group.js';
+**/export const description = 'Test out-of-memory conditions creating large mappable/mappedAtCreation buffers.';
+import { kUnitCaseParamsBuilder } from '../../../../common/framework/params_builder.js';
+import { makeTestGroup } from '../../../../common/framework/test_group.js';
 import { kBufferUsages } from '../../../capability_info.js';
 import { GPUTest } from '../../../gpu_test.js';
 import { kMaxSafeMultipleOf8 } from '../../../util/math.js';

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test related to stencil states, stencil op, compare func, etc.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+
+import {
   kDepthStencilFormats,
   kTextureFormatInfo } from
 
@@ -151,7 +151,7 @@ class StencilTest extends TextureTestMixin(GPUTest) {
       stencilStoreOp: 'store'
     };
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     let pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -201,7 +201,7 @@ class StencilTest extends TextureTestMixin(GPUTest) {
     if (!isSingleEncoderMultiplePass) {
       pass.end();
     }
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
 
     const expColor = {
       R: expectedColor[0],

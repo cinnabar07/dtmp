@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Basic command buffer compute tests.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest } from '../../../gpu_test.js';import { checkElementsEqualGenerated } from '../../../util/check_contents.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest } from '../../../gpu_test.js';
+import { checkElementsEqualGenerated } from '../../../util/check_contents.js';
 
 export const g = makeTestGroup(GPUTest);
 
@@ -48,13 +48,13 @@ g.test('memcpy').fn((t) => {
     layout: pipeline.getBindGroupLayout(0)
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginComputePass();
   pass.setPipeline(pipeline);
   pass.setBindGroup(0, bg);
   pass.dispatchWorkgroups(1);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(dst, data);
 });
@@ -145,19 +145,19 @@ fn((t) => {
     layout: pipeline.getBindGroupLayout(0)
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginComputePass();
   pass.setPipeline(pipeline);
   pass.setBindGroup(0, bg);
   pass.dispatchWorkgroups(dims[0], dims[1], dims[2]);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesPassCheck(dst, (a) => checkElementsEqualGenerated(a, (_i) => val), {
     type: Uint32Array,
     typedLength: bufferLength
   });
 
-  globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => dst.destroy()));
+  dst.destroy();
 });
 //# sourceMappingURL=basic.spec.js.map

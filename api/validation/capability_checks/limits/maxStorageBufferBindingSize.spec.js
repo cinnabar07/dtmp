@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { align, roundDown } from '../../../../util/math.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from
+**/import { align, roundDown } from '../../../../util/math.js';import {
+  kMaximumLimitBaseParams,
+  makeLimitTestGroup } from
 
 
 

@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { assert } from '../../../../../common/util/util.js';import { kCreatePipelineTypes, kEncoderTypes,
+**/import { assert } from '../../../../../common/util/util.js';import {
+  kCreatePipelineTypes,
+  kEncoderTypes,
   kMaximumLimitBaseParams,
   makeLimitTestGroup } from
 './limit_utils.js';

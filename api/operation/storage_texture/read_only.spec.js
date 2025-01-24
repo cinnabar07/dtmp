@@ -1,14 +1,14 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for the behavior of read-only storage textures.
 
 TODO:
 - Test mipmap level > 0
 - Test resource usage transitions with read-only storage textures
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { unreachable, assert } from '../../../../common/util/util.js';import { Float16Array } from '../../../../external/petamoriken/float16/float16.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { unreachable, assert } from '../../../../common/util/util.js';
+import { Float16Array } from '../../../../external/petamoriken/float16/float16.js';
 import { kTextureDimensions } from '../../../capability_info.js';
 import {
 
@@ -275,7 +275,7 @@ class F extends GPUTest {
     }];
 
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
 
     switch (shaderStage) {
       case 'compute':{
@@ -552,7 +552,7 @@ class F extends GPUTest {
         }
     }
 
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[commandEncoder.finish()]], () => this.queue.submit([commandEncoder.finish()])));
+    this.queue.submit([commandEncoder.finish()]);
   }
 }
 

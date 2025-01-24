@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { makeTestGroup } from '../../../../common/framework/test_group.js';import { unreachable } from '../../../../common/util/util.js';import { GPUConst } from '../../../constants.js';import { GPUTest } from '../../../gpu_test.js';import { getTextureCopyLayout } from '../../../util/texture/layout.js';
+**/import { makeTestGroup } from '../../../../common/framework/test_group.js';import { unreachable } from '../../../../common/util/util.js';import { GPUConst } from '../../../constants.js';
+import { GPUTest } from '../../../gpu_test.js';
+import { getTextureCopyLayout } from '../../../util/texture/layout.js';
 
 
 export const description = `
@@ -79,13 +79,13 @@ class F extends GPUTest {
 
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const computePass = encoder.beginComputePass();
     computePass.setBindGroup(0, bindGroup);
     computePass.setPipeline(computePipeline);
     computePass.dispatchWorkgroups(1);
     computePass.end();
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+    this.queue.submit([encoder.finish()]);
 
     this.CheckBufferAndOutputTexture(buffer, boundBufferSize + bufferOffset, outputTexture);
   }
@@ -208,7 +208,7 @@ fn(async (t) => {
     usage: bufferUsage
   });
 
-  await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode], () => buffer.mapAsync(mapMode)));
+  await buffer.mapAsync(mapMode);
   const readData = new Uint8Array(buffer.getMappedRange());
   for (let i = 0; i < bufferSize; ++i) {
     t.expect(readData[i] === 0);
@@ -240,7 +240,7 @@ fn(async (t) => {
   const expectedData = new Uint8Array(bufferSize);
   {
     const mapSize = 16;
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, appliedOffset, mapSize], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [mapMode, appliedOffset, mapSize], () => buffer.mapAsync(mapMode, appliedOffset, mapSize)));
+    await buffer.mapAsync(mapMode, appliedOffset, mapSize);
     const mappedData = new Uint8Array(buffer.getMappedRange(appliedOffset, mapSize));
     for (let i = 0; i < mapSize; ++i) {
       t.expect(mappedData[i] === 0);
@@ -362,7 +362,7 @@ fn((t) => {
     usage: srcBufferUsage
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToTexture(
     {
       buffer: srcBuffer,
@@ -373,7 +373,7 @@ fn((t) => {
     { texture: dstTexture },
     textureSize
   );
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.CheckBufferAndOutputTexture(srcBuffer, srcBufferSize, dstTexture, textureSize, {
     R: 0.0,
@@ -399,9 +399,9 @@ fn((t) => {
   });
 
   const querySet = t.createQuerySetTracked({ type: 'occlusion', count: 1 });
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.resolveQuerySet(querySet, 0, 1, dstBuffer, bufferOffset);
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   const expectedBufferData = new Uint8Array(bufferSize);
   t.CheckGPUBufferContent(dstBuffer, bufferUsage, expectedBufferData);
@@ -448,7 +448,7 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   // Initialize srcTexture
   for (let layer = 0; layer < arrayLayerCount; ++layer) {
@@ -476,7 +476,7 @@ fn((t) => {
     { buffer: dstBuffer, offset: appliedOffset, bytesPerRow, rowsPerImage },
     layout.mipSize
   );
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   // Check if the contents of the destination buffer are what we expect.
   const expectedData = new Uint8Array(dstBufferSize);
@@ -640,7 +640,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -655,7 +655,7 @@ fn((t) => {
   renderPass.setPipeline(renderPipeline);
   renderPass.draw(1);
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.CheckBufferAndOutputTexture(vertexBuffer, bufferSize, outputTexture);
 });
@@ -705,7 +705,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -720,7 +720,7 @@ fn((t) => {
   renderPass.setIndexBuffer(indexBuffer, 'uint16', bufferOffset, 4);
   renderPass.drawIndexed(1);
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.CheckBufferAndOutputTexture(indexBuffer, bufferSize, outputTexture);
 });
@@ -771,7 +771,7 @@ fn((t) => {
   });
 
   // Initialize outputTexture to green.
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   t.RecordInitializeTextureColor(encoder, outputTexture, { r: 0.0, g: 1.0, b: 0.0, a: 1.0 });
 
   const renderPass = encoder.beginRenderPass({
@@ -798,7 +798,7 @@ fn((t) => {
   }
 
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   // The indirect buffer should be lazily cleared to 0, so we actually draw nothing and the color
   // attachment will keep its original color (green) after we end the render pass.
@@ -847,7 +847,7 @@ fn((t) => {
   });
 
   // Initialize outputTexture to green.
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   t.RecordInitializeTextureColor(encoder, outputTexture, { r: 0.0, g: 1.0, b: 0.0, a: 1.0 });
 
   const bindGroup = t.device.createBindGroup({
@@ -867,7 +867,7 @@ fn((t) => {
   computePass.setPipeline(computePipeline);
   computePass.dispatchWorkgroupsIndirect(indirectBuffer, bufferOffset);
   computePass.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   // The indirect buffer should be lazily cleared to 0, so we actually draw nothing and the color
   // attachment will keep its original color (green) after we end the compute pass.

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for capabilities added by rg11b10ufloat-renderable flag.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUConst } from '../../../constants.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUConst } from '../../../constants.js';
+import { ValidationTest } from '../validation_test.js';
 
 export const g = makeTestGroup(ValidationTest);
 
@@ -48,7 +48,7 @@ fn((t) => {
     sampleCount: 1,
     usage: GPUConst.TextureUsage.RENDER_ATTACHMENT
   });
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -86,7 +86,7 @@ fn((t) => {
     sampleCount: 1,
     usage: GPUConst.TextureUsage.RENDER_ATTACHMENT
   });
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {

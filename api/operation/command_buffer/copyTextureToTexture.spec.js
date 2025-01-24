@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = `copyTextureToTexture operation tests`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert, ErrorWithExtra, memcpy } from '../../../../common/util/util.js';import {
+**/export const description = `copyTextureToTexture operation tests`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert, ErrorWithExtra, memcpy } from '../../../../common/util/util.js';
+import {
   kBufferSizeAlignment,
   kMinDynamicBufferOffsetAlignment,
   kTextureDimensions } from
@@ -190,13 +190,13 @@ class F extends TextureTestMixin(GPUTest) {
     };
 
     {
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+      const encoder = this.device.createCommandEncoder();
       encoder.copyTextureToTexture(
         { texture: srcTexture, mipLevel: srcCopyLevel, origin: appliedSrcOffset },
         { texture: dstTexture, mipLevel: dstCopyLevel, origin: appliedDstOffset },
         appliedSize
       );
-      globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+      this.device.queue.submit([encoder.finish()]);
     }
 
     const dstBlocksPerRow = dstTextureSizeAtLevel.width / blockWidth;
@@ -273,7 +273,7 @@ class F extends TextureTestMixin(GPUTest) {
     const dstBuffer = this.createBufferTracked(dstBufferDesc);
 
     {
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+      const encoder = this.device.createCommandEncoder();
       encoder.copyTextureToBuffer(
         { texture: dstTexture, mipLevel: dstCopyLevel },
         {
@@ -283,7 +283,7 @@ class F extends TextureTestMixin(GPUTest) {
         },
         dstTextureSizeAtLevel
       );
-      globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+      this.device.queue.submit([encoder.finish()]);
     }
 
     // Fill expectedUint8DataWithPadding with the expected data of dstTexture. The other values in
@@ -436,7 +436,7 @@ class F extends TextureTestMixin(GPUTest) {
       size: outputBufferSize,
       usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
     });
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     encoder.copyTextureToBuffer(
       {
         texture: destinationTexture,
@@ -447,7 +447,7 @@ class F extends TextureTestMixin(GPUTest) {
       { buffer: outputBuffer, bytesPerRow, rowsPerImage },
       copySize
     );
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+    this.queue.submit([encoder.finish()]);
 
     const expectedStencilData = new Uint8Array(outputBufferSize);
     for (let z = 0; z < copySize[2]; ++z) {
@@ -577,7 +577,7 @@ class F extends TextureTestMixin(GPUTest) {
     const bindGroup = this.GetBindGroupForT2TCopyWithDepthTests(bindGroupLayout, copySize[2]);
 
     const hasStencil = kTextureFormatInfo[sourceTexture.format].stencil;
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     for (let srcCopyLayer = 0; srcCopyLayer < copySize[2]; ++srcCopyLayer) {
       const renderPass = encoder.beginRenderPass({
         colorAttachments: [],
@@ -600,7 +600,7 @@ class F extends TextureTestMixin(GPUTest) {
       renderPass.draw(6);
       renderPass.end();
     }
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+    this.queue.submit([encoder.finish()]);
   }
 
   VerifyDepthAspect(
@@ -626,7 +626,7 @@ class F extends TextureTestMixin(GPUTest) {
       usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
     });
     const hasStencil = kTextureFormatInfo[destinationTexture.format].stencil;
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     for (let dstCopyLayer = 0; dstCopyLayer < copySize[2]; ++dstCopyLayer) {
       // If the depth value is not expected, the color of outputColorTexture will remain Red after
       // the render pass.
@@ -660,7 +660,7 @@ class F extends TextureTestMixin(GPUTest) {
       renderPass.draw(6);
       renderPass.end();
     }
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+    this.queue.submit([encoder.finish()]);
 
     this.expectSingleColor(outputColorTexture, 'rgba8unorm', {
       size: copySize,
@@ -1313,7 +1313,7 @@ fn((t) => {
     t.InitializeDepthAspect(sourceTexture, format, srcCopyLevel, srcCopyBaseArrayLayer, copySize);
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyTextureToTexture(
     {
       texture: sourceTexture,
@@ -1327,7 +1327,7 @@ fn((t) => {
     },
     copySize
   );
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   if (kTextureFormatInfo[format].stencil) {
     assert(initialStencilData !== undefined);
@@ -1424,7 +1424,7 @@ fn((t) => {
       count: kSampleCount
     }
   });
-  const initEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const initEncoder = t.device.createCommandEncoder();
   const renderPassForInit = initEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -1438,10 +1438,10 @@ fn((t) => {
   renderPassForInit.setPipeline(renderPipelineForInit);
   renderPassForInit.draw(3);
   renderPassForInit.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[initEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[initEncoder.finish()]], () => t.queue.submit([initEncoder.finish()])));
+  t.queue.submit([initEncoder.finish()]);
 
   // Do the texture-to-texture copy
-  const copyEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const copyEncoder = t.device.createCommandEncoder();
   copyEncoder.copyTextureToTexture(
     {
       texture: sourceTexture
@@ -1451,7 +1451,7 @@ fn((t) => {
     },
     textureSize
   );
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[copyEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[copyEncoder.finish()]], () => t.queue.submit([copyEncoder.finish()])));
+  t.queue.submit([copyEncoder.finish()]);
 
   // Verify if all the sub-pixel values at the same location of sourceTexture and
   // destinationTexture are equal.
@@ -1517,7 +1517,7 @@ fn((t) => {
     size: textureSize,
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
-  const validationEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const validationEncoder = t.device.createCommandEncoder();
   const renderPassForValidation = validationEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -1532,7 +1532,7 @@ fn((t) => {
   renderPassForValidation.setBindGroup(0, bindGroup);
   renderPassForValidation.draw(6);
   renderPassForValidation.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[validationEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[validationEncoder.finish()]], () => t.queue.submit([validationEncoder.finish()])));
+  t.queue.submit([validationEncoder.finish()]);
 
   t.expectSingleColor(expectedOutputTexture, 'rgba8unorm', {
     size: [textureSize[0], textureSize[1], textureSize[2]],
@@ -1605,7 +1605,7 @@ fn((t) => {
     }
   });
 
-  const encoderForInit = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoderForInit = t.device.createCommandEncoder();
   const renderPassForInit = encoderForInit.beginRenderPass({
     colorAttachments: [],
     depthStencilAttachment: {
@@ -1618,10 +1618,10 @@ fn((t) => {
   renderPassForInit.setPipeline(renderPipelineForInit);
   renderPassForInit.draw(6);
   renderPassForInit.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoderForInit.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoderForInit.finish()]], () => t.queue.submit([encoderForInit.finish()])));
+  t.queue.submit([encoderForInit.finish()]);
 
   // Do the texture-to-texture copy
-  const copyEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const copyEncoder = t.device.createCommandEncoder();
   copyEncoder.copyTextureToTexture(
     {
       texture: sourceTexture
@@ -1631,7 +1631,7 @@ fn((t) => {
     },
     textureSize
   );
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[copyEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[copyEncoder.finish()]], () => t.queue.submit([copyEncoder.finish()])));
+  t.queue.submit([copyEncoder.finish()]);
 
   // Verify the depth values in destinationTexture are what we expected with
   // depthCompareFunction == 'equal' and depthWriteEnabled == false in the render pipeline
@@ -1671,7 +1671,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_SRC | GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoderForVerify = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoderForVerify = t.device.createCommandEncoder();
   const renderPassForVerify = encoderForVerify.beginRenderPass({
     colorAttachments: [
     {
@@ -1691,7 +1691,7 @@ fn((t) => {
   renderPassForVerify.setPipeline(renderPipelineForVerify);
   renderPassForVerify.draw(6);
   renderPassForVerify.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoderForVerify.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoderForVerify.finish()]], () => t.queue.submit([encoderForVerify.finish()])));
+  t.queue.submit([encoderForVerify.finish()]);
 
   t.expectSingleColor(colorTextureAsResolveTarget, kColorFormat, {
     size: [textureSize[0], textureSize[1], textureSize[2]],

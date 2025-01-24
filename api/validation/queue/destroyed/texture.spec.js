@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests using a destroyed texture on a queue.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { unreachable } from '../../../../../common/util/util.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { unreachable } from '../../../../../common/util/util.js';
+import { ValidationTest } from '../../validation_test.js';
 
 export const g = makeTestGroup(ValidationTest);
 
@@ -25,7 +25,7 @@ fn((t) => {
   });
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+    texture.destroy();
   }
 
   t.expectValidationError(
@@ -54,7 +54,7 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyTextureToTexture({ texture: src }, { texture: dst }, [1, 1, 1]);
   const commandBuffer = encoder.finish();
 
@@ -64,19 +64,19 @@ fn((t) => {
       shouldError = false;
       break;
     case 'src':
-      globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => src.destroy()));
+      src.destroy();
       break;
     case 'dst':
-      globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => dst.destroy()));
+      dst.destroy();
       break;
     case 'both':
-      globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => src.destroy()));
-      globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => dst.destroy()));
+      src.destroy();
+      dst.destroy();
       break;
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, shouldError);
 });
 
@@ -97,16 +97,16 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToTexture({ buffer }, { texture }, [1, 1, 1]);
   const commandBuffer = encoder.finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+    texture.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -127,16 +127,16 @@ fn((t) => {
   });
   const buffer = t.createBufferTracked({ size: 4, usage: GPUBufferUsage.COPY_DST });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyTextureToBuffer({ texture }, { buffer }, [1, 1, 1]);
   const commandBuffer = encoder.finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+    texture.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -184,11 +184,11 @@ fn((t) => {
   const commandBuffer = finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+    texture.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -231,7 +231,7 @@ fn((t) => {
     usage: GPUTextureUsage.RENDER_ATTACHMENT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+  const encoder = device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -255,13 +255,13 @@ fn((t) => {
     case 'none':
       break;
     case 'colorAttachment':
-      globalThis._TRAMPOLINE_("destroy", colorAttachment, colorAttachment.destroy, [], () => globalThis._TRAMPOLINE_("destroy", colorAttachment, colorAttachment.destroy, [], () => colorAttachment.destroy()));
+      colorAttachment.destroy();
       break;
     case 'resolveAttachment':
-      globalThis._TRAMPOLINE_("destroy", resolveAttachment, resolveAttachment.destroy, [], () => globalThis._TRAMPOLINE_("destroy", resolveAttachment, resolveAttachment.destroy, [], () => resolveAttachment.destroy()));
+      resolveAttachment.destroy();
       break;
     case 'depthStencilAttachment':
-      globalThis._TRAMPOLINE_("destroy", depthStencilAttachment, depthStencilAttachment.destroy, [], () => globalThis._TRAMPOLINE_("destroy", depthStencilAttachment, depthStencilAttachment.destroy, [], () => depthStencilAttachment.destroy()));
+      depthStencilAttachment.destroy();
       break;
     default:
       unreachable();
@@ -270,7 +270,7 @@ fn((t) => {
   const shouldError = textureToDestroy !== 'none';
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, shouldError);
 });
 //# sourceMappingURL=texture.spec.js.map

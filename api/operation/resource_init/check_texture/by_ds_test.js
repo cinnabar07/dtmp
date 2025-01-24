@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { assert } from '../../../../../common/util/util.js';import { kTextureFormatInfo } from '../../../../format_info.js';import { virtualMipSize } from '../../../../util/texture/base.js';
+**/import { assert } from '../../../../../common/util/util.js';import { kTextureFormatInfo } from '../../../../format_info.js';
+import { virtualMipSize } from '../../../../util/texture/base.js';
+
 
 
 function makeFullscreenVertexModule(device) {
@@ -138,7 +138,7 @@ subresourceRange) =>
       resolveTarget = resolveTexture.createView();
     }
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const commandEncoder = t.device.createCommandEncoder();
     commandEncoder.pushDebugGroup('checkContentsWithDepthStencil');
 
     const pass = commandEncoder.beginRenderPass({
@@ -185,7 +185,7 @@ subresourceRange) =>
     pass.end();
 
     commandEncoder.popDebugGroup();
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+    t.queue.submit([commandEncoder.finish()]);
 
     t.expectSingleColor(resolveTexture || renderTexture, 'r8unorm', {
       size: [width, height, 1],

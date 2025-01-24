@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Texture Usages Validation Tests in Render Pass and Compute Pass.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { pp } from '../../../../../common/util/preprocessor.js';import { assert } from '../../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { pp } from '../../../../../common/util/preprocessor.js';
+import { assert } from '../../../../../common/util/util.js';
 import { GPUConst } from '../../../../constants.js';
 import {
   kDepthStencilFormats,
@@ -191,7 +191,7 @@ class TextureUsageTracking extends ValidationTest {
       usage2
     );
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = compute ?
     encoder.beginComputePass() :
     this.beginSimpleRenderPass(encoder, this.createTestTexture().createView());
@@ -527,7 +527,7 @@ fn((t) => {
     t.skip('different views of same texture are not supported in compatibility mode');
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   if (type0 === 'render-target') {
     // Note that type1 is 'render-target' too. So we don't need to create bindings.
     assert(type1 === 'render-target');
@@ -748,7 +748,7 @@ fn((t) => {
   const view1HasDepth = kTextureFormatInfo[view1ResolvedFormat].depth;
   const view1HasStencil = kTextureFormatInfo[view1ResolvedFormat].stencil;
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   // Color attachment's size should match depth/stencil attachment's size. Note that if
   // type1 !== 'render-target' then there's no depthStencilAttachment to match anyway.
   const depthStencilFormat = type1 === 'render-target' ? view1ResolvedFormat : undefined;
@@ -888,7 +888,7 @@ fn((t) => {
 
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   if (compute) {
     const pass = encoder.beginComputePass();
     pass.setBindGroup(0, bindGroup);
@@ -954,7 +954,7 @@ fn((t) => {
     entries: [{ binding: 0, resource: view }]
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = t.beginSimpleRenderPass(encoder, view2);
   pass.setBindGroup(0, bindGroup);
   pass.end();
@@ -1026,7 +1026,7 @@ fn((t) => {
     sampleType: 'unfilterable-float'
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = compute ?
   encoder.beginComputePass() :
   t.beginSimpleRenderPass(encoder, t.createTestTexture().createView());
@@ -1147,7 +1147,7 @@ fn((t) => {
     });
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   // At least one binding is in bundle, which means that its type is not 'render-target'.
   // As a result, only one binding's type is 'render-target' at most.
   const pass = t.beginSimpleRenderPass(
@@ -1302,7 +1302,7 @@ fn((t) => {
     primitive: { topology: 'triangle-list' }
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = compute ?
   encoder.beginComputePass() :
   encoder.beginRenderPass({
@@ -1465,7 +1465,7 @@ fn((t) => {
 
   const { bindGroupLayouts, bindGroups } = t.makeTwoBindGroupsWithOneTextureView(usage1, usage2);
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pipelineUsingBG0 = t.createNoOpComputePipeline(
     t.device.createPipelineLayout({
@@ -1522,7 +1522,7 @@ fn((t) => {
 
   const { bindGroupLayouts, bindGroups } = t.makeTwoBindGroupsWithOneTextureView(usage1, usage2);
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pipelineUsingBG0 = t.createNoOpRenderPipeline(
     t.device.createPipelineLayout({

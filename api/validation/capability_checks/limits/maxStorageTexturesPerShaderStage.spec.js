@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { range, reorder, kReorderOrderKeys,
+**/import { range, reorder,
+
+  kReorderOrderKeys,
   assert } from
 '../../../../../common/util/util.js';
 import { GPUConst } from '../../../../constants.js';

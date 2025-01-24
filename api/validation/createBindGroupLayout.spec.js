@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 createBindGroupLayout validation tests.
 
 TODO: make sure tests are complete.
-`;import { kUnitCaseParamsBuilder } from '../../../common/framework/params_builder.js';import { makeTestGroup } from '../../../common/framework/test_group.js';import {
+`;import { kUnitCaseParamsBuilder } from '../../../common/framework/params_builder.js';
+import { makeTestGroup } from '../../../common/framework/test_group.js';
+import {
   kShaderStages,
   kShaderStageCombinations,
   kStorageTextureAccessValues,

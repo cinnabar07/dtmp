@@ -1,9 +1,9 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { GPUConst } from '../../../../constants.js';import { isPowerOfTwo } from '../../../../util/math.js';import { kMinimumLimitBaseParams,
-makeLimitTestGroup } from
+**/import { GPUConst } from '../../../../constants.js';import { isPowerOfTwo } from '../../../../util/math.js';
+import {
+  kMinimumLimitBaseParams,
+  makeLimitTestGroup } from
 
 
 './limit_utils.js';
@@ -155,7 +155,7 @@ fn(async (t) => {
 
       });
 
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+      const encoder = device.createCommandEncoder();
       const pass = encoder.beginComputePass();
       pass.setBindGroup(0, bindGroup, [testValue]);
       pass.end();
@@ -164,7 +164,7 @@ fn(async (t) => {
         encoder.finish();
       }, shouldError);
 
-      globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+      buffer.destroy();
     }
   );
 });

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for validation in createBuffer.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from '../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert } from '../../../../common/util/util.js';
+import {
   kAllBufferUsageBits,
   kBufferSizeAlignment,
   kBufferUsages } from

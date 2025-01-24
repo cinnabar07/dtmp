@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for indexed draws accessing the index buffer.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { ValidationTest } from '../../validation_test.js';
+
 class F extends ValidationTest {
   createIndexBuffer(indexData) {
     return this.makeBufferWithContents(new Uint32Array(indexData), GPUBufferUsage.INDEX);
@@ -69,7 +69,7 @@ class F extends ValidationTest {
   {
     const pipeline = this.createRenderPipeline();
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = this.beginRenderPass(encoder);
     pass.setPipeline(pipeline);
     pass.setIndexBuffer(indexBuffer, 'uint32');
@@ -77,7 +77,7 @@ class F extends ValidationTest {
     pass.end();
 
     if (isSuccess) {
-      globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+      this.device.queue.submit([encoder.finish()]);
     } else {
       this.expectValidationError(() => {
         encoder.finish();

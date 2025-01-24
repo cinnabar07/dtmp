@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = `Texture related validation tests for B2T copy and T2B copy and writeTexture.`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from '../../../../common/util/util.js';import { kTextureDimensions, kTextureUsages } from '../../../capability_info.js';
+**/export const description = `Texture related validation tests for B2T copy and T2B copy and writeTexture.`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert } from '../../../../common/util/util.js';
+import { kTextureDimensions, kTextureUsages } from '../../../capability_info.js';
 import { GPUConst } from '../../../constants.js';
 import {
   kColorTextureFormats,

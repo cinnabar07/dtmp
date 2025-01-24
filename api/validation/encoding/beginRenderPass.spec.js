@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Note: render pass 'occlusionQuerySet' validation is tested in queries/general.spec.ts
 
@@ -23,7 +21,9 @@ Notes:
 >     - {all possible {depth, stencil} load ops, load values {in range, negative, too large}}
 >     - all possible {depth, stencil} store ops
 >     - depthReadOnly {t,f}, stencilReadOnly {t,f}
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { ValidationTest } from '../validation_test.js';
+
 export const g = makeTestGroup(ValidationTest);
 
 g.test('color_attachments,device_mismatch').

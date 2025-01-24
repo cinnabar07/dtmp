@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/import { assert } from '../../../../../common/util/util.js';import { kTextureFormatInfo } from '../../../../format_info.js';import { virtualMipSize } from '../../../../util/texture/base.js';
+
+
 
 export const checkContentsByBufferCopy = (
 t,
@@ -49,13 +49,13 @@ subresourceRange) =>
       usage: GPUTextureUsage.COPY_DST | GPUTextureUsage.COPY_SRC
     });
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const commandEncoder = t.device.createCommandEncoder();
     commandEncoder.copyTextureToTexture(
       { texture, mipLevel: level, origin: { x: 0, y: 0, z: layer } },
       { texture: dst, mipLevel: 0 },
       { width, height, depthOrArrayLayers: depth }
     );
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+    t.queue.submit([commandEncoder.finish()]);
 
     t.expectSingleColor(dst, format, {
       size: [width, height, depth],

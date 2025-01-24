@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `Test culling and rasterization state.
 
 Test coverage:
 Test all culling combinations of GPUFrontFace and GPUCullMode show the correct output.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kTextureFormatInfo } from '../../../format_info.js';import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kTextureFormatInfo } from '../../../format_info.js';
+import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
 
 function faceIsCulled(face, frontFace, cullMode) {
   return cullMode !== 'none' && frontFace === face === (cullMode === 'front');
@@ -47,7 +47,7 @@ class CullingTest extends TextureTestMixin(GPUTest) {
   expectedBottomRightColor)
   {
     const { device } = this;
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+    const encoder = device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -96,7 +96,7 @@ class CullingTest extends TextureTestMixin(GPUTest) {
     pass.draw(3);
     pass.end();
 
-    globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => device.queue.submit([encoder.finish()])));
+    device.queue.submit([encoder.finish()]);
 
     this.checkCornerPixels(texture, expectedTopLeftColor, expectedBottomRightColor);
   }
@@ -178,7 +178,7 @@ fn((t) => {
     }
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -290,7 +290,7 @@ fn((t) => {
   pass.draw(6);
   pass.end();
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   // front facing color is green, non front facing is red, background is blue
   const kCCWTriangleTopLeftColor = faceColor('ccw', frontFace, cullMode);

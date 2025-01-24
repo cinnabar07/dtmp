@@ -1,15 +1,15 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 TODO: Test more corner case values for Float16 / Float32 (INF, NaN, ...) and reduce the
 float tolerance.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert,
-filterUniqueValueTestVariants,
-makeValueTestVariant,
-memcpy,
-unreachable } from
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  assert,
+  filterUniqueValueTestVariants,
+  makeValueTestVariant,
+  memcpy,
+  unreachable } from
 '../../../../common/util/util.js';
 import {
   kPerStageBindingLimits,
@@ -288,7 +288,7 @@ struct VSOutputs {
       usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -308,7 +308,7 @@ struct VSOutputs {
     pass.draw(vertexCount, instanceCount);
     pass.end();
 
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
 
     this.expectSingleColor(testTexture, 'r32sint', {
       size: [vertexCount, instanceCount, 1],
@@ -427,51 +427,25 @@ struct VSOutputs {
 
       case 'unorm':{
           if (formatInfo.bytesPerComponent === 'packed') {
+            assert(format === 'unorm10-10-10-2'); // This is the only packed format for now.
             assert(bitSize === 0);
 
-            switch (format) {
-              case 'unorm10-10-10-2':{
 
-                  const data = [
-                  [0, 0, 0, 0],
-                  [1023, 1023, 1023, 3],
-                  [243, 567, 765, 2]];
+            const data = [
+            [0, 0, 0, 0],
+            [1023, 1023, 1023, 3],
+            [243, 567, 765, 2]];
 
-                  const vertexData = new Uint32Array(data.map(makeRgb10a2)).buffer;
-                  const expectedData = new Float32Array(data.flat().map(normalizeRgb10a2)).buffer;
+            const vertexData = new Uint32Array(data.map(makeRgb10a2)).buffer;
+            const expectedData = new Float32Array(data.flat().map(normalizeRgb10a2)).buffer;
 
-                  return {
-                    shaderBaseType: 'f32',
-                    testComponentCount: data.flat().length,
-                    expectedData,
-                    vertexData,
-                    floatTolerance: 0.1 / 1023
-                  };
-                }
-
-              case 'unorm8x4-bgra':{
-                  const data = [42, 0, 1, 2, 3, 4, 128, 255];
-                  const vertexData = new Uint8Array(data).buffer;
-                  const expectedData = new Float32Array(
-                    data.map((v) => normalizedIntegerAsFloat(v, 8, false))
-                  );
-
-                  for (let i = 0; i + 2 < expectedData.length; i += 4) {
-                    const r = expectedData[i + 0];
-                    const b = expectedData[i + 2];
-                    expectedData[i + 0] = b;
-                    expectedData[i + 2] = r;
-                  }
-
-                  return {
-                    shaderBaseType: 'f32',
-                    testComponentCount: data.length,
-                    expectedData: expectedData.buffer,
-                    vertexData,
-                    floatTolerance: 0.1 / 255
-                  };
-                }
-            }
+            return {
+              shaderBaseType: 'f32',
+              testComponentCount: data.flat().length,
+              expectedData,
+              vertexData,
+              floatTolerance: 0.1 / 1023
+            };
           }
 
 

@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Memory Synchronization Tests for multiple buffers: read before write, read after write, and write after write.
 
@@ -17,9 +15,11 @@ Wait on another fence, then call expectContents to verify the dst buffer value.
   - If two writes are in the same passes, render result has loose guarantees.
 
 TODO: Tests with more than one buffer to try to stress implementations a little bit more.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { kOperationBoundaries,
-kBoundaryInfo,
-OperationContextHelper } from
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import {
+  kOperationBoundaries,
+  kBoundaryInfo,
+  OperationContextHelper } from
 '../operation_context_helper.js';
 
 import {
@@ -245,7 +245,7 @@ combine('secondDrawUseBundle', [false, true])
 fn(async (t) => {
   const { firstDrawUseBundle, secondDrawUseBundle } = t.params;
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const passEncoder = t.beginSimpleRenderPass(encoder);
 
   const kBufferCount = 4;
@@ -272,7 +272,7 @@ fn(async (t) => {
   }
 
   passEncoder.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
   for (let b = 0; b < kBufferCount; ++b) {
     t.verifyDataTwoValidValues(buffers[b], 2 * b + 1, 2 * b + 2);
   }
@@ -288,7 +288,7 @@ desc(
   `
 ).
 fn(async (t) => {
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const passEncoder = t.beginSimpleRenderPass(encoder);
   const renderEncoder = t.device.createRenderBundleEncoder({
     colorFormats: ['rgba8unorm']
@@ -311,7 +311,7 @@ fn(async (t) => {
 
   passEncoder.executeBundles([renderEncoder.finish()]);
   passEncoder.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
   for (let b = 0; b < kBufferCount; ++b) {
     t.verifyDataTwoValidValues(buffers[b], 2 * b + 1, 2 * b + 2);
   }
@@ -327,7 +327,7 @@ desc(
   `
 ).
 fn(async (t) => {
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginComputePass();
 
   const kBufferCount = 4;
@@ -347,7 +347,7 @@ fn(async (t) => {
 
   pass.end();
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
   for (let b = 0; b < kBufferCount; ++b) {
     t.verifyData(buffers[b], 2 * b + 2);
   }

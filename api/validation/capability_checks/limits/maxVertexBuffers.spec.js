@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kRenderEncoderTypes, kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';function getPipelineDescriptor(device, testValue) {const module = device.createShaderModule({ code: `
+**/import { kRenderEncoderTypes, kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';function getPipelineDescriptor(device, testValue) {
+  const module = device.createShaderModule({
+    code: `
       @vertex fn vs(@location(0) p: vec4f) -> @builtin(position) vec4f {
         return p;
       }`
-    });
+  });
   const buffers = new Array(testValue);
   buffers[testValue - 1] = {
     arrayStride: 16,
@@ -73,7 +73,7 @@ fn(async (t) => {
         `lastIndex: ${lastIndex}, actualLimit: ${actualLimit}, shouldError: ${shouldError}`
       );
 
-      globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+      buffer.destroy();
     }
   );
 });

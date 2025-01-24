@@ -1,11 +1,11 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Ensure state is set correctly. Tries to stress state caching (setting different states multiple
 times in different orders) for setBindGroup and setPipeline.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { GPUConst } from '../../../../constants.js';import { kProgrammableEncoderTypes } from '../../../../util/command_buffer_maker.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { GPUConst } from '../../../../constants.js';
+import { kProgrammableEncoderTypes } from '../../../../util/command_buffer_maker.js';
 
 import { ProgrammableStateTest } from './programmable_state_test.js';
 

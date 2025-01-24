@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for GPUDevice.lost.
-`;import { Fixture } from '../../../../common/framework/fixture.js';import { makeTestGroup } from '../../../../common/framework/test_group.js';import { attemptGarbageCollection } from '../../../../common/util/collect_garbage.js';
+`;import { Fixture } from '../../../../common/framework/fixture.js';
+import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { attemptGarbageCollection } from '../../../../common/util/collect_garbage.js';
 import { getGPU } from '../../../../common/util/navigator_gpu.js';
 import {
   assert,
@@ -43,7 +43,7 @@ fn(async (t) => {
   // Wraps a lost promise object creation in a function scope so that the device has the best
   // chance of being gone and ready for GC before trying to resolve the lost promise.
   const { lost } = await (async () => {
-    const adapter = await globalThis._TRAMPOLINE_("requestAdapter", getGPU(t.rec), getGPU(t.rec).requestAdapter, [], () => getGPU(t.rec).requestAdapter());
+    const adapter = await getGPU(t.rec).requestAdapter();
     assert(adapter !== null);
     const device = await t.requestDeviceTracked(adapter);
     return { lost: device.lost };
@@ -56,17 +56,17 @@ fn(async (t) => {
 g.test('lost_on_destroy').
 desc(`'lost' is resolved, with reason='destroyed', on GPUDevice.destroy().`).
 fn(async (t) => {
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", getGPU(t.rec), getGPU(t.rec).requestAdapter, [], () => getGPU(t.rec).requestAdapter());
+  const adapter = await getGPU(t.rec).requestAdapter();
   assert(adapter !== null);
   const device = await t.requestDeviceTracked(adapter);
   t.expectDeviceDestroyed(device);
-  globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+  device.destroy();
 });
 
 g.test('same_object').
 desc(`'lost' provides the same Promise and GPUDeviceLostInfo objects each time it's accessed.`).
 fn(async (t) => {
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", getGPU(t.rec), getGPU(t.rec).requestAdapter, [], () => getGPU(t.rec).requestAdapter());
+  const adapter = await getGPU(t.rec).requestAdapter();
   assert(adapter !== null);
   const device = await t.requestDeviceTracked(adapter);
 
@@ -76,7 +76,7 @@ fn(async (t) => {
   t.expect(lostPromise1 === lostPromise2);
 
   // Promise object should still be the same after destroy.
-  globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+  device.destroy();
   const lostPromise3 = device.lost;
   t.expect(lostPromise1 === lostPromise3);
 

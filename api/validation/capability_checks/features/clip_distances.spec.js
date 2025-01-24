@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { range } from '../../../../../common/util/util.js';import { align } from '../../../../util/math.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from '../limits/limit_utils.js';function getPipelineDescriptorWithClipDistances(
+**/import { range } from '../../../../../common/util/util.js';import { align } from '../../../../util/math.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from '../limits/limit_utils.js';
+
+function getPipelineDescriptorWithClipDistances(
 device,
 interStageShaderVariables,
 pointList,
@@ -157,6 +157,6 @@ fn(async (t) => {
   const error = await deviceInTest.popErrorScope();
   t.expect(!!error === shouldError, `${error?.message || 'no error when one was expected'}`);
 
-  globalThis._TRAMPOLINE_("destroy", deviceInTest, deviceInTest.destroy, [], () => globalThis._TRAMPOLINE_("destroy", deviceInTest, deviceInTest.destroy, [], () => deviceInTest.destroy()));
+  deviceInTest.destroy();
 });
 //# sourceMappingURL=clip_distances.spec.js.map

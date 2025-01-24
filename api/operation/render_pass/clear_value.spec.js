@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for render pass clear values.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from '../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert } from '../../../../common/util/util.js';
+import {
   kTextureFormatInfo,
   kDepthStencilFormats,
   depthStencilFormatAspectSize } from
@@ -132,7 +132,7 @@ fn((t) => {
   stencilClearValue :
   expectedStencilValue;
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const depthStencilAttachment = {
     view: stencilTexture.createView(),
@@ -177,7 +177,7 @@ fn((t) => {
     [1, 1, 1]
   );
 
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   t.expectSingleColor(colorTexture, colorFormat, {
     size: [1, 1, 1],

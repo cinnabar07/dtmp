@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 API validation tests for clearBuffer.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { kBufferUsages } from '../../../../capability_info.js';import { kResourceStates } from '../../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { kBufferUsages } from '../../../../capability_info.js';
+import { kResourceStates } from '../../../../gpu_test.js';
 import { kMaxSafeMultipleOf8 } from '../../../../util/math.js';
 import { ValidationTest } from '../../validation_test.js';
 
@@ -17,7 +17,7 @@ class F extends ValidationTest {
   {
     const { buffer, offset, size, isSuccess } = options;
 
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     commandEncoder.clearBuffer(buffer, offset, size);
 
     this.expectValidationError(() => {
@@ -39,7 +39,7 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_DST
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   commandEncoder.clearBuffer(buffer, 0, 8);
 
   if (bufferState === 'invalid') {
@@ -49,7 +49,7 @@ fn((t) => {
   } else {
     const cmd = commandEncoder.finish();
     t.expectValidationError(() => {
-      globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cmd]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cmd]], () => t.device.queue.submit([cmd])));
+      t.device.queue.submit([cmd]);
     }, bufferState === 'destroyed');
   }
 });
@@ -65,11 +65,11 @@ fn((t) => {
   const sourceDevice = mismatched ? t.mismatchedDevice : t.device;
   const size = 8;
 
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  sourceDevice, sourceDevice.createBuffer, [{
-    size,
-    usage: GPUBufferUsage.COPY_DST
-  }], () => globalThis._TRAMPOLINE_("createBuffer", sourceDevice, sourceDevice.createBuffer, [{ size, usage: GPUBufferUsage.COPY_DST }], () => sourceDevice.createBuffer({ size, usage: GPUBufferUsage.COPY_DST })))
+  const buffer = t.trackForCleanup(
+    sourceDevice.createBuffer({
+      size,
+      usage: GPUBufferUsage.COPY_DST
+    })
   );
 
   t.TestClearBuffer({

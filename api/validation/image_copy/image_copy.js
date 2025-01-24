@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { depthStencilFormatCopyableAspects, kTextureFormatInfo,
+**/import { depthStencilFormatCopyableAspects,
+
+  kTextureFormatInfo,
   isCompressedTextureFormat } from
 '../../../format_info.js';
 import { align } from '../../../util/math.js';
@@ -44,13 +44,13 @@ export class ImageCopyTest extends ValidationTest {
             usage: GPUBufferUsage.COPY_SRC
           });
 
-          const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+          const encoder = this.device.createCommandEncoder();
           encoder.copyBufferToTexture({ buffer, ...textureDataLayout }, textureCopyView, size);
 
           if (submit) {
             const cmd = encoder.finish();
             this.expectValidationError(() => {
-              globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => this.device.queue.submit([cmd])));
+              this.device.queue.submit([cmd]);
             }, !success);
           } else {
             this.expectValidationError(() => {
@@ -71,13 +71,13 @@ export class ImageCopyTest extends ValidationTest {
             usage: GPUBufferUsage.COPY_DST
           });
 
-          const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+          const encoder = this.device.createCommandEncoder();
           encoder.copyTextureToBuffer(textureCopyView, { buffer, ...textureDataLayout }, size);
 
           if (submit) {
             const cmd = encoder.finish();
             this.expectValidationError(() => {
-              globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => this.device.queue.submit([cmd])));
+              this.device.queue.submit([cmd]);
             }, !success);
           } else {
             this.expectValidationError(() => {

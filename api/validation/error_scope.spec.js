@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Error scope validation tests.
 
@@ -9,7 +7,9 @@ Note these must create their own device, not use GPUTest (that one already has e
 
 TODO: (POSTV1) Test error scopes of different threads and make sure they go to the right place.
 TODO: (POSTV1) Test that unhandled errors go the right device, and nowhere if the device was dropped.
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { kErrorScopeFilters, kGeneratableErrorScopeFilters } from '../../capability_info.js';import { ErrorTest } from '../../error_test.js';
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { kErrorScopeFilters, kGeneratableErrorScopeFilters } from '../../capability_info.js';
+import { ErrorTest } from '../../error_test.js';
 
 export const g = makeTestGroup(ErrorTest);
 

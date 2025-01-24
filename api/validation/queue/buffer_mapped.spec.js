@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for the map-state of mappable buffers used in submitted command buffers.
 
@@ -21,7 +19,9 @@ Test those operations against buffers in the following states:
 
 Also tests every order of operations combination of mapping operations and command recording
 operations to ensure the mapping state is only considered when a command buffer is submitted.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { ValidationTest } from '../validation_test.js';
+
 class F extends ValidationTest {
   async runBufferDependencyTest(usage, callback) {
     const bufferDesc = {
@@ -40,7 +40,7 @@ class F extends ValidationTest {
     callback(mappableBuffer);
 
     // Map the buffer
-    const mapPromise = globalThis._TRAMPOLINE_("mapAsync", mappableBuffer, mappableBuffer.mapAsync, [mapMode], () => globalThis._TRAMPOLINE_("mapAsync", mappableBuffer, mappableBuffer.mapAsync, [mapMode], () => mappableBuffer.mapAsync(mapMode)));
+    const mapPromise = mappableBuffer.mapAsync(mapMode);
 
     // Run the given operation while the buffer is in the process of mapping. Should fail.
     this.expectValidationError(() => {
@@ -123,18 +123,18 @@ fn(async (t) => {
   await t.runBufferDependencyTest(
     GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC,
     (buffer) => {
-      const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+      const commandEncoder = t.device.createCommandEncoder();
       commandEncoder.copyBufferToBuffer(buffer, 0, destBuffer, 0, 4);
-      globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+      t.queue.submit([commandEncoder.finish()]);
     }
   );
 
   await t.runBufferDependencyTest(
     GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST,
     (buffer) => {
-      const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+      const commandEncoder = t.device.createCommandEncoder();
       commandEncoder.copyBufferToBuffer(sourceBuffer, 0, buffer, 0, 4);
-      globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+      t.queue.submit([commandEncoder.finish()]);
     }
   );
 });
@@ -155,9 +155,9 @@ fn(async (t) => {
   await t.runBufferDependencyTest(
     GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC,
     (buffer) => {
-      const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+      const commandEncoder = t.device.createCommandEncoder();
       commandEncoder.copyBufferToTexture({ buffer }, { texture }, size);
-      globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+      t.queue.submit([commandEncoder.finish()]);
     }
   );
 });
@@ -178,9 +178,9 @@ fn(async (t) => {
   await t.runBufferDependencyTest(
     GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST,
     (buffer) => {
-      const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+      const commandEncoder = t.device.createCommandEncoder();
       commandEncoder.copyTextureToBuffer({ texture }, { buffer }, size);
-      globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+      t.queue.submit([commandEncoder.finish()]);
     }
   );
 });
@@ -251,7 +251,7 @@ fn(async (t) => {
     usage: GPUBufferUsage.COPY_DST
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   let commandBuffer;
 
   const steps = {
@@ -259,7 +259,7 @@ fn(async (t) => {
       commandEncoder.copyBufferToBuffer(buffer, 0, targetBuffer, 0, 4);
     },
     map: async () => {
-      await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.WRITE], () => buffer.mapAsync(GPUMapMode.WRITE)));
+      await buffer.mapAsync(GPUMapMode.WRITE);
     },
     unmap: () => {
       buffer.unmap();
@@ -269,7 +269,7 @@ fn(async (t) => {
     },
     submit: () => {
       t.expectValidationError(() => {
-        globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+        t.queue.submit([commandBuffer]);
       }, shouldError);
     }
   };

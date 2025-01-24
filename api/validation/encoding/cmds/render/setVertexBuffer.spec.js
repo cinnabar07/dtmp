@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for setVertexBuffer on render pass and render bundle.
-`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';import { makeValueTestVariant } from '../../../../../../common/util/util.js';import { GPUConst } from '../../../../../constants.js';
+`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';
+import { makeValueTestVariant } from '../../../../../../common/util/util.js';
+import { GPUConst } from '../../../../../constants.js';
 import { kResourceStates } from '../../../../../gpu_test.js';
 import { ValidationTest } from '../../../validation_test.js';
 
@@ -69,11 +69,11 @@ fn((t) => {
   const { encoderType, mismatched } = t.params;
   const sourceDevice = mismatched ? t.mismatchedDevice : t.device;
 
-  const vertexBuffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  sourceDevice, sourceDevice.createBuffer, [{
-    size: 16,
-    usage: GPUBufferUsage.VERTEX
-  }], () => globalThis._TRAMPOLINE_("createBuffer", sourceDevice, sourceDevice.createBuffer, [{ size: 16, usage: GPUBufferUsage.VERTEX }], () => sourceDevice.createBuffer({ size: 16, usage: GPUBufferUsage.VERTEX })))
+  const vertexBuffer = t.trackForCleanup(
+    sourceDevice.createBuffer({
+      size: 16,
+      usage: GPUBufferUsage.VERTEX
+    })
   );
 
   const { encoder, validateFinish } = t.createEncoder(encoderType);

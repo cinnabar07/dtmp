@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { assert, unreachable } from '../../../../common/util/util.js'; /**
+**/import { assert, unreachable } from '../../../../common/util/util.js';
+
+/**
  * Boundary between the first operation, and the second operation.
  */
 export const kOperationBoundaries = [
@@ -217,12 +217,12 @@ export class OperationContextHelper {
         break;
       case 'command-encoder':
         assert(this.currentContext === 'queue');
-        this.commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+        this.commandEncoder = this.device.createCommandEncoder();
         break;
       case 'compute-pass-encoder':
         switch (this.currentContext) {
           case 'queue':
-            this.commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+            this.commandEncoder = this.device.createCommandEncoder();
           // fallthrough
           case 'command-encoder':
             assert(this.commandEncoder !== undefined);
@@ -237,7 +237,7 @@ export class OperationContextHelper {
       case 'render-pass-encoder':
         switch (this.currentContext) {
           case 'queue':
-            this.commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+            this.commandEncoder = this.device.createCommandEncoder();
           // fallthrough
           case 'command-encoder':
             assert(this.commandEncoder !== undefined);
@@ -254,7 +254,7 @@ export class OperationContextHelper {
       case 'render-bundle-encoder':
         switch (this.currentContext) {
           case 'queue':
-            this.commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+            this.commandEncoder = this.device.createCommandEncoder();
           // fallthrough
           case 'command-encoder':
             assert(this.commandEncoder !== undefined);
@@ -286,7 +286,7 @@ export class OperationContextHelper {
 
   flushCommandBuffers() {
     if (this.commandBuffers.length) {
-      globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [this.commandBuffers], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [this.commandBuffers], () => this.queue.submit(this.commandBuffers)));
+      this.queue.submit(this.commandBuffers);
       this.commandBuffers = [];
     }
   }

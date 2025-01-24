@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kTextureFormatInfo } from '../../../format_info.js';import { getFragmentShaderCodeWithOutput, getPlainTypeInfo, kDefaultVertexShaderCode } from
+**/import { kTextureFormatInfo } from '../../../format_info.js';import { getFragmentShaderCodeWithOutput,
+getPlainTypeInfo,
+kDefaultVertexShaderCode } from
 '../../../util/shader.js';
 import { ValidationTest } from '../validation_test.js';
 

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Basic command buffer rendering tests.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { now } from '../../../../common/util/util.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { now } from '../../../../common/util/util.js';
+import { GPUTest } from '../../../gpu_test.js';
 import { checkElementsEqual } from '../../../util/check_contents.js';
 
 export const g = makeTestGroup(GPUTest);
@@ -22,7 +22,7 @@ g.test('clear').fn((t) => {
   });
   const colorAttachmentView = colorAttachment.createView();
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -39,7 +39,7 @@ g.test('clear').fn((t) => {
     { buffer: dst, bytesPerRow: 256 },
     { width: 1, height: 1, depthOrArrayLayers: 1 }
   );
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(dst, new Uint8Array([0x00, 0xff, 0x00, 0xff]));
 });
@@ -89,7 +89,7 @@ g.test('fullscreen_quad').fn((t) => {
     primitive: { topology: 'triangle-list' }
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -108,7 +108,7 @@ g.test('fullscreen_quad').fn((t) => {
     { buffer: dst, bytesPerRow: 256 },
     { width: 1, height: 1, depthOrArrayLayers: 1 }
   );
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(dst, new Uint8Array([0x00, 0xff, 0x00, 0xff]));
 });
@@ -257,7 +257,7 @@ fn(async (t) => {
   });
 
   const runPipeline = (numVertices, numInstances) => {
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const encoder = t.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -298,7 +298,7 @@ fn(async (t) => {
 
     const params = new Uint32Array([numVertices, numInstances]);
     t.device.queue.writeBuffer(paramsBuffer, 0, params, 0, 2);
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+    t.device.queue.submit([encoder.finish()]);
 
     const yellow = [0xff, 0xff, 0x00, 0xff];
     const allYellow = new Uint8Array([...yellow, ...yellow, ...yellow]);

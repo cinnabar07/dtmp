@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = 'copyBufferToBuffer operation tests';import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest } from '../../../gpu_test.js';
+**/export const description = 'copyBufferToBuffer operation tests';import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest } from '../../../gpu_test.js';
+
 export const g = makeTestGroup(GPUTest);
 
 g.test('single').
@@ -39,9 +39,9 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToBuffer(src, srcOffset, dst, dstOffset, copySize);
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   const expectedDstData = new Uint8Array(dstBufferSize);
   for (let i = 0; i < copySize; ++i) {
@@ -69,10 +69,10 @@ fn((t) => {
     GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
   );
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToBuffer(src, 0, dst, 4, 4);
   encoder.copyBufferToBuffer(dst, 0, src, 4, 4);
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   const expectedSrcData = new Uint8Array([1, 2, 3, 4, 10, 20, 30, 40]);
   const expectedDstData = new Uint8Array([10, 20, 30, 40, 1, 2, 3, 4]);
@@ -96,10 +96,10 @@ fn((t) => {
     usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToBuffer(src, 0, dst, 0, 16);
   encoder.copyBufferToBuffer(src, 16, dst, 8, 16);
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   const expectedDstData = new Uint32Array([1, 2, 5, 6, 7, 8, 0, 0]);
   t.expectGPUBufferValuesEqual(dst, expectedDstData);

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Texture Usages Validation Tests on All Kinds of WebGPU Subresource Usage Scopes.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { unreachable } from '../../../../../common/util/util.js';import { kTextureUsages } from '../../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { unreachable } from '../../../../../common/util/util.js';
+import { kTextureUsages } from '../../../../capability_info.js';
 import { ValidationTest } from '../../validation_test.js';
 import {
 
@@ -136,7 +136,7 @@ fn((t) => {
     usage: GPUTextureUsage.RENDER_ATTACHMENT,
     size: [kTextureSize, kTextureSize, 1]
   });
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPassEncoder = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -207,7 +207,7 @@ fn((t) => {
     'unfilterable-float'
   );
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPassEncoder = encoder.beginRenderPass({
     colorAttachments: [],
     depthStencilAttachment: {
@@ -280,7 +280,7 @@ fn((t) => {
     visibility
   );
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const colorTexture = t.createTextureTracked({
     format: 'r32float',
     usage: GPUTextureUsage.RENDER_ATTACHMENT,
@@ -577,7 +577,7 @@ fn((t) => {
         }
     }
   };
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   UseTextureOnCommandEncoder(texture, usage0, encoder);
   UseTextureOnCommandEncoder(texture, usage1, encoder);
   t.expectValidationError(() => {
@@ -615,7 +615,7 @@ fn((t) => {
 
   switch (bindingType) {
     case 'color-attachment':{
-        const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+        const encoder = t.device.createCommandEncoder();
         const renderPassEncoder = encoder.beginRenderPass({
           colorAttachments: [
           { view: texture.createView({ usage: viewUsage }), loadOp: 'load', storeOp: 'store' }]

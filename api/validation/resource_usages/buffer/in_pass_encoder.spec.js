@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Buffer Usages Validation Tests in Render Pass and Compute Pass.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { assert, unreachable } from '../../../../../common/util/util.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { assert, unreachable } from '../../../../../common/util/util.js';
+import { ValidationTest } from '../../validation_test.js';
 
 const kBoundBufferSize = 256;
 
@@ -164,7 +164,7 @@ fn((t) => {
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.STORAGE
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const computePassEncoder = encoder.beginComputePass();
 
   const offset0 = 0;
@@ -261,7 +261,7 @@ fn((t) => {
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.STORAGE | GPUBufferUsage.INDIRECT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const computePassEncoder = encoder.beginComputePass();
 
   const offset0 = 0;
@@ -432,7 +432,7 @@ fn((t) => {
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.STORAGE | GPUBufferUsage.INDIRECT
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const computePassEncoder = encoder.beginComputePass();
 
   const offset0 = 0;
@@ -515,7 +515,7 @@ fn((t) => {
     GPUBufferUsage.INDEX
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPassEncoder = t.beginSimpleRenderPass(encoder);
   const offset0 = 0;
   UseBufferOnRenderPassEncoder(buffer, offset0, usage0, visibility0, renderPassEncoder);
@@ -705,7 +705,7 @@ fn((t) => {
     }
   };
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPassEncoder = t.beginSimpleRenderPass(encoder);
 
   // Set buffer with usage0
@@ -904,7 +904,7 @@ fn((t) => {
     }
   };
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPassEncoder = t.beginSimpleRenderPass(encoder);
 
   const offset0 = 0;

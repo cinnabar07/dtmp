@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 This test dedicatedly tests validation of GPUPrimitiveState of createRenderPipeline.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kPrimitiveTopology, kIndexFormat } from '../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kPrimitiveTopology, kIndexFormat } from '../../../capability_info.js';
+
 import { CreateRenderPipelineValidationTest } from './common.js';
 
 export const g = makeTestGroup(CreateRenderPipelineValidationTest);

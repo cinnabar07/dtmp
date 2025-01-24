@@ -1,14 +1,14 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for validation in beginComputePass and GPUComputePassDescriptor as its optional descriptor.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kQueryTypes } from '../../../capability_info.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kQueryTypes } from '../../../capability_info.js';
+import { ValidationTest } from '../validation_test.js';
 
 class F extends ValidationTest {
   tryComputePass(success, descriptor) {
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const computePass = encoder.beginComputePass(descriptor);
     computePass.end();
 

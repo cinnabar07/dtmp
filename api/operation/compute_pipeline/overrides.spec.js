@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Compute pipeline using overridable constants test.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { range } from '../../../../common/util/util.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { range } from '../../../../common/util/util.js';
+import { GPUTest } from '../../../gpu_test.js';
 
 class F extends GPUTest {
   async ExpectShaderOutputWithConstants(
@@ -39,13 +39,13 @@ class F extends GPUTest {
       layout: pipeline.getBindGroupLayout(0)
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginComputePass();
     pass.setPipeline(pipeline);
     pass.setBindGroup(0, bindGroup);
     pass.dispatchWorkgroups(1);
     pass.end();
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
 
     this.expectGPUBufferValuesEqual(dst, expected);
   }
@@ -203,13 +203,13 @@ fn(async (t) => {
   })];
 
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginComputePass();
   pass.setPipeline(pipeline);
   pass.setBindGroup(0, bindGroups[0]);
   pass.dispatchWorkgroups(1);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(buffer, expected);
 });
@@ -376,7 +376,7 @@ fn(async (t) => {
   })];
 
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginComputePass();
   pass.setPipeline(pipelines[0]);
   pass.setBindGroup(0, bindGroups[0]);
@@ -385,7 +385,7 @@ fn(async (t) => {
   pass.setBindGroup(0, bindGroups[1]);
   pass.dispatchWorkgroups(1);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(buffers[0], expects[0]);
   t.expectGPUBufferValuesEqual(buffers[1], expects[1]);
@@ -547,7 +547,7 @@ fn(async (t) => {
   })];
 
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginComputePass();
   pass.setPipeline(pipelines[0]);
   pass.setBindGroup(0, bindGroups[0]);
@@ -562,7 +562,7 @@ fn(async (t) => {
   pass.setBindGroup(0, bindGroups[3]);
   pass.dispatchWorkgroups(1);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectGPUBufferValuesEqual(buffers[0], expects[0]);
   t.expectGPUBufferValuesEqual(buffers[1], expects[1]);

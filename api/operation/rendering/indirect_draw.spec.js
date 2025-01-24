@@ -1,11 +1,11 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for the indirect-specific aspects of drawIndirect/drawIndexedIndirect.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kDrawIndirectParametersSize,
-kDrawIndexedIndirectParametersSize } from
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  kDrawIndirectParametersSize,
+  kDrawIndexedIndirectParametersSize } from
 '../../../capability_info.js';
 import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
 
@@ -210,7 +210,7 @@ fn((t) => {
     format: kRenderTargetFormat
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -231,7 +231,7 @@ fn((t) => {
     renderPass.drawIndirect(indirectBuffer, indirectOffset);
   }
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+  t.queue.submit([commandEncoder.finish()]);
 
   t.expectSinglePixelComparisonsAreOkInTexture({ texture: renderTarget }, [
   // The bottom left area is filled

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 - Test pipeline outputs with different color attachment number, formats, component counts, etc.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { range } from '../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { range } from '../../../../common/util/util.js';
+import {
   computeBytesPerSampleFromFormats,
   kRenderableColorTextureFormats,
   kTextureFormatInfo } from
@@ -118,7 +118,7 @@ fn((t) => {
     primitive: { topology: 'triangle-list' }
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: range(attachmentCount, (i) =>
     i === emptyAttachmentId ?
@@ -134,7 +134,7 @@ fn((t) => {
   pass.setPipeline(pipeline);
   pass.draw(3);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   for (let i = 0; i < attachmentCount; i++) {
     if (i === emptyAttachmentId) {
@@ -200,7 +200,7 @@ fn((t) => {
     primitive: { topology: 'triangle-list' }
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -214,7 +214,7 @@ fn((t) => {
   pass.setPipeline(pipeline);
   pass.draw(3);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectSingleColor(renderTarget, format, {
     size: [1, 1, 1],
@@ -427,7 +427,7 @@ fn((t) => {
     primitive: { topology: 'triangle-list' }
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -441,7 +441,7 @@ fn((t) => {
   pass.setPipeline(pipeline);
   pass.draw(3);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   t.expectSingleColor(renderTarget, format, {
     size: [1, 1, 1],

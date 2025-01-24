@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for capability checking for features enabling optional texture formats.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { getGPU } from '../../../../../common/util/navigator_gpu.js';import { assert } from '../../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { getGPU } from '../../../../../common/util/navigator_gpu.js';
+import { assert } from '../../../../../common/util/util.js';
 import { kCanvasTextureFormats } from '../../../../capability_info.js';
 import { kAllTextureFormats, kTextureFormatInfo } from '../../../../format_info.js';
 import { kAllCanvasTypes, createCanvas } from '../../../../util/create_elements.js';
@@ -453,7 +453,7 @@ desc(
   `check "texture-compression-bc" is supported or both "texture-compression-etc2" and "texture-compression-astc" are supported.`
 ).
 fn(async (t) => {
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", getGPU(t.rec), getGPU(t.rec).requestAdapter, [], () => getGPU(t.rec).requestAdapter());
+  const adapter = await getGPU(t.rec).requestAdapter();
   assert(adapter !== null);
 
   const features = adapter.features;

@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `writeTexture + copyBufferToTexture + copyTextureToBuffer operation tests.
 
 * copy_with_various_rows_per_image_and_bytes_per_row: test that copying data with various bytesPerRow (including { ==, > } bytesInACompleteRow) and\
@@ -36,11 +34,13 @@ Note: more coverage of memory synchronization for different read and write textu
     DoCopyTextureToBufferWithDepthAspectTest().
 
 TODO: Expand tests of GPUExtent3D [1]
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert,
-ErrorWithExtra,
-memcpy,
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  assert,
+  ErrorWithExtra,
+  memcpy,
 
-unreachable } from
+  unreachable } from
 '../../../../common/util/util.js';
 import {
   kMinDynamicBufferOffsetAlignment,
@@ -126,7 +126,7 @@ const altDataGenerator = new DataArrayGenerator();
 
 class ImageCopyTest extends TextureTestMixin(GPUTest) {
   /**
-   * This is used for testing passing undefined members of `GPUTexelCopyBufferLayout` instead of actual
+   * This is used for testing passing undefined members of `GPUImageDataLayout` instead of actual
    * values where possible. Passing arguments as values and not as objects so that they are passed
    * by copy and not by reference.
    */
@@ -151,7 +151,7 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
   }
 
   /**
-   * This is used for testing passing undefined members of `GPUTexelCopyTextureInfo` instead of actual
+   * This is used for testing passing undefined members of `GPUImageCopyTexture` instead of actual
    * values where possible and also for testing passing the origin as `[number, number, number]`.
    * Passing arguments as values and not as objects so that they are passed by copy and not by
    * reference.
@@ -351,13 +351,13 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
       changeBeforePass
     );
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     encoder.copyTextureToBuffer(
       appliedCopyView,
       { buffer, ...appliedDataLayout },
       appliedCheckSize
     );
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
   }
 
   /** Put data into a part of the texture with an appropriate method. */
@@ -408,13 +408,13 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
         }
       case 'CopyB2T':{
           const buffer = this.makeBufferWithContents(partialData, GPUBufferUsage.COPY_SRC);
-          const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+          const encoder = this.device.createCommandEncoder();
           encoder.copyBufferToTexture(
             { buffer, ...appliedDataLayout },
             appliedCopyView,
             appliedCopySize
           );
-          globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+          this.device.queue.submit([encoder.finish()]);
 
           break;
         }
@@ -772,13 +772,13 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
       case 'CopyB2T':
         {
           const stagingBuffer = this.makeBufferWithContents(initialData, GPUBufferUsage.COPY_SRC);
-          const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+          const encoder = this.device.createCommandEncoder();
           encoder.copyBufferToTexture(
             { buffer: stagingBuffer, offset: initialDataOffset, bytesPerRow, rowsPerImage },
             { texture: srcTexture, aspect: 'stencil-only', mipLevel },
             copySize
           );
-          globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+          this.queue.submit([encoder.finish()]);
         }
         break;
       default:
@@ -840,13 +840,13 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
       size: outputBufferSize,
       usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
     });
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     encoder.copyTextureToBuffer(
       { texture: srcTexture, aspect: 'stencil-only', mipLevel },
       { buffer: outputBuffer, offset, bytesPerRow, rowsPerImage },
       copySize
     );
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+    this.queue.submit([encoder.finish()]);
 
     // Validate the data in outputBuffer is what we expect.
     const expectedData = new Uint8Array(outputBufferSize);
@@ -1011,7 +1011,7 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
     stencilTextureLayer < stencilTextureSize[2];
     ++stencilTextureLayer)
     {
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+      const encoder = this.device.createCommandEncoder();
       const depthStencilAttachment = {
         view: stencilTexture.createView({
           baseMipLevel: stencilTextureMipLevel,
@@ -1072,7 +1072,7 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
         outputTextureSize
       );
 
-      globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+      this.queue.submit([encoder.finish()]);
 
       // Check the valid data in outputStagingBuffer once per row.
       for (let y = 0; y < copyFromOutputTextureLayout.mipSize[1]; ++y) {
@@ -1166,7 +1166,7 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
       }
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     for (let z = 0; z < copySize[2]; ++z) {
       const depthStencilAttachment = {
         view: depthTexture.createView({
@@ -1219,7 +1219,7 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
       renderPass.end();
     }
 
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[encoder.finish()]], () => this.queue.submit([encoder.finish()])));
+    this.queue.submit([encoder.finish()]);
   }
 
   createUniformBufferAndBindGroupEntryForBaseArrayLayer(z) {
@@ -1302,7 +1302,7 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
       usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST,
       size: destinationBufferSize
     });
-    const copyEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const copyEncoder = this.device.createCommandEncoder();
     copyEncoder.copyTextureToBuffer(
       {
         texture: depthTexture,
@@ -1317,7 +1317,7 @@ class ImageCopyTest extends TextureTestMixin(GPUTest) {
       },
       copySize
     );
-    globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[copyEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this, this.queue.submit, [[copyEncoder.finish()]], () => this.queue.submit([copyEncoder.finish()])));
+    this.queue.submit([copyEncoder.finish()]);
 
     // Validate the data in destinationBuffer is what we expect.
     const expectedData = new Uint8Array(destinationBufferSize);

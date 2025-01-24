@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test other buffer usage validation rules that are not tests in ./in_pass_encoder.spec.js.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { unreachable } from '../../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { unreachable } from '../../../../../common/util/util.js';
+
 import { BufferResourceUsageTest, kAllBufferUsages } from './in_pass_encoder.spec.js';
 
 export const g = makeTestGroup(BufferResourceUsageTest);
@@ -44,7 +44,7 @@ fn((t) => {
   const pipelineLayout = t.device.createPipelineLayout({ bindGroupLayouts });
   const computePipeline = t.createNoOpComputePipeline(pipelineLayout);
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const computePassEncoder = encoder.beginComputePass();
   computePassEncoder.setPipeline(computePipeline);
 
@@ -110,7 +110,7 @@ fn((t) => {
     usage: kUsages
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPassEncoder = t.beginSimpleRenderPass(encoder);
 
   const bindGroupLayouts = [];
@@ -400,7 +400,7 @@ fn((t) => {
     }
   };
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   UseBufferOnCommandEncoder(usage0, encoder);
   UseBufferOnCommandEncoder(usage1, encoder);
   t.expectValidationError(() => {

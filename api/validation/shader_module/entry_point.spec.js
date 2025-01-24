@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 This tests entry point validation of compute/render pipelines and their shader modules.
 
@@ -16,7 +14,9 @@ The entryPoint assigned in descriptor include:
 
 TODO:
 - Fine-tune test cases to reduce number by removing trivially similar cases
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kDefaultVertexShaderCode, getShaderWithEntryPoint } from '../../../util/shader.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { kDefaultVertexShaderCode, getShaderWithEntryPoint } from '../../../util/shader.js';
+import { ValidationTest } from '../validation_test.js';
 
 export const g = makeTestGroup(ValidationTest);
 

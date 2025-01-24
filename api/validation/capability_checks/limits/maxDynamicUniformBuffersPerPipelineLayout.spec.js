@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { range } from '../../../../../common/util/util.js';import { GPUConst } from '../../../../constants.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';
+**/import { range } from '../../../../../common/util/util.js';import { GPUConst } from '../../../../constants.js';
+import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';
+
 const limit = 'maxDynamicUniformBuffersPerPipelineLayout';
 export const { g, description } = makeLimitTestGroup(limit);
 

@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for setVertexBuffer/setIndexBuffer state (not validation). See also operation tests.
-`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';import { range } from '../../../../../../common/util/util.js';import { ValidationTest } from '../../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';
+import { range } from '../../../../../../common/util/util.js';
+import { ValidationTest } from '../../../validation_test.js';
 
 class F extends ValidationTest {
   getVertexBuffer() {
@@ -106,7 +106,7 @@ g.test('vertex_buffers_inherit_from_previous_pipeline').fn((t) => {
 
   {
     // Check failure when vertex buffer is not set
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const commandEncoder = t.device.createCommandEncoder();
     const renderPass = t.beginRenderPass(commandEncoder);
     renderPass.setPipeline(pipeline1);
     renderPass.draw(3);
@@ -118,7 +118,7 @@ g.test('vertex_buffers_inherit_from_previous_pipeline').fn((t) => {
   }
   {
     // Check success when vertex buffer is inherited from previous pipeline
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const commandEncoder = t.device.createCommandEncoder();
     const renderPass = t.beginRenderPass(commandEncoder);
     renderPass.setPipeline(pipeline2);
     renderPass.setVertexBuffer(0, vertexBuffer1);
@@ -141,7 +141,7 @@ g.test('vertex_buffers_do_not_inherit_between_render_passes').fn((t) => {
 
   {
     // Check success when vertex buffer is set for each render pass
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const commandEncoder = t.device.createCommandEncoder();
     {
       const renderPass = t.beginRenderPass(commandEncoder);
       renderPass.setPipeline(pipeline2);
@@ -161,7 +161,7 @@ g.test('vertex_buffers_do_not_inherit_between_render_passes').fn((t) => {
   }
   {
     // Check failure because vertex buffer is not inherited in second subpass
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+    const commandEncoder = t.device.createCommandEncoder();
     {
       const renderPass = t.beginRenderPass(commandEncoder);
       renderPass.setPipeline(pipeline2);

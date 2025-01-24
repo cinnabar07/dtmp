@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 API operations tests for occlusion queries.
 
@@ -20,7 +18,9 @@ API operations tests for occlusion queries.
 - test resolving twice in same pass keeps values
 - test resolving twice across pass keeps values
 - test resolveQuerySet destinationOffset
-`;import { kUnitCaseParamsBuilder } from '../../../../../common/framework/params_builder.js';import { makeTestGroup } from '../../../../../common/framework/test_group.js';import {
+`;import { kUnitCaseParamsBuilder } from '../../../../../common/framework/params_builder.js';
+import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import {
   assert,
 
   range,
@@ -265,7 +265,7 @@ class OcclusionQueryTest extends GPUTest {
     ));
   }
   async readBufferAsBigUint64(buffer) {
-    await globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => globalThis._TRAMPOLINE_("mapAsync", buffer, buffer.mapAsync, [GPUMapMode.READ], () => buffer.mapAsync(GPUMapMode.READ)));
+    await buffer.mapAsync(GPUMapMode.READ);
     const result = new BigUint64Array(buffer.getMappedRange().slice(0));
     buffer.unmap();
     return result;
@@ -454,7 +454,7 @@ class OcclusionQueryTest extends GPUTest {
     const numQueries = occlusionQuerySet.count - querySetOffset;
     const queryIndices = range(numQueries, (i) => i + querySetOffset);
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+    const encoder = device.createCommandEncoder();
     if (renderPassDescriptor) {
       const pass = encoder.beginRenderPass(renderPassDescriptor);
       const helper = new RenderPassHelper(
@@ -484,7 +484,7 @@ class OcclusionQueryTest extends GPUTest {
       0,
       readBuffer.size
     );
-    globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => device.queue.submit([encoder.finish()])));
+    device.queue.submit([encoder.finish()]);
 
     const result = await this.readBufferAsBigUint64(readBuffer);
     for (const queryIndex of queryIndices) {
@@ -962,7 +962,7 @@ fn(async (t) => {
   };
 
   {
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+    const encoder = device.createCommandEncoder();
     {
       const pass = encoder.beginRenderPass(renderPassDescriptor);
       pass.setPipeline(pipeline);
@@ -991,18 +991,18 @@ fn(async (t) => {
 
     encoder.resolveQuerySet(occlusionQuerySet, 0, kNumQueries, queryResolveBuffer, 0);
     encoder.copyBufferToBuffer(queryResolveBuffer, 0, readBuffer2, 0, readBuffer2.size);
-    globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => device.queue.submit([encoder.finish()])));
+    device.queue.submit([encoder.finish()]);
   }
 
   // Encode something else and draw again, then read the results
   // They should not be affected.
   {
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+    const encoder = device.createCommandEncoder();
     renderSomething(encoder);
 
     encoder.resolveQuerySet(occlusionQuerySet, 0, kNumQueries, queryResolveBuffer, 0);
     encoder.copyBufferToBuffer(queryResolveBuffer, 0, readBuffer3, 0, readBuffer3.size);
-    globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", device, device.queue.submit, [[encoder.finish()]], () => device.queue.submit([encoder.finish()])));
+    device.queue.submit([encoder.finish()]);
   }
 
   const results = await Promise.all([

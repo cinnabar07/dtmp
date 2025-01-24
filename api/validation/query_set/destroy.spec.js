@@ -1,17 +1,17 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Destroying a query set more than once is allowed.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { ValidationTest } from '../validation_test.js';
+
 export const g = makeTestGroup(ValidationTest);
 
 g.test('twice').fn((t) => {
   const qset = t.createQuerySetTracked({ type: 'occlusion', count: 1 });
 
-  globalThis._TRAMPOLINE_("destroy", qset, qset.destroy, [], () => globalThis._TRAMPOLINE_("destroy", qset, qset.destroy, [], () => qset.destroy()));
-  globalThis._TRAMPOLINE_("destroy", qset, qset.destroy, [], () => globalThis._TRAMPOLINE_("destroy", qset, qset.destroy, [], () => qset.destroy()));
+  qset.destroy();
+  qset.destroy();
 });
 
 g.test('invalid_queryset').
@@ -29,6 +29,6 @@ fn(async (t) => {
   t.expect(!!error);
 
   // This line should not generate an error
-  globalThis._TRAMPOLINE_("destroy", invalidQuerySet, invalidQuerySet.destroy, [], () => globalThis._TRAMPOLINE_("destroy", invalidQuerySet, invalidQuerySet.destroy, [], () => invalidQuerySet.destroy()));
+  invalidQuerySet.destroy();
 });
 //# sourceMappingURL=destroy.spec.js.map

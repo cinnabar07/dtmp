@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test texture views can reinterpret the format of the original texture.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kRenderableColorTextureFormats,
-kRegularTextureFormats,
-viewCompatible } from
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  kRenderableColorTextureFormats,
+  kRegularTextureFormats,
+  viewCompatible } from
 
 '../../../format_info.js';
 import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
@@ -156,7 +156,7 @@ fn((t) => {
 
   // Execute a compute pass to load data from the reinterpreted view and
   // write out to the rgba8unorm texture.
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const pass = commandEncoder.beginComputePass();
   pass.setPipeline(pipeline);
   pass.setBindGroup(
@@ -177,7 +177,7 @@ fn((t) => {
   );
   pass.dispatchWorkgroups(kTextureSize, kTextureSize);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   t.expectTexelViewComparisonIsOkInTexture(
     { texture: outputTexture },
@@ -259,7 +259,7 @@ fn((t) => {
   });
 
   // Execute a render pass to sample |sampleSource| into |texture| viewed as |viewFormat|.
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const pass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -328,7 +328,7 @@ fn((t) => {
   }
 
   // Submit the commands.
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   // Check the rendered contents.
   const renderViewTexels = TexelView.fromTexelsAsColors(viewFormat, inputTexelView.color, {

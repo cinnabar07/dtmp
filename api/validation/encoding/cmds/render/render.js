@@ -1,9 +1,9 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kUnitCaseParamsBuilder } from '../../../../../../common/framework/params_builder.js';import { kRenderEncodeTypes } from '../../../../../util/command_buffer_maker.js';export const kRenderEncodeTypeParams = kUnitCaseParamsBuilder.combine('encoderType',
-kRenderEncodeTypes
+**/import { kUnitCaseParamsBuilder } from '../../../../../../common/framework/params_builder.js';import { kRenderEncodeTypes } from '../../../../../util/command_buffer_maker.js';
+export const kRenderEncodeTypeParams = kUnitCaseParamsBuilder.combine(
+  'encoderType',
+  kRenderEncodeTypes
 );
 
 export function buildBufferOffsetAndSizeOOBTestParams(minAlignment, bufferSize) {

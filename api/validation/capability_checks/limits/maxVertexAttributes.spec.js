@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';function getPipelineDescriptor(device, lastIndex) {const code = `
+**/import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';function getPipelineDescriptor(device, lastIndex) {
+  const code = `
   @vertex fn vs(@location(${lastIndex}) v: vec4f) -> @builtin(position) vec4f {
     return v;
   }
-  `;const module = device.createShaderModule({ code });
+  `;
+  const module = device.createShaderModule({ code });
   return {
     layout: 'auto',
     vertex: {

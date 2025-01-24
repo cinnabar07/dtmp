@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { GPUConst } from '../../../../constants.js';export const kAllWriteOps = ['write-texture',
+**/import { GPUConst } from '../../../../constants.js';
+export const kAllWriteOps = [
+'write-texture',
 'b2t-copy',
 't2t-copy',
 'storage',

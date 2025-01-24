@@ -1,13 +1,13 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests submit validation.
 
 Note: destroyed buffer/texture/querySet are tested in destroyed/. (unless it gets moved here)
 Note: buffer map state is tested in ./buffer_mapped.spec.ts.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { ValidationTest } from '../validation_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { ValidationTest } from '../validation_test.js';
+
 
 
 
@@ -20,7 +20,7 @@ class F extends ValidationTest {
     let cb;
 
     this.expectValidationError(() => {
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+      const encoder = device.createCommandEncoder();
       if (options.valid === false) {
         // Popping a debug group when none are pushed results in an invalid command buffer.
         encoder.popDebugGroup();
@@ -59,7 +59,7 @@ fn((t) => {
   const cb1 = t.createCommandBuffer({ device: cb1Mismatched ? t.mismatchedDevice : t.device });
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb0, cb1]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb0, cb1]], () => t.device.queue.submit([cb0, cb1])));
+    t.device.queue.submit([cb0, cb1]);
   }, mismatched);
 });
 
@@ -73,7 +73,7 @@ fn((t) => {
   const cb = t.createCommandBuffer();
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb, cb]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb, cb]], () => t.device.queue.submit([cb, cb])));
+    t.device.queue.submit([cb, cb]);
   }, true);
 });
 
@@ -87,11 +87,11 @@ fn((t) => {
   const cb = t.createCommandBuffer();
 
   // Initial submit of a valid command buffer should pass.
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb]], () => t.device.queue.submit([cb])));
+  t.device.queue.submit([cb]);
 
   // Subsequent submits of the same command buffer should fail.
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb]], () => t.device.queue.submit([cb])));
+    t.device.queue.submit([cb]);
   });
 });
 
@@ -108,12 +108,12 @@ fn((t) => {
 
   // Submit should fail because on of the command buffers is invalid
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb1, cb1_invalid]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb1, cb1_invalid]], () => t.device.queue.submit([cb1, cb1_invalid])));
+    t.device.queue.submit([cb1, cb1_invalid]);
   });
 
   // Subsequent submits of the previously valid command buffer should fail.
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb1]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb1]], () => t.device.queue.submit([cb1])));
+    t.device.queue.submit([cb1]);
   });
 
   // The order of the invalid and valid command buffers in the submit array should not matter.
@@ -121,10 +121,10 @@ fn((t) => {
   const cb2_invalid = t.createCommandBuffer({ valid: false });
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb2_invalid, cb2]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb2_invalid, cb2]], () => t.device.queue.submit([cb2_invalid, cb2])));
+    t.device.queue.submit([cb2_invalid, cb2]);
   });
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb2]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[cb2]], () => t.device.queue.submit([cb2])));
+    t.device.queue.submit([cb2]);
   });
 });
 //# sourceMappingURL=submit.spec.js.map

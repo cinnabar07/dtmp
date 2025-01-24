@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 setBindGroup validation tests.
 
@@ -12,7 +10,9 @@ TODO: merge these notes and implement.
 >     - x= {compute pass, render pass}
 >     - {null, compatible, incompatible} current pipeline (should have no effect without draw/dispatch)
 >     - setBindGroup in different orders (e.g. 0,1,2 vs 2,0,1)
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { makeValueTestVariant, range, unreachable } from '../../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { makeValueTestVariant, range, unreachable } from '../../../../../common/util/util.js';
+import {
   kBufferBindingTypes,
   kMinDynamicBufferOffsetAlignment } from
 '../../../../capability_info.js';
@@ -45,7 +45,7 @@ class F extends ValidationTest {
           const texture = this.createTextureWithState('valid');
           const view = texture.createView();
           if (state === 'destroyed') {
-            globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => globalThis._TRAMPOLINE_("destroy", texture, texture.destroy, [], () => texture.destroy()));
+            texture.destroy();
           }
           return view;
         }
@@ -150,11 +150,11 @@ fn((t) => {
   const { encoderType, useU32Array, mismatched } = t.params;
   const sourceDevice = mismatched ? t.mismatchedDevice : t.device;
 
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  sourceDevice, sourceDevice.createBuffer, [{
-    size: 4,
-    usage: GPUBufferUsage.STORAGE
-  }], () => globalThis._TRAMPOLINE_("createBuffer", sourceDevice, sourceDevice.createBuffer, [{ size: 4, usage: GPUBufferUsage.STORAGE }], () => sourceDevice.createBuffer({ size: 4, usage: GPUBufferUsage.STORAGE })))
+  const buffer = t.trackForCleanup(
+    sourceDevice.createBuffer({
+      size: 4,
+      usage: GPUBufferUsage.STORAGE
+    })
   );
 
   const layout = sourceDevice.createBindGroupLayout({

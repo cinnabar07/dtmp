@@ -1,14 +1,14 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 This test dedicatedly tests createRenderPipeline validation issues related to the shader modules.
 
 Note: entry point matching tests are in ../shader_module/entry_point.spec.ts
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { getFragmentShaderCodeWithOutput,
-kDefaultVertexShaderCode,
-kDefaultFragmentShaderCode } from
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  getFragmentShaderCodeWithOutput,
+  kDefaultVertexShaderCode,
+  kDefaultFragmentShaderCode } from
 '../../../util/shader.js';
 
 import { CreateRenderPipelineValidationTest } from './common.js';

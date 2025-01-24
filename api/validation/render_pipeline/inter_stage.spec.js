@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Interface matching between vertex and fragment shader validation for createRenderPipeline.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { range } from '../../../../common/util/util.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { range } from '../../../../common/util/util.js';
+
 
 import { CreateRenderPipelineValidationTest } from './common.js';
 

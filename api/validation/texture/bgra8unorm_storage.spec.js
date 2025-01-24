@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for capabilities added by bgra8unorm-storage flag.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert } from '../../../../common/util/util.js';import { kTextureUsages } from '../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert } from '../../../../common/util/util.js';
+import { kTextureUsages } from '../../../capability_info.js';
 import { GPUConst } from '../../../constants.js';
 import { kAllCanvasTypes, createCanvas } from '../../../util/create_elements.js';
 import { ValidationTest } from '../validation_test.js';

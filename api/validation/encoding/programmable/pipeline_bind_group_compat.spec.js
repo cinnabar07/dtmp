@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 TODO:
 - test compatibility between bind groups and pipelines
@@ -13,7 +11,9 @@ TODO:
 
 TODO: subsume existing test, rewrite fixture as needed.
 TODO: Add externalTexture to kResourceTypes [1]
-`;import { kUnitCaseParamsBuilder } from '../../../../../common/framework/params_builder.js';import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { memcpy, unreachable } from '../../../../../common/util/util.js';
+`;import { kUnitCaseParamsBuilder } from '../../../../../common/framework/params_builder.js';
+import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { memcpy, unreachable } from '../../../../../common/util/util.js';
 import {
   kSamplerBindingTypes,
   kShaderStageCombinations,
@@ -414,7 +414,7 @@ class F extends ValidationTest {
     })
     );
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+    const encoder = device.createCommandEncoder();
 
     doCommandFn({ t: this, encoder, pipeline, emptyBindGroups, nonEmptyBindGroups });
 
@@ -836,7 +836,7 @@ fn((t) => {
     entries: []
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const computePass = encoder.beginComputePass();
   computePass.setPipeline(pipeline);
   for (let i = 0; i < bindGroupLayoutEntryCount; i++) {
@@ -906,7 +906,7 @@ fn((t) => {
     entries: []
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const attachmentTexture = t.createTextureTracked({
     format: 'rgba8unorm',

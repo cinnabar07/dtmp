@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 API validation test for compute pass
 
 Does **not** test usage scopes (resource_usages/) or programmable pass stuff (programmable_pass).
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { makeValueTestVariant } from '../../../../../common/util/util.js';import { kBufferUsages } from '../../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { makeValueTestVariant } from '../../../../../common/util/util.js';
+import { kBufferUsages } from '../../../../capability_info.js';
 import { GPUConst } from '../../../../constants.js';
 import { kResourceStates } from '../../../../gpu_test.js';
 import { ValidationTest } from '../../validation_test.js';
@@ -39,7 +39,7 @@ class F extends ValidationTest {
     }
 
     if (state === 'destroyed') {
-      globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+      buffer.destroy();
     }
 
     return buffer;
@@ -203,11 +203,11 @@ fn((t) => {
 
   const sourceDevice = mismatched ? t.mismatchedDevice : t.device;
 
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  sourceDevice, sourceDevice.createBuffer, [{
-    size: 16,
-    usage: GPUBufferUsage.INDIRECT
-  }], () => globalThis._TRAMPOLINE_("createBuffer", sourceDevice, sourceDevice.createBuffer, [{ size: 16, usage: GPUBufferUsage.INDIRECT }], () => sourceDevice.createBuffer({ size: 16, usage: GPUBufferUsage.INDIRECT })))
+  const buffer = t.trackForCleanup(
+    sourceDevice.createBuffer({
+      size: 16,
+      usage: GPUBufferUsage.INDIRECT
+    })
   );
 
   const { encoder, validateFinish } = t.createEncoder('compute pass');

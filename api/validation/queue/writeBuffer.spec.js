@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests writeBuffer validation.
 
 Note: buffer map state is tested in ./buffer_mapped.spec.ts.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kTypedArrayBufferViewConstructors } from
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  kTypedArrayBufferViewConstructors } from
 
 
 '../../../../common/util/util.js';
@@ -186,11 +186,11 @@ fn((t) => {
   const { mismatched } = t.params;
   const sourceDevice = mismatched ? t.mismatchedDevice : t.device;
 
-  const buffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  sourceDevice, sourceDevice.createBuffer, [{
-    size: 16,
-    usage: GPUBufferUsage.COPY_DST
-  }], () => globalThis._TRAMPOLINE_("createBuffer", sourceDevice, sourceDevice.createBuffer, [{ size: 16, usage: GPUBufferUsage.COPY_DST }], () => sourceDevice.createBuffer({ size: 16, usage: GPUBufferUsage.COPY_DST })))
+  const buffer = t.trackForCleanup(
+    sourceDevice.createBuffer({
+      size: 16,
+      usage: GPUBufferUsage.COPY_DST
+    })
   );
 
   const data = new Uint8Array(16);

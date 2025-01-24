@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { assert } from '../../../../../common/util/util.js';import { kTextureSampleCounts } from '../../../../capability_info.js';import { kTextureFormatInfo } from '../../../../format_info.js';import { align } from '../../../../util/math.js';
+**/import { assert } from '../../../../../common/util/util.js';import { kTextureSampleCounts } from '../../../../capability_info.js';import { kTextureFormatInfo } from '../../../../format_info.js';
+import { align } from '../../../../util/math.js';
+
 import {
   kMaximumLimitBaseParams,
 
@@ -201,7 +201,7 @@ fn(async (t) => {
         return;
       }
 
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+      const encoder = device.createCommandEncoder();
       const textures = createTextures(t, targets);
 
       const pass = encoder.beginRenderPass({

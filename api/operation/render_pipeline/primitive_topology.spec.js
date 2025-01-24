@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `Test primitive topology rendering.
 
 Draw a primitive using 6 vertices with each topology and check if the pixel is covered.
@@ -57,7 +55,9 @@ Test locations are framebuffer coordinates:
     ****** ** ****** **        {v2,v3,v4} and {v3,v4,v5}.       With primitive restart:
    v1       v3        v5                                        Triangle {v2, v3, v4}
                                                                 and {v3, v4, v5}.
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
+
 
 const kRTSize = 56;
 const kColorFormat = 'rgba8unorm';
@@ -304,7 +304,7 @@ class PrimitiveTopologyTest extends TextureTestMixin(GPUTest) {
     const colorAttachment = this.makeAttachmentTexture();
 
     // Color load operator will clear color attachment to zero.
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const renderPass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -409,7 +409,7 @@ class PrimitiveTopologyTest extends TextureTestMixin(GPUTest) {
 
     renderPass.end();
 
-    globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[encoder.finish()]], () => this.device.queue.submit([encoder.finish()])));
+    this.device.queue.submit([encoder.finish()]);
     this.expectSinglePixelComparisonsAreOkInTexture({ texture: colorAttachment }, testLocations);
   }
 }

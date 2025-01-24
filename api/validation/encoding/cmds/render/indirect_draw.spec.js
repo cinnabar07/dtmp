@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Validation tests for drawIndirect/drawIndexedIndirect on render pass and render bundle.
-`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';import { GPUConst } from '../../../../../constants.js';import { kResourceStates } from '../../../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';
+import { GPUConst } from '../../../../../constants.js';
+import { kResourceStates } from '../../../../../gpu_test.js';
 import { ValidationTest } from '../../../validation_test.js';
 
 import { kRenderEncodeTypeParams } from './render.js';
@@ -63,11 +63,11 @@ fn((t) => {
 
   const sourceDevice = mismatched ? t.mismatchedDevice : t.device;
 
-  const indirectBuffer = t.trackForCleanup(globalThis._TRAMPOLINE_("createBuffer",
-  sourceDevice, sourceDevice.createBuffer, [{
-    size: 256,
-    usage: GPUBufferUsage.INDIRECT
-  }], () => globalThis._TRAMPOLINE_("createBuffer", sourceDevice, sourceDevice.createBuffer, [{ size: 256, usage: GPUBufferUsage.INDIRECT }], () => sourceDevice.createBuffer({ size: 256, usage: GPUBufferUsage.INDIRECT })))
+  const indirectBuffer = t.trackForCleanup(
+    sourceDevice.createBuffer({
+      size: 256,
+      usage: GPUBufferUsage.INDIRECT
+    })
   );
 
   const { encoder, validateFinish } = t.createEncoder(encoderType);

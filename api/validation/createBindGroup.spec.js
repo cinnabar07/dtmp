@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
   createBindGroup validation tests.
 
   TODO: Ensure sure tests cover all createBindGroup validation rules.
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { assert, makeValueTestVariant, unreachable } from '../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { assert, makeValueTestVariant, unreachable } from '../../../common/util/util.js';
+import {
   allBindingEntries,
 
   bindingTypeInfo,

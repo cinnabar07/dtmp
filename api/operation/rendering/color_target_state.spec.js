@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test blending results.
 
@@ -9,7 +7,9 @@ TODO:
 - Test result for all combinations of args (make sure each case is distinguishable from others
 - Test underflow/overflow has consistent behavior
 - ?
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert, unreachable } from '../../../../common/util/util.js';import {
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert, unreachable } from '../../../../common/util/util.js';
+import {
   IsDualSourceBlendingFactor,
   kBlendFactors,
   kBlendOperations } from
@@ -319,7 +319,7 @@ struct FragOutput {
     format: textureFormat
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -363,7 +363,7 @@ struct FragOutput {
   renderPass.draw(1);
   renderPass.end();
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   t.expectSinglePixelComparisonsAreOkInTexture(
     { texture: renderTarget },
@@ -439,7 +439,7 @@ fn((t) => {
     format
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -453,7 +453,7 @@ fn((t) => {
   renderPass.setPipeline(pipeline);
   renderPass.draw(1);
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   const expColor = { R: 0.6, G: 0.6, B: 0.6, A: 0.6 };
   const expTexelView = TexelView.fromTexelsAsColors(format, (_coords) => expColor);
@@ -479,7 +479,7 @@ fn((t) => {
     format
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -499,7 +499,7 @@ fn((t) => {
   // The blend constant defaults to [0,0,0,0], so the result is
   // `[1,1,1,1] * [0,0,0,0] + [0,0,0,0] * 1` = [0,0,0,0].
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   // Check that the initial blend constant is black(0,0,0,0) after setting testPipeline which has
   // a white color buffer data.
@@ -537,7 +537,7 @@ fn((t) => {
     format
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -557,7 +557,7 @@ fn((t) => {
   // Draw [1,1,1,1] with `src * constant + dst * 1`. The blend constant to [r,g,b,a], so the
   // result is `[1,1,1,1] * [r,g,b,a] + [0,0,0,0] * 1` = [r,g,b,a].
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   // Check that the blend constant is the same as the given constant after setting the constant
   // via setBlendConstant.
@@ -589,7 +589,7 @@ fn((t) => {
     format
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   {
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [
@@ -631,7 +631,7 @@ fn((t) => {
     // so the result is `[1,1,1,1] * [0,0,0,0] + [0,0,0,0] * 1` = [0,0,0,0].
     renderPass.end();
   }
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   // Check that the blend constant is not inherited from the first render pass.
   const expColor = { R: 0, G: 0, B: 0, A: 0 };
@@ -694,7 +694,7 @@ fn((t) => {
 
   const kBaseColorData = new Float32Array([32, 64, 128, 192]);
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   {
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [
@@ -713,7 +713,7 @@ fn((t) => {
     renderPass.draw(3);
     renderPass.end();
   }
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   const expColor = { R: r, G: g, B: b, A: a };
   const expTexelView = TexelView.fromTexelsAsColors(format, (_coords) => expColor);
@@ -750,7 +750,7 @@ fn((t) => {
 
   const kBaseColorData = new Float32Array([32, 64, 128, 192]);
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   {
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [
@@ -771,7 +771,7 @@ fn((t) => {
     renderPass.draw(3);
     renderPass.end();
   }
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   const expColor = { R: 1, G: 0, B: 0, A: 0 };
   const expTexelView = TexelView.fromTexelsAsColors(format, (_coords) => expColor);
@@ -844,7 +844,7 @@ fn((t) => {
     format
   });
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
   const renderPass = commandEncoder.beginRenderPass({
     colorAttachments: [
     {
@@ -858,7 +858,7 @@ fn((t) => {
   renderPass.setPipeline(pipeline);
   renderPass.draw(1);
   renderPass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[commandEncoder.finish()]], () => t.device.queue.submit([commandEncoder.finish()])));
+  t.device.queue.submit([commandEncoder.finish()]);
 
   let expValue;
   switch (format) {

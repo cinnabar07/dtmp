@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `API Operation Tests for RenderPass StoreOp.
 
   Test Coverage:
@@ -29,9 +27,11 @@
       TODO: test depth24plus and depth24plus-stencil8 formats
       TODO: test that depth and stencil aspects are set separately
       TODO: depth slice set to {'0', slice > '0'} for 3D textures
-      TODO: test with more interesting loadOp values`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { kTextureFormatInfo,
-kEncodableTextureFormats,
-kSizedDepthStencilFormats } from
+      TODO: test with more interesting loadOp values`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import {
+  kTextureFormatInfo,
+  kEncodableTextureFormats,
+  kSizedDepthStencilFormats } from
 '../../../format_info.js';
 import { GPUTest } from '../../../gpu_test.js';
 
@@ -84,7 +84,7 @@ fn((t) => {
   // Color load operation will clear to {1.0, 1.0, 1.0, 1.0}.
   // Depth operation will clear to 1.0.
   // Store operations are determined by test the params.
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -103,7 +103,7 @@ fn((t) => {
   });
   pass.end();
 
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   // Check that the correct store operation occurred.
   let expectedColorValue = {};
@@ -172,7 +172,7 @@ fn((t) => {
 
   // Color load operation will clear to {1.0, 0.0, 0.0, 1.0}.
   // Color store operation is determined by the test params.
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
     {
@@ -184,7 +184,7 @@ fn((t) => {
 
   });
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   // Check that the correct store operation occurred.
   let expectedValue = {};
@@ -240,12 +240,12 @@ fn((t) => {
     });
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: renderPassColorAttachments
   });
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   // Check that the correct store operation occurred.
   let expectedValue = {};
@@ -302,7 +302,7 @@ fn((t) => {
 
   // Depth-stencil load operation will clear to depth = 1.0, stencil = 1.0.
   // Depth-stencil store operate is determined by test params.
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const depthStencilAttachment = {
     view: depthStencilAttachmentView
   };
@@ -321,7 +321,7 @@ fn((t) => {
     depthStencilAttachment
   });
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   let expectedDepthValue = {};
   let expectedStencilValue = {};

@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/import { unreachable } from '../../../../../common/util/util.js';import { GPUTest } from '../../../../gpu_test.js';
+
+
 
 
 

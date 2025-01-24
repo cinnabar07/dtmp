@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 copyTextureToTexture tests.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { kTextureUsages, kTextureDimensions } from '../../../../capability_info.js';import {
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { kTextureUsages, kTextureDimensions } from '../../../../capability_info.js';
+import {
   kTextureFormatInfo,
   kAllTextureFormats,
   kCompressedTextureFormats,
@@ -24,7 +24,7 @@ class F extends ValidationTest {
   copySize,
   expectation)
   {
-    const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const commandEncoder = this.device.createCommandEncoder();
     commandEncoder.copyTextureToTexture(source, destination, copySize);
 
     if (expectation === 'FinishError') {
@@ -34,7 +34,7 @@ class F extends ValidationTest {
     } else {
       const cmd = commandEncoder.finish();
       this.expectValidationError(() => {
-        globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => globalThis._TRAMPOLINE_("submit", this.device, this.device.queue.submit, [[cmd]], () => this.device.queue.submit([cmd])));
+        this.device.queue.submit([cmd]);
       }, expectation === 'SubmitError');
     }
   }
@@ -691,7 +691,7 @@ fn((t) => {
 g.test('copy_aspects').
 desc(
   `
-Test the validations on the member 'aspect' of GPUTexelCopyTextureInfo in CopyTextureToTexture().
+Test the validations on the member 'aspect' of GPUImageCopyTexture in CopyTextureToTexture().
 - for all the color and depth-stencil formats: the texture copy aspects must be both 'all'.
 - for all the depth-only formats: the texture copy aspects must be either 'all' or 'depth-only'.
 - for all the stencil-only formats: the texture copy aspects must be either 'all' or 'stencil-only'.

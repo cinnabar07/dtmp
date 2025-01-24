@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Texture Usages Validation Tests in Same or Different Render Pass Encoders.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { assert, unreachable } from '../../../../../common/util/util.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { assert, unreachable } from '../../../../../common/util/util.js';
+import { ValidationTest } from '../../validation_test.js';
 
 
 
@@ -137,7 +137,7 @@ fn((t) => {
     baseMipLevel: level1,
     mipLevelCount: 1
   });
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   if (inSamePass) {
     const renderPass = encoder.beginRenderPass({
       colorAttachments: [colorAttachment1, colorAttachment2]
@@ -233,7 +233,7 @@ fn((t) => {
     mipLevelCount: 1
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [colorAttachment]
   });
@@ -363,7 +363,7 @@ fn((t) => {
     stencilStoreOp: stencilReadOnly ? undefined : 'store'
   };
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [],
     depthStencilAttachment
@@ -499,7 +499,7 @@ fn((t) => {
     mipLevelCount: 1
   });
   const colorAttachment = t.getColorAttachment(colorTexture);
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [colorAttachment]
   });
@@ -627,7 +627,7 @@ fn((t) => {
     mipLevelCount: 1
   });
   const colorAttachment = t.getColorAttachment(colorTexture);
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   const renderPass = encoder.beginRenderPass({
     colorAttachments: [colorAttachment]
   });

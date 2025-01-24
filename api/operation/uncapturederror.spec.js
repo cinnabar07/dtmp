@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for GPUDevice.onuncapturederror.
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { kGeneratableErrorScopeFilters } from '../../capability_info.js';import { ErrorTest } from '../../error_test.js';
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { kGeneratableErrorScopeFilters } from '../../capability_info.js';
+import { ErrorTest } from '../../error_test.js';
 
 export const g = makeTestGroup(ErrorTest);
 

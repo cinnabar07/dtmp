@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Memory synchronization tests for depth-stencil attachments in a single pass, with checks for readonlyness.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { kDepthStencilFormats, kTextureFormatInfo } from '../../../../format_info.js';import { GPUTest } from '../../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { kDepthStencilFormats, kTextureFormatInfo } from '../../../../format_info.js';
+import { GPUTest } from '../../../../gpu_test.js';
 
 export const g = makeTestGroup(GPUTest);
 
@@ -97,7 +97,7 @@ fn((t) => {
     primitive: { topology: 'point-list' }
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const initPass = encoder.beginRenderPass({
     colorAttachments: [],
@@ -319,7 +319,7 @@ fn((t) => {
   checkPass.draw(3);
   checkPass.end();
 
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[encoder.finish()]], () => t.queue.submit([encoder.finish()])));
+  t.queue.submit([encoder.finish()]);
 
   // The check texture should be full of success (a.k.a. 1)!
   t.expectSingleColor(resultTexture, resultTexture.format, { size: [3, 3, 1], exp: { R: 1 } });

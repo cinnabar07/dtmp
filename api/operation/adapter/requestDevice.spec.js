@@ -1,13 +1,13 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test GPUAdapter.requestDevice.
 
 Note tests explicitly destroy created devices so that tests don't have to wait for GC to clean up
 potentially limited native resources.
-`;import { Fixture } from '../../../../common/framework/fixture.js';import { makeTestGroup } from '../../../../common/framework/test_group.js';import { getGPU } from '../../../../common/util/navigator_gpu.js';
+`;import { Fixture } from '../../../../common/framework/fixture.js';
+import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { getGPU } from '../../../../common/util/navigator_gpu.js';
 import { assert, assertReject, raceWithRejectOnTimeout } from '../../../../common/util/util.js';
 import {
   getDefaultLimitsForAdapter,
@@ -37,7 +37,7 @@ u.combine('args', [
 fn(async (t) => {
   const { args } = t.params;
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
   const device = await t.requestDeviceTracked(adapter, ...args);
   assert(device !== null);
@@ -66,14 +66,14 @@ desc(
 ).
 fn(async (t) => {
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
   {
     // Request a device and destroy it immediately afterwards.
     const device = await t.requestDeviceTracked(adapter);
     assert(device !== null);
-    globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+    device.destroy();
     const lostInfo = await device.lost;
     t.expect(lostInfo.reason === 'destroyed');
   }
@@ -104,7 +104,7 @@ unless(
 ).
 fn(async (t) => {
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
   const { initialError, awaitInitialError, awaitSuccess } = t.params;
@@ -159,7 +159,7 @@ fn(async (t) => {
     t.shouldResolve(
       (async () => {
         const device = await promise;
-        globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+        device.destroy();
       })()
     );
   }
@@ -176,7 +176,7 @@ fn(async (t) => {
   // Make sure to destroy the valid device after trying to get a second one. Otherwise, the second
   // device may fail because the adapter is put into an invalid state from the destroy.
   if (device) {
-    globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+    device.destroy();
   }
 });
 
@@ -187,7 +187,7 @@ desc(
 ).
 fn(async (t) => {
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
   t.shouldReject(
@@ -208,7 +208,7 @@ fn(async (t) => {
   const { feature } = t.params;
 
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
   const promise = t.requestDeviceTracked(adapter, { requiredFeatures: [feature] });
@@ -224,24 +224,16 @@ g.test('limits,unknown').
 desc(
   `
     Test that specifying limits that aren't part of the supported limit set causes
-    requestDevice to reject unless the value is undefined.
-    Also tests that the invalid requestDevice() call does not expire the adapter.`
+    requestDevice to reject.`
 ).
 fn(async (t) => {
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
-  t.shouldReject(
-    'OperationError',
-    t.requestDeviceTracked(adapter, { requiredLimits: { unknownLimitName: 9000 } })
-  );
-  // Adapter is still alive because the requestDevice() call was invalid.
+  const requiredLimits = { unknownLimitName: 9000 };
 
-  const device = await t.requestDeviceTracked(adapter, {
-    requiredLimits: { unknownLimitName: undefined }
-  });
-  assert(device !== null);
+  t.shouldReject('OperationError', t.requestDeviceTracked(adapter, { requiredLimits }));
 });
 
 g.test('limits,supported').
@@ -249,44 +241,33 @@ desc(
   `
     Test that each supported limit can be specified with valid values.
     - Tests each limit with the default values given by the spec
-    - Tests each limit with the supported values given by the adapter
-    - Tests each limit with undefined`
+    - Tests each limit with the supported values given by the adapter`
 ).
 params((u) =>
-u.
-combine('limit', kLimits).
-beginSubcases().
-combine('limitValue', ['default', 'adapter', 'undefined'])
+u.combine('limit', kLimits).beginSubcases().combine('limitValue', ['default', 'adapter'])
 ).
 fn(async (t) => {
   const { limit, limitValue } = t.params;
 
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
   const limitInfo = getDefaultLimitsForAdapter(adapter);
   let value = -1;
-  let result = -1;
   switch (limitValue) {
     case 'default':
       value = limitInfo[limit].default;
-      result = value;
       break;
     case 'adapter':
       value = adapter.limits[limit];
-      result = value;
-      break;
-    case 'undefined':
-      value = undefined;
-      result = limitInfo[limit].default;
       break;
   }
 
   const device = await t.requestDeviceTracked(adapter, { requiredLimits: { [limit]: value } });
   assert(device !== null);
   t.expect(
-    device.limits[limit] === result,
+    device.limits[limit] === value,
     'Devices reported limit should match the required limit'
   );
 });
@@ -323,7 +304,7 @@ fn(async (t) => {
   const { limit, mul, add } = t.params;
 
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
   const limitInfo = getDefaultLimitsForAdapter(adapter);
@@ -370,7 +351,7 @@ fn(async (t) => {
   const { limit, value } = t.params;
 
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
   const limitInfo = getDefaultLimitsForAdapter(adapter)[limit];
 
@@ -427,7 +408,7 @@ fn(async (t) => {
   const { limit, mul, add } = t.params;
 
   const gpu = getGPU(t.rec);
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [], () => gpu.requestAdapter());
+  const adapter = await gpu.requestAdapter();
   assert(adapter !== null);
 
   const limitInfo = getDefaultLimitsForAdapter(adapter);
@@ -454,7 +435,7 @@ fn(async (t) => {
       device.limits[limit] === limitInfo[limit].default,
       'Devices reported limit should match the default limit'
     );
-    globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+    device.destroy();
   } else {
     t.shouldReject('OperationError', devicePromise);
   }
@@ -487,7 +468,7 @@ fn(async (t) => {
   const { compatibilityMode } = t.params;
   const gpu = getGPU(t.rec);
   // MAINTENANCE_TODO: Remove this cast compatibilityMode is added.
-  const adapter = await globalThis._TRAMPOLINE_("requestAdapter", gpu, gpu.requestAdapter, [{ compatibilityMode }], () => gpu.requestAdapter({ compatibilityMode }));
+  const adapter = await gpu.requestAdapter({ compatibilityMode });
   if (adapter) {
     if (!compatibilityMode) {
       // This check is to make sure something lower-level is not forcing compatibility mode
@@ -499,7 +480,7 @@ fn(async (t) => {
     }
     const device = await t.requestDeviceTracked(adapter);
     t.expect(device instanceof GPUDevice, 'requestDevice must return a device or throw');
-    globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => globalThis._TRAMPOLINE_("destroy", device, device.destroy, [], () => device.destroy()));
+    device.destroy();
   }
 });
 //# sourceMappingURL=requestDevice.spec.js.map

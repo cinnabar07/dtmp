@@ -1,10 +1,10 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests using a destroyed buffer on a queue.
-`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';import { ValidationTest } from '../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../common/framework/test_group.js';
+import { ValidationTest } from '../../validation_test.js';
+
 export const g = makeTestGroup(ValidationTest);
 
 g.test('writeBuffer').
@@ -23,7 +23,7 @@ fn((t) => {
   });
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
   }
 
   t.expectValidationError(() => t.queue.writeBuffer(buffer, 0, new Uint8Array(4)), destroyed);
@@ -41,7 +41,7 @@ fn((t) => {
   const src = t.createBufferTracked({ size: 4, usage: GPUBufferUsage.COPY_SRC });
   const dst = t.createBufferTracked({ size: 4, usage: GPUBufferUsage.COPY_DST });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToBuffer(src, 0, dst, 0, dst.size);
   const commandBuffer = encoder.finish();
 
@@ -51,19 +51,19 @@ fn((t) => {
       shouldError = false;
       break;
     case 'src':
-      globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => src.destroy()));
+      src.destroy();
       break;
     case 'dst':
-      globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => dst.destroy()));
+      dst.destroy();
       break;
     case 'both':
-      globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => globalThis._TRAMPOLINE_("destroy", src, src.destroy, [], () => src.destroy()));
-      globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => globalThis._TRAMPOLINE_("destroy", dst, dst.destroy, [], () => dst.destroy()));
+      src.destroy();
+      dst.destroy();
       break;
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, shouldError);
 });
 
@@ -84,16 +84,16 @@ fn((t) => {
     usage: GPUTextureUsage.COPY_DST
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyBufferToTexture({ buffer }, { texture }, [1, 1, 1]);
   const commandBuffer = encoder.finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -114,16 +114,16 @@ fn((t) => {
   });
   const buffer = t.createBufferTracked({ size: 4, usage: GPUBufferUsage.COPY_DST });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.copyTextureToBuffer({ texture }, { buffer }, [1, 1, 1]);
   const commandBuffer = encoder.finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -167,11 +167,11 @@ fn((t) => {
   const commandBuffer = finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", buffer, buffer.destroy, [], () => buffer.destroy()));
+    buffer.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -199,11 +199,11 @@ fn((t) => {
   const commandBuffer = finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", vertexBuffer, vertexBuffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", vertexBuffer, vertexBuffer.destroy, [], () => vertexBuffer.destroy()));
+    vertexBuffer.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -231,11 +231,11 @@ fn((t) => {
   const commandBuffer = finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", indexBuffer, indexBuffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", indexBuffer, indexBuffer.destroy, [], () => indexBuffer.destroy()));
+    indexBuffer.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 
@@ -258,16 +258,16 @@ fn((t) => {
     usage: GPUBufferUsage.QUERY_RESOLVE
   });
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
   encoder.resolveQuerySet(querySet, 0, 1, querySetBuffer, 0);
   const commandBuffer = encoder.finish();
 
   if (destroyed) {
-    globalThis._TRAMPOLINE_("destroy", querySetBuffer, querySetBuffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", querySetBuffer, querySetBuffer.destroy, [], () => querySetBuffer.destroy()));
+    querySetBuffer.destroy();
   }
 
   t.expectValidationError(() => {
-    globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandBuffer]], () => t.queue.submit([commandBuffer])));
+    t.queue.submit([commandBuffer]);
   }, destroyed);
 });
 //# sourceMappingURL=buffer.spec.js.map

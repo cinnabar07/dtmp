@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { kRenderEncoderTypes, kMaximumLimitBaseParams, makeLimitTestGroup } from
+**/import { kRenderEncoderTypes, kMaximumLimitBaseParams,
+  makeLimitTestGroup } from
+
 './limit_utils.js';
 
 const kVertexBufferBindGroupPreferences = ['vertexBuffers', 'bindGroups'];
@@ -291,7 +291,7 @@ fn(async (t) => {
         `testValue: ${testValue}, actualLimit: ${actualLimit}, shouldError: ${shouldError}`
       );
 
-      globalThis._TRAMPOLINE_("destroy", vertexBuffer, vertexBuffer.destroy, [], () => globalThis._TRAMPOLINE_("destroy", vertexBuffer, vertexBuffer.destroy, [], () => vertexBuffer.destroy()));
+      vertexBuffer.destroy();
     },
     kExtraLimits
   );

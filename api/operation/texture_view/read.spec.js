@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Test the result of reading textures through texture views with various options.
 
@@ -16,7 +14,9 @@ All x= every possible view read method: {
 Format reinterpretation is not tested here. It is in format_reinterpretation.spec.ts.
 
 TODO: Write helper for this if not already available (see resource_init, buffer_sync_test for related code).
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest } from '../../../gpu_test.js';
+
 export const g = makeTestGroup(GPUTest);
 
 g.test('format').

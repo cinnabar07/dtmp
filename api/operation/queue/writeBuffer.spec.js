@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/export const description = 'Operation tests for GPUQueue.writeBuffer()';import { makeTestGroup } from '../../../../common/framework/test_group.js';import { memcpy, range } from '../../../../common/util/util.js';import { GPUTest } from '../../../gpu_test.js';
+**/export const description = 'Operation tests for GPUQueue.writeBuffer()';import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { memcpy, range } from '../../../../common/util/util.js';
+import { GPUTest } from '../../../gpu_test.js';
 import { align } from '../../../util/math.js';
 
 const kTypedArrays = [

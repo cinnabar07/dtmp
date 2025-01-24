@@ -1,12 +1,12 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 createComputePipeline and createComputePipelineAsync validation tests.
 
 Note: entry point matching tests are in shader_module/entry_point.spec.ts
-`;import { makeTestGroup } from '../../../common/framework/test_group.js';import { keysOf } from '../../../common/util/data_tables.js';import { kValue } from '../../util/constants.js';
+`;import { makeTestGroup } from '../../../common/framework/test_group.js';
+import { keysOf } from '../../../common/util/data_tables.js';
+import { kValue } from '../../util/constants.js';
 import { getShaderWithEntryPoint } from '../../util/shader.js';
 
 import {
@@ -718,7 +718,6 @@ fn((t) => {
     !t.hasLanguageFeature('readonly_and_readwrite_storage_textures'),
     'Storage textures require language feature'
   );
-  t.skipIfTextureViewDimensionNotSupported(wgslResource.texture?.viewDimension);
 
   const layout = t.device.createPipelineLayout({
     bindGroupLayouts: [

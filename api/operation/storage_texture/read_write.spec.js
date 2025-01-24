@@ -1,13 +1,13 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 Tests for the behavior of read-write storage textures.
 
 TODO:
 - Test resource usage transitions with read-write storage textures
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { assert, unreachable } from '../../../../common/util/util.js';import { kTextureDimensions } from '../../../capability_info.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { assert, unreachable } from '../../../../common/util/util.js';
+import { kTextureDimensions } from '../../../capability_info.js';
 import { kColorTextureFormats, kTextureFormatInfo } from '../../../format_info.js';
 import { GPUTest } from '../../../gpu_test.js';
 import { align } from '../../../util/math.js';
@@ -345,7 +345,7 @@ fn((t) => {
     textureSize
   );
 
-  const commandEncoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const commandEncoder = t.device.createCommandEncoder();
 
   t.RecordCommandsToTransform(t.device, shaderStage, commandEncoder, storageTexture);
 
@@ -366,7 +366,7 @@ fn((t) => {
     },
     textureSize
   );
-  globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t, t.queue.submit, [[commandEncoder.finish()]], () => t.queue.submit([commandEncoder.finish()])));
+  t.queue.submit([commandEncoder.finish()]);
 
   switch (format) {
     case 'r32sint':

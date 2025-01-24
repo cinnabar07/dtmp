@@ -1,8 +1,8 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/import { range } from '../../../../../common/util/util.js';import { kMaxColorAttachmentsToTest } from '../../../../capability_info.js';import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';
+**/import { range } from '../../../../../common/util/util.js';import { kMaxColorAttachmentsToTest } from '../../../../capability_info.js';
+import { kMaximumLimitBaseParams, makeLimitTestGroup } from './limit_utils.js';
+
 function getPipelineDescriptor(device, testValue) {
   const code = `
     @vertex fn vs() -> @builtin(position) vec4f {
@@ -56,7 +56,7 @@ fn(async (t) => {
     limitTest,
     testValueName,
     async ({ device, testValue, shouldError }) => {
-      const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", device, device.createCommandEncoder, [], () => device.createCommandEncoder()));
+      const encoder = device.createCommandEncoder();
 
       const textures = range(testValue, (_) =>
       t.createTextureTracked({

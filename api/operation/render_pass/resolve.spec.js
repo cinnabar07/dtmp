@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `API Operation Tests for RenderPass StoreOp.
 Tests a render pass with a resolveTarget resolves correctly for many combinations of:
   - number of color attachments, some with and some without a resolveTarget
@@ -15,7 +13,9 @@ Tests a render pass with a resolveTarget resolves correctly for many combination
   - TODO?: resolveTarget mip level {0, >0} (TODO?: different mip level from colorAttachment)
   - TODO?: resolveTarget {2d array layer, TODO: 3d slice} {0, >0} with {2d, TODO: 3d} resolveTarget
     (different z from colorAttachment)
-`;import { makeTestGroup } from '../../../../common/framework/test_group.js';import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
+`;import { makeTestGroup } from '../../../../common/framework/test_group.js';
+import { GPUTest, TextureTestMixin } from '../../../gpu_test.js';
+
 const kSlotsToResolve = [
 [0, 2],
 [1, 3],
@@ -154,7 +154,7 @@ fn((t) => {
     }
   }
 
-  const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", t.device, t.device.createCommandEncoder, [], () => t.device.createCommandEncoder()));
+  const encoder = t.device.createCommandEncoder();
 
   const pass = encoder.beginRenderPass({
     colorAttachments: renderPassColorAttachments
@@ -162,7 +162,7 @@ fn((t) => {
   pass.setPipeline(pipeline);
   pass.draw(3);
   pass.end();
-  globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => globalThis._TRAMPOLINE_("submit", t.device, t.device.queue.submit, [[encoder.finish()]], () => t.device.queue.submit([encoder.finish()])));
+  t.device.queue.submit([encoder.finish()]);
 
   // Verify the resolve targets contain the correct values. Note that we use z to specify the
   // array layer from which to pull the pixels for testing.

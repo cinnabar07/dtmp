@@ -1,7 +1,5 @@
 /**
 * AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
-**/ /**
-* AUTO-GENERATED - DO NOT EDIT. Source: https://github.com/gpuweb/cts
 **/export const description = `
 API validation tests for dynamic state commands (setViewport/ScissorRect/BlendColor...).
 
@@ -24,7 +22,9 @@ TODO: ensure existing tests cover these notes. Note many of these may be operati
 > - setStencilReference
 >     - {0, max}
 >     - used with a simple pipeline that {does, doesn't} use it
-`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';import { ValidationTest } from '../../../validation_test.js';
+`;import { makeTestGroup } from '../../../../../../common/framework/test_group.js';
+import { ValidationTest } from '../../../validation_test.js';
+
 
 
 
@@ -53,7 +53,7 @@ class F extends ValidationTest {
       usage: GPUTextureUsage.RENDER_ATTACHMENT
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -82,7 +82,7 @@ class F extends ValidationTest {
       usage: GPUTextureUsage.RENDER_ATTACHMENT
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
@@ -113,7 +113,7 @@ class F extends ValidationTest {
       usage: GPUTextureUsage.RENDER_ATTACHMENT
     });
 
-    const encoder = globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => globalThis._TRAMPOLINE_("createCommandEncoder", this.device, this.device.createCommandEncoder, [], () => this.device.createCommandEncoder()));
+    const encoder = this.device.createCommandEncoder();
     const pass = encoder.beginRenderPass({
       colorAttachments: [
       {
